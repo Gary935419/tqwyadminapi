@@ -53,14 +53,14 @@ class CI_Controller {
     protected $membertoken;
     protected $memberinfo;
     protected $memberid;
-    protected $appid = 'wxa3011b96e56a8e18';
-    protected $secret = 'f0e43e8b6221198b5e16c42add2c282e';
+    protected $appid = 'wx2807f1038eb33541';
+    protected $secret = '2fdc1bb6d855d293f5d21df44949bfc2';
     //商户支付密钥
-    protected $pay_KEY = 'FSKEPj7eHARPgmdAL5T8KtBPofhLq6JY';
+    protected $pay_KEY = 'dalianzhiyeyoudao123456789012345';
     //应用ID
     protected $pay_appid="wxa6f4b6f8bf75d380";
     //商户号
-    protected $pay_mch_id="1563304301";
+    protected $pay_mch_id="1609582735";
     //设备号
     protected $pay_device_info = "WEB";
 	/**

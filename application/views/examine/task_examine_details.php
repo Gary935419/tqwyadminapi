@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-天桥伟业</title>
+    <title>我的管理后台-窝行我述</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -26,49 +26,49 @@
 <div class="layui-fluid">
     <div class="layui-row">
         <form method="post" class="layui-form layui-form-pane" id="tab">
+<!--            <div class="layui-form-item layui-form-text">-->
+<!--                <label for="desc" class="layui-form-label">-->
+<!--                    联系邮箱-->
+<!--                </label>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <textarea placeholder="暂无提交联系邮箱" id="email" name="email" class="layui-textarea"-->
+<!--                              lay-verify="email">--><?php //echo $email ?><!--</textarea>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="layui-form-item layui-form-text">
                 <label for="desc" class="layui-form-label">
-                    联系邮箱
+                    问题内容
                 </label>
                 <div class="layui-input-block">
-                    <textarea placeholder="暂无提交联系邮箱" id="email" name="email" class="layui-textarea"
-                              lay-verify="email"><?php echo $email ?></textarea>
+                    <textarea placeholder="暂无提交问题内容" id="content" name="content" class="layui-textarea"
+                              lay-verify="content"><?php echo $content ?></textarea>
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
                 <label for="desc" class="layui-form-label">
-                    联系地址
+                    回复内容
                 </label>
                 <div class="layui-input-block">
-                    <textarea placeholder="暂无提交联系地址" id="address" name="address" class="layui-textarea"
-                              lay-verify="reject"><?php echo $address ?></textarea>
+                    <textarea placeholder="暂无回复内容" id="tareject" name="tareject" class="layui-textarea"
+                              lay-verify="tareject"><?php echo $tareject ?></textarea>
                 </div>
             </div>
-            <div class="layui-form-item layui-form-text">
-                <label for="desc" class="layui-form-label">
-                    详细说明
-                </label>
-                <div class="layui-input-block">
-                    <textarea placeholder="暂无提交详细说明" id="content" name="content" class="layui-textarea"
-                              lay-verify="reject"><?php echo $content ?></textarea>
-                </div>
-            </div>
-            <div class="layui-form-item layui-form-text">
-                <label for="desc" class="layui-form-label">
-                    完成截图
-                </label>
-                <div class="layui-input-block">
-                    <?php if (isset($oimgs) && !empty($oimgs)) { ?>
-                    <?php foreach ($oimgs as $num => $once): ?>
-                        <img src="<?= $once['oiimg'] ?>" style="width: 282px;height: 282px;">
-                    <?php endforeach; ?>
-                    <?php }else{ ?>
-                        <p style="text-align: center;margin-top: 13px;font-size: 13px;">
-                            暂无截图
-                        </p>
-                    <?php } ?>
-                </div>
-            </div>
+<!--            <div class="layui-form-item layui-form-text">-->
+<!--                <label for="desc" class="layui-form-label">-->
+<!--                    完成截图-->
+<!--                </label>-->
+<!--                <div class="layui-input-block">-->
+<!--                    --><?php //if (isset($oimgs) && !empty($oimgs)) { ?>
+<!--                    --><?php //foreach ($oimgs as $num => $once): ?>
+<!--                        <img src="--><?//= $once['oiimg'] ?><!--" style="width: 282px;height: 282px;">-->
+<!--                    --><?php //endforeach; ?>
+<!--                    --><?php //}else{ ?>
+<!--                        <p style="text-align: center;margin-top: 13px;font-size: 13px;">-->
+<!--                            暂无截图-->
+<!--                        </p>-->
+<!--                    --><?php //} ?>
+<!--                </div>-->
+<!--            </div>-->
         </form>
     </div>
 </div>

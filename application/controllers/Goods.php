@@ -68,16 +68,17 @@ class Goods extends CI_Controller
         $gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
         $gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
         $gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
         $avater = isset($_POST["avater"]) ? $_POST["avater"] : '';
         $gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
         $addtime = time();
         $status = isset($_POST["status"]) ? $_POST["status"] : '0';
         $goods_info = $this->goods->getgoodsByname($gname);
         if (!empty($goods_info)) {
-            echo json_encode(array('error' => true, 'msg' => "该商家名称已经存在。"));
+            echo json_encode(array('error' => true, 'msg' => "该资讯名称已经存在。"));
             return;
         }
-        $gid = $this->goods->goods_save($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status);
+        $gid = $this->goods->goods_save($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
 
         if ($gid) {
             if (!empty($avater)){
@@ -123,7 +124,7 @@ class Goods extends CI_Controller
 
         $data = array();
         $data['gname'] = $goods_info['gname'];
-        $data['gtitle'] = $goods_info['gtitle'];
+        $data['starttime'] = $goods_info['gtitle'];
         $data['gcontent'] = $goods_info['gcontent'];
         $data['gimg'] = $goods_info['gimg'];
         $data['gsort'] = $goods_info['gsort'];
@@ -147,6 +148,7 @@ class Goods extends CI_Controller
         $gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
         $gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
         $tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
         $gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
         $gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
         $avater = isset($_POST["avater"]) ? $_POST["avater"] : '';
@@ -158,7 +160,7 @@ class Goods extends CI_Controller
             return;
         }
 
-        $result = $this->goods->goods_save_edit($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status);
+        $result = $this->goods->goods_save_edit($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
         $this->goods->goodsimg_delete($gid);
         if (!empty($avater)){
             foreach ($avater as $k=>$v){

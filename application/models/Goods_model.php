@@ -50,9 +50,10 @@ class Goods_model extends CI_Model
         return $this->db->query($sql)->row_array();
     }
     //商品save
-    public function goods_save($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status)
+    public function goods_save($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime)
     {
         $gname = $this->db->escape($gname);
+		$starttime = $this->db->escape($starttime);
         $gtitle = $this->db->escape($gtitle);
         $tid = $this->db->escape($tid);
         $gsort = $this->db->escape($gsort);
@@ -60,7 +61,7 @@ class Goods_model extends CI_Model
         $gcontent = $this->db->escape($gcontent);
         $addtime = $this->db->escape($addtime);
         $status = $this->db->escape($status);
-        $sql = "INSERT INTO `goods` (status,gname, gtitle,tid,gsort,gimg,gcontent,addtime) VALUES ($status,$gname, $gtitle,$tid,$gsort,$gimg,$gcontent,$addtime)";
+        $sql = "INSERT INTO `goods` (status,gname, gtitle,tid,gsort,gimg,gcontent,addtime) VALUES ($status,$gname, $starttime,$tid,$gsort,$gimg,$gcontent,$addtime)";
         $this->db->query($sql);
         $gid=$this->db->insert_id();
         return $gid;
@@ -103,17 +104,18 @@ class Goods_model extends CI_Model
         return $this->db->query($sql)->row_array();
     }
     //商品save_edit
-    public function goods_save_edit($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status)
+    public function goods_save_edit($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime)
     {
         $gid = $this->db->escape($gid);
         $gname = $this->db->escape($gname);
         $gtitle = $this->db->escape($gtitle);
         $tid = $this->db->escape($tid);
+		$starttime = $this->db->escape($starttime);
         $gsort = $this->db->escape($gsort);
         $gimg = $this->db->escape($gimg);
         $gcontent = $this->db->escape($gcontent);
         $status = $this->db->escape($status);
-        $sql = "UPDATE `goods` SET status=$status,gname=$gname,gtitle=$gtitle,tid=$tid,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
+        $sql = "UPDATE `goods` SET status=$status,gname=$gname,gtitle=$starttime,tid=$tid,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
         return $this->db->query($sql);
     }
 

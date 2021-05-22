@@ -17,16 +17,18 @@ class Set_model extends CI_Model
         return $this->db->query($sql)->row_array();
     }
     //设置set_save_edit
-    public function set_save_edit($name,$contentagent,$email,$customercode,$address,$sid,$contentnew)
+    public function set_save_edit($name,$contentagent,$email,$customercode,$address,$sid,$contentnew,$img,$price)
     {
         $name = $this->db->escape($name);
         $email = $this->db->escape($email);
         $address = $this->db->escape($address);
         $sid = $this->db->escape($sid);
+		$img = $this->db->escape($img);
+		$price = $this->db->escape($price);
         $customercode = $this->db->escape($customercode);
         $contentnew = $this->db->escape($contentnew);
         $contentagent = $this->db->escape($contentagent);
-        $sql = "UPDATE `setting` SET name=$name,contentagent=$contentagent,email=$email,contentnew=$contentnew,customercode=$customercode,address=$address WHERE sid = $sid";
+        $sql = "UPDATE `setting` SET price=$price,img=$img,name=$name,contentagent=$contentagent,email=$email,contentnew=$contentnew,customercode=$customercode,address=$address WHERE sid = $sid";
         return $this->db->query($sql);
     }
     //广告count

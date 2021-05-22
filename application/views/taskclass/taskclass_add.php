@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-天桥伟业</title>
+    <title>我的管理后台-窝行我述</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -21,7 +21,7 @@
         <form method="post" class="layui-form" action="" name="basic_validate" id="tab">
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>类型名称
+                    <span class="x-red">*</span>资讯名称
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="text" id="tname" name="tname" lay-verify="tname"
@@ -30,7 +30,7 @@
             </div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>类型排序
+                    <span class="x-red">*</span>资讯排序
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="number" id="tsort" name="tsort" lay-verify="tsort"
@@ -39,7 +39,7 @@
             </div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>类型图片
+                    <span class="x-red">*</span>资讯图片
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <button type="button" class="layui-btn" id="upload1">上传图片</button>
@@ -51,6 +51,14 @@
                     </div>
                 </div>
             </div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>资讯简介
+				</label>
+				<div class="layui-input-inline" style="width: 610px;">
+					<textarea id="gcontent" name="gcontent" placeholder="请输入内容" lay-verify="gcontent" class="layui-textarea"></textarea>
+				</div>
+			</div>
             <div class="layui-form-item">
                 <label class="layui-form-label" style="width: 30%;">
                 </label>
@@ -114,17 +122,17 @@
             form.verify({
                 tname: function (value) {
                     if ($('#tname').val() == "") {
-                        return '请输入类型名称。';
+                        return '请输入资讯名称。';
                     }
                 },
                 tsort: function (value) {
                     if ($('#tsort').val() == "") {
-                        return '请输入类型排序。';
+                        return '请输入资讯排序。';
                     }
                 },
                 timg: function (value) {
                     if ($('#timg').val() == "") {
-                        return '请上传类型图片。';
+                        return '请上传资讯图片。';
                     }
                 },
             });

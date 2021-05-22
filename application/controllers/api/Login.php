@@ -33,7 +33,9 @@ class Login extends CI_Controller
         if (!isset($_POST['avatarurl']) || empty($_POST['avatarurl'])) {
             $this->back_json(201, '未传递avatarurl');
         }
-
+		if (empty($_POST['gender']) || $_POST['nickname'] == "微信用户"){
+			$this->back_json(201, '数据错误请重新授权！');
+		}
         // 取得信息 
         $loginCode = $_POST['loginCode'];
         //获得昵称
@@ -41,7 +43,7 @@ class Login extends CI_Controller
         //获得图像
         $avatarurl = $_POST['avatarurl'];
         //获得性别
-        $gender = empty($_POST['gender'])?'0':$_POST['gender'];
+        $gender = $_POST['gender'];
 
         // 取得登录凭证 
         $resultnew = $this->get_code2Session($this->appid, $this->secret, $loginCode);
@@ -55,10 +57,6 @@ class Login extends CI_Controller
         $member_info_one = $this->member->getMemberInfo($openid);
         //验证会员
         if (empty($member_info_one)) {
-            //验证城市是否传递
-            if (!isset($_POST['cityname']) || empty($_POST['cityname'])) {
-                $this->back_json(201, '请先完善您的城市信息！');
-            }
             if (empty($_POST['sharemid'])){
                 $member_id = "";
                 $badd_time = "";
@@ -67,7 +65,7 @@ class Login extends CI_Controller
                 $badd_time = time();
             }
             //获得城市
-            $cityname = $_POST['cityname'];
+            $cityname = "中国";
             /**注册操作*/
             $gid = 0;
             $avater = $avatarurl;
@@ -79,10 +77,12 @@ class Login extends CI_Controller
             $integral = 0;
             $state = 2;
             $is_agent = 2;
+			$idnumber = $this->GetRandStr(6);
             // 注册操作
-            $this->member->register($member_id,$badd_time,$is_agent,$cityname,$gid,$avater,$nickname,$sex,$openid,$token,$add_time,$wallet,$status,$integral,$state);
+            $this->member->register($member_id,$badd_time,$is_agent,$cityname,$gid,$avater,$nickname,$sex,$openid,$token,$add_time,$wallet,$status,$integral,$state,$idnumber);
 
             $member_newinfo = $this->member->getMemberInfo($openid);
+
             $this->back_json(200, '操作成功',$member_newinfo);
 
         } else {
@@ -90,9 +90,21 @@ class Login extends CI_Controller
             $token = $this->_get_token($member_info_one['mid']);
             $this->member->member_edit($member_info_one['mid'], $token);
             $member_info_one_new = $this->member->getmemberById($member_info_one['mid']);
+
             $this->back_json(200, '操作成功',$member_info_one_new);
         }
     }
+	function GetRandStr($length){
+		//字符组合
+		$str = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$len = strlen($str)-1;
+		$randstr = '';
+		for ($i=0;$i<$length;$i++) {
+			$num=mt_rand(0,$len);
+			$randstr .= $str[$num];
+		}
+		return $randstr;
+	}
     /**
      * 登录生成token
      */

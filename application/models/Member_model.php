@@ -133,8 +133,20 @@ class Member_model extends CI_Model
         $sql = "SELECT * FROM `member` where token = $token ";
         return $this->db->query($sql)->row_array();
     }
+	public function getquestionInfotoken($str)
+	{
+		$str = $this->db->escape($str);
+		$sql = "SELECT * FROM `taorder` where content = $str ";
+		return $this->db->query($sql)->row_array();
+	}
+	public function getreportorder($str)
+	{
+		$str = $this->db->escape($str);
+		$sql = "SELECT * FROM `reportorder` where paynumber = $str ";
+		return $this->db->query($sql)->row_array();
+	}
     //会员注册
-    public function register($member_id,$badd_time,$is_agent,$cityname,$gid,$avater,$nickname,$sex,$openid,$token,$add_time,$wallet,$status,$integral,$state)
+    public function register($member_id,$badd_time,$is_agent,$cityname,$gid,$avater,$nickname,$sex,$openid,$token,$add_time,$wallet,$status,$integral,$state,$idnumber)
     {
         $member_id = $this->db->escape($member_id);
         $badd_time = $this->db->escape($badd_time);
@@ -151,9 +163,41 @@ class Member_model extends CI_Model
         $status = $this->db->escape($status);
         $integral = $this->db->escape($integral);
         $state = $this->db->escape($state);
-        $sql = "INSERT INTO `member` (member_id,badd_time,is_agent,cityname,gid,avater,nickname,sex,openid,token,add_time,wallet,status,integral,state) VALUES ($member_id,$badd_time,$is_agent,$cityname,$gid,$avater,$nickname,$sex,$openid,$token,$add_time,$wallet,$status,$integral,$state)";
+		$idnumber = $this->db->escape($idnumber);
+        $sql = "INSERT INTO `member` (idnumber,member_id,badd_time,is_agent,cityname,gid,avater,nickname,sex,openid,token,add_time,wallet,status,integral,state) VALUES ($idnumber,$member_id,$badd_time,$is_agent,$cityname,$gid,$avater,$nickname,$sex,$openid,$token,$add_time,$wallet,$status,$integral,$state)";
         return $this->db->query($sql);
     }
+	public function registerquestion($mid,$question,$ostate,$add_time)
+	{
+		$mid = $this->db->escape($mid);
+		$question = $this->db->escape($question);
+		$ostate = $this->db->escape($ostate);
+		$add_time = $this->db->escape($add_time);
+		$sql = "INSERT INTO `taorder` (mid,ostate,content,add_time) VALUES ($mid,$ostate,$question,$add_time)";
+		return $this->db->query($sql);
+	}
+	public function reportorderinsert($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype)
+	{
+		$mid = $this->db->escape($mid);
+		$paynumber = $this->db->escape($paynumber);
+		$status = $this->db->escape($status);
+		$addtime = $this->db->escape($addtime);
+		$email = $this->db->escape($email);
+		$price = $this->db->escape($price);
+		$ftype = $this->db->escape($ftype);
+		$money = $this->db->escape($money);
+		$area = $this->db->escape($area);
+		$school = $this->db->escape($school);
+		$btype = $this->db->escape($btype);
+		$sql = "INSERT INTO `reportorder` (mid,paynumber,status,addtime,email,price,ftype,money,area,school,btype) VALUES ($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype)";
+		return $this->db->query($sql);
+	}
+	public function getupdatereportorder($ordernumber)
+	{
+		$paynumber = $this->db->escape($ordernumber);
+		$sql = "UPDATE `reportorder` SET status=1 WHERE paynumber = $paynumber";
+		return $this->db->query($sql);
+	}
     //会員登录
     public function member_edit($mid, $token)
     {
@@ -297,6 +341,30 @@ class Member_model extends CI_Model
         $sql = "SELECT * FROM `advertisement` " . $sqlw . " order by add_time desc ";
         return $this->db->query($sql)->result_array();
     }
+	//获取学校列表
+	public function indexschoollist()
+	{
+		$sqlw = " where 1=1";
+		$sql = "SELECT * FROM `itemsclass` " . $sqlw . " order by addtime desc ";
+		return $this->db->query($sql)->result_array();
+	}
+	//获取资讯列表
+	public function getindexnewlist()
+	{
+		$sqlw = " where 1=1";
+		$sql = "SELECT * FROM `goods` " . $sqlw . " order by gtitle desc";
+		return $this->db->query($sql)->result_array();
+	}
+	//获取问答列表
+	public function getquestionlist($str)
+	{
+		$sqlw = " where 1=1 ";
+		if (!empty($str)) {
+			$sqlw .= " and ( u.content like '%" . $str . "%' ) ";
+		}
+		$sql = "SELECT * FROM `taorder` u left join `member` r on u.mid=r.mid " . $sqlw . " order by u.add_time desc";
+		return $this->db->query($sql)->result_array();
+	}
     //获取公告列表
     public function getindexnoticelist()
     {

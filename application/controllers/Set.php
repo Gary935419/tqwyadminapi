@@ -27,6 +27,8 @@ class Set extends CI_Controller
         $set_info = $this->set->getsetById($sid);
         $data['name'] = $set_info['name'];
         $data['email'] = $set_info['email'];
+		$data['img'] = $set_info['img'];
+		$data['price'] = $set_info['price'];
         $data['address'] = $set_info['address'];
         $data['contentnew'] = $set_info['contentnew'];
         $data['contentagent'] = $set_info['contentagent'];
@@ -47,10 +49,12 @@ class Set extends CI_Controller
         $name = isset($_POST["name"]) ? $_POST["name"] : '';
         $email = isset($_POST["email"]) ? $_POST["email"] : '';
         $address = isset($_POST["address"]) ? $_POST["address"] : '';
+		$img = isset($_POST["img"]) ? $_POST["img"] : '';
+		$price = isset($_POST["price"]) ? $_POST["price"] : '';
         $customercode = isset($_POST["customercode"]) ? $_POST["customercode"] : '';
         $contentnew = isset($_POST["contentnew"]) ? $_POST["contentnew"] : '';
         $contentagent = isset($_POST["contentagent"]) ? $_POST["contentagent"] : '';
-        $result = $this->set->set_save_edit($name,$contentagent,$email,$customercode,$address,$sid,$contentnew);
+        $result = $this->set->set_save_edit($name,$contentagent,$email,$customercode,$address,$sid,$contentnew,$img,$price);
         if ($result) {
             echo json_encode(array('success' => true, 'msg' => "操作成功。"));
             return;

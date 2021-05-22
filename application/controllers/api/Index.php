@@ -22,7 +22,7 @@ class Index extends CI_Controller
     public function memberinfo(){
         //验证loginCode是否传递
         if (!isset($_POST['token']) || empty($_POST['token'])) {
-            $this->back_json(205, '未授权登录！');
+            $this->back_json(205, '请您先去授权！谢谢！');
         }
         $token = $_POST['token'];
         $member = $this->member->getMemberInfotoken($token);
@@ -197,6 +197,250 @@ class Index extends CI_Controller
 
         $this->back_json(200, '更新成功', array());
     }
+	/**
+	 * 提问
+	 */
+	public function questioninsert(){
+		//验证loginCode是否传递
+		if (!isset($_POST['token']) || empty($_POST['token'])) {
+			$this->back_json(205, '未授权登录！');
+		}
+		$token = $_POST['token'];
+		$member = $this->member->getMemberInfotoken($token);
+		if (empty($member)){
+			$this->back_json(205, '请重新登录');
+		}
+		$mid = $member['mid'];
+		if (!isset($_POST['question']) || empty($_POST['question'])) {
+			$this->back_json(202, '未提交问题！');
+		}
+		$question = empty($_POST['question'])?'':$_POST['question'];
+		$questionnow = $this->member->getquestionInfotoken($question);
+		if (!empty($questionnow)){
+			$this->back_json(202, '当前问题已经登录！');
+		}
+		$ostate = 1;
+		$add_time = time();
+		$this->member->registerquestion($mid,$question,$ostate,$add_time);
+		$this->back_json(200, '提问成功', array());
+	}
+	/**
+	 * 下单
+	 */
+	public function orderinsert(){
+		//验证loginCode是否传递
+		if (!isset($_POST['token']) || empty($_POST['token'])) {
+			$this->back_json(205, '未授权登录！');
+		}
+		$token = $_POST['token'];
+		$member = $this->member->getMemberInfotoken($token);
+		if (empty($member)){
+			$this->back_json(205, '请重新登录');
+		}
+		if (!isset($_POST['email']) || empty($_POST['email'])) {
+			$this->back_json(202, '请上传联系邮箱！');
+		}
+		if (empty($_POST['btype'])) {
+			$btype = "学区";
+			if ($_POST['school'] == "请选择"){
+				$this->back_json(202, '请重新选择学校');
+			}
+			$school = $_POST['school'];
+			$area = '';
+		}elseif ($_POST['btype'] == 1){
+			$btype = "自住";
+			$school = '';
+			$area = $_POST['area'];
+		}elseif ($_POST['btype'] == 2){
+			$btype = "投资";
+			$school = '';
+			$area = $_POST['area'];
+		}else{
+			$btype = "数据错误";
+			$school = '';
+			$area = '';
+		}
+		$money = $_POST['money'];
+		$ftype = $_POST['ftype'];
+		$price = $_POST['price'];
+		$email = $_POST['email'];
+		$addtime = time();
+		$mid = $member['mid'];
+		$status = 0;
+		$paynumber = "P".time();
+
+		$questionnow = $this->member->getreportorder($paynumber);
+		if (!empty($questionnow)){
+			$this->back_json(202, '当前已经下单！请稍后重试！');
+		}
+
+		$this->member->reportorderinsert($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype);
+
+		$openid = $member['openid'];
+		$appid = 'wx2807f1038eb33541';
+		$key = "dalianzhiyeyoudao123456789012345";
+		$mch_id = "1609582735";
+		$money = $price;
+
+		$orderCode = $paynumber;   //  订单号
+//        随机字符串
+		$str = "QWERTYUIPADGHJKLZXCVNM1234567890";
+		$nonce = str_shuffle($str);
+
+		$pay['appid'] = $appid;
+		$pay['body'] = '订单支付';               //商品描述
+		$pay['mch_id'] = $mch_id;            //商户号
+		$pay['nonce_str'] = $nonce;        //随机字符串
+		$pay['notify_url'] = 'https://dltqwy.com/index.php/api/Index/notify';
+		$pay['openid'] = $openid;
+		$pay['out_trade_no'] = $orderCode;       //订单号
+		$pay['spbill_create_ip'] = $_SERVER['SERVER_ADDR']; // 终端IP
+		$pay['total_fee'] = 100 * $money; //支付金额
+		$pay['trade_type'] = 'JSAPI';    //交易类型
+//        组建签名（不可换行 空格  否则哭吧）
+		$stringA = "appid=" . $pay['appid'] . "&body=" . $pay['body'] . "&mch_id=" . $pay['mch_id'] . "&nonce_str=" . $pay['nonce_str'] . "&notify_url=" . $pay['notify_url'] . "&openid=" . $pay['openid'] . "&out_trade_no=" . $pay['out_trade_no'] . "&spbill_create_ip=" . $pay['spbill_create_ip'] . "&total_fee=" . $pay['total_fee'] . "&trade_type=" . $pay['trade_type'];
+		$stringSignTemp = $stringA . "&key=" . $key; //注：key为商户平台设置的密钥key(这个还需要再确认一下)
+		$sign = strtoupper(md5($stringSignTemp)); //注：MD5签名方式
+		$pay['sign'] = $sign;              //签名
+//        统一下单请求
+		$url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+		$data = $this->arrayToXml($pay);
+		$res = $this->wxpost($url, $data);
+//        对 统一下单返回得参数进行处理
+		$pay_arr = $this->xmlToArray($res);  //这里是数组
+
+		if ($pay_arr['return_code'] == 'FAIL' || $pay_arr['result_code'] == 'FAIL') {
+			echo json_encode($res);
+			exit;
+		}
+//        调起支付数据签名字段
+		$timeStamp = time();
+		$nonce_pay = str_shuffle($str);
+		$package = $pay_arr['prepay_id'];
+		$signType = "MD5";
+		$stringPay = "appId=" . $appid . "&nonceStr=" . $nonce_pay . "&package=prepay_id=" . $package . "&signType=" . $signType . "&timeStamp=" . $timeStamp . "&key=" . $key;
+		$paySign = strtoupper(md5($stringPay));
+		$rpay['timeStamp'] = (string)$timeStamp;
+		$rpay['nonceStr'] = $nonce_pay;
+		$rpay['_package'] = "prepay_id=" . $package;
+		$rpay['signType'] = $signType;
+		$rpay['paySign'] = $paySign;
+		$rpay['orders'] = $orderCode;
+
+		$weixin_sign = [
+			'order_no' => $paynumber,
+			'money' => $money,
+			'app_request' => $rpay,
+		];
+
+		$re = [
+			'weixin_sign' => $weixin_sign ? $weixin_sign : (object)[],
+		];
+		$this->back_json(200, '下单成功', $re);
+	}
+	public function notify()
+	{
+		if (!$xml = file_get_contents('php://input')) {
+//            return json(array('code' => 205, 'info' => "not found data"));
+			$this->back_json(204, 'not found data！');
+		}
+		// 将服务器返回的XML数据转化为数组
+		$data = $this->fromXml($xml);
+		// 保存微信服务器返回的签名sign
+		$dataSign = $data['sign'];
+		// sign不参与签名算法
+		unset($data['sign']);
+		// 生成签名
+		$sign = $this->sign($data);
+
+		if (($sign === $dataSign) && ($data['return_code'] == 'SUCCESS') && ($data['result_code'] == 'SUCCESS')) {
+			$paynumber = $data['out_trade_no'];
+			$this->member->getupdatereportorder($paynumber);
+			echo 'SUCCESS';
+			exit();
+		}
+	}
+	//签名 $data要先排好顺序
+	private function sign($data){
+		$stringA = '';
+		foreach ($data as $key=>$value){
+			if(!$value) continue;
+			if($stringA) $stringA .= '&'.$key."=".$value;
+			else $stringA = $key."=".$value;
+		}
+		$wx_key = 'dalianzhiyeyoudao123456789012345';//申请支付后有给予一个商户账号和密码，登陆后自己设置的key
+		$stringSignTemp = $stringA.'&key='.$wx_key;
+		return strtoupper(md5($stringSignTemp));
+	}
+	//将XML转化成数组
+	public function fromXml($xml){
+		// 禁止引用外部xml实体
+		libxml_disable_entity_loader(true);
+		return json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+	}
+	/**
+	 * @param $arr
+	 * @return string
+	 *
+	 */
+	function arrayToXml($arr)
+	{
+		$xml = "<xml>";
+		foreach ($arr as $key => $val) {
+			if (is_array($val)) {
+				$xml .= "<" . $key . ">" . $this->arrayToXml($val) . "</" . $key . ">";
+			} else {
+				$xml .= "<" . $key . ">" . $val . "</" . $key . ">";
+			}
+		}
+		$xml .= "</xml>";
+		return $xml;
+	}
+	function wxpost($url, $post)
+	{
+		//初始化
+		$curl = curl_init();
+		$header[] = "Content-type: text/xml";//定义content-type为xml
+		//设置抓取的url
+		curl_setopt($curl, CURLOPT_URL, $url);
+		//设置头文件的信息作为数据流输出
+//        curl_setopt($curl, CURLOPT_HEADER, 1);
+		//定义请求类型
+		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+		//设置获取的信息以文件流的形式返回，而不是直接输出。
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		//设置post方式提交
+		curl_setopt($curl, CURLOPT_POST, 1);
+		//设置post数据
+		$post_data = $post;
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
+		//执行命令
+		$data = curl_exec($curl);
+		//关闭URL请求
+		//显示获得的数据
+//        print_r($data);
+		if ($data) {
+			curl_close($curl);
+			return $data;
+		} else {
+			$res = curl_error($curl);
+			curl_close($curl);
+			return $res;
+		}
+	}
+	function xmlToArray($xml, $type = '')
+	{
+		//禁止引用外部xml实体
+		libxml_disable_entity_loader(true);
+		//simplexml_load_string()解析读取xml数据，然后转成json格式
+		$xmlstring = simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
+		if ($type == "json") {
+			$json = json_encode($xmlstring);
+			return $json;
+		}
+		$arr = json_decode(json_encode($xmlstring), true);
+		return $arr;
+	}
     /**
      * 个人信息修改（银行卡）
      */
@@ -227,6 +471,56 @@ class Index extends CI_Controller
         $data['indeximglist'] = empty($indeximglist)?'':$indeximglist;
         $this->back_json(200, '操作成功', $data);
     }
+	/**
+	 * 首页学校
+	 */
+	public function indexschoollist(){
+		$indeximglist = $this->member->indexschoollist();
+		$data['schoollist'] = empty($indeximglist)?'':$indeximglist;
+		$this->back_json(200, '操作成功', $data);
+	}
+	/**
+	 * 首页价格
+	 */
+	public function getPrice(){
+		$indeximglist = $this->member->getsetInfo();
+		$data['price'] = empty($indeximglist['price'])?0.00:$indeximglist['price'];
+		$data['sellstr'] = empty($indeximglist['contentagent'])?'':$indeximglist['contentagent'];
+		$this->back_json(200, '操作成功', $data);
+	}
+	/**
+	 * 首页资讯
+	 */
+	public function indexnewlist(){
+		$indexnewlist = $this->member->getindexnewlist();
+		$data['indexnewlist'] = empty($indexnewlist)?array():$indexnewlist;
+		$this->back_json(200, '操作成功', $data);
+	}
+	/**
+	 * 首页问答
+	 */
+	public function questionlist(){
+		//验证loginCode是否传递
+		if (!isset($_POST['token']) || empty($_POST['token'])) {
+			$this->back_json(205, '未授权登录！');
+		}
+		$token = $_POST['token'];
+		$member = $this->member->getMemberInfotoken($token);
+		if (empty($member)){
+			$this->back_json(205, '请重新登录');
+		}
+		$mid = $member['mid'];
+		$search = empty($_POST['search'])?'':$_POST['search'];
+		$indexnewlist = $this->member->getquestionlist($search);
+		foreach ($indexnewlist as $k=>$v){
+			$indexnewlist[$k]['add_time'] = date('Y-m-d h:i:s',$v['add_time']);
+			if (empty($v['tareject'])){
+				$indexnewlist[$k]['tareject'] = "目前没有回答！";
+			}
+		}
+		$data['questionlist'] = empty($indexnewlist)?array():$indexnewlist;
+		$this->back_json(200, '操作成功', $data);
+	}
     /**
      * 首页公告
      */

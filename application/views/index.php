@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-天桥伟业</title>
+    <title>我的管理后台-窝行我述</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -21,7 +21,7 @@
 <!-- 顶部开始 -->
 <div class="container">
     <div class="logo">
-        <a href="<?= RUN . '/admin/index' ?>"> 我的管理后台-天桥伟业 </a>
+        <a href="<?= RUN . '/admin/index' ?>"> 我的管理后台-窝行我述 </a>
     </div>
 
     <div class="left_open">
@@ -84,12 +84,12 @@
                     <cite>设置管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
-                    <li>
-                        <a onclick="changeSrc('<?= RUN . '/notice/notice_list' ?>')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>公告管理</cite>
-                        </a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a onclick="changeSrc('--><?//= RUN . '/notice/notice_list' ?><!--')">-->
+<!--                            <i class="iconfont">&#xe6a7;</i>-->
+<!--                            <cite>公告管理</cite>-->
+<!--                        </a>-->
+<!--                    </li>-->
                     <li>
                         <a onclick="changeSrc('<?= RUN . '/set/advertisement_list' ?>')">
                             <i class="iconfont">&#xe6a7;</i>
@@ -106,82 +106,82 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="分类管理">&#xe6b5;</i>
-                    <cite>分类管理</cite>
+                    <i class="iconfont left-nav-li" lay-tips="资讯管理">&#xe6b5;</i>
+                    <cite>学校管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
-                    <li>
-                        <a onclick="changeSrc('<?= RUN . '/taskclass/taskclass_list' ?>')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>商家分类</cite>
-                        </a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a onclick="changeSrc('--><?//= RUN . '/taskclass/taskclass_list' ?><!--')">-->
+<!--                            <i class="iconfont">&#xe6a7;</i>-->
+<!--                            <cite>资讯信息</cite>-->
+<!--                        </a>-->
+<!--                    </li>-->
 					<li>
 						<a onclick="changeSrc('<?= RUN . '/taskclass/itemsclass_list' ?>')">
 							<i class="iconfont">&#xe6a7;</i>
-							<cite>商品分类</cite>
+							<cite>学校信息</cite>
 						</a>
 					</li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="商家管理">&#xe6b5;</i>
-                    <cite>商家管理</cite>
+                    <i class="iconfont left-nav-li" lay-tips="资讯管理">&#xe6b5;</i>
+                    <cite>资讯管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
                         <a onclick="changeSrc('<?= RUN . '/goods/goods_list' ?>')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>商家列表</cite>
+                            <cite>资讯信息</cite>
                         </a>
                     </li>
                 </ul>
             </li>
-			<li>
-				<a href="javascript:;">
-					<i class="iconfont left-nav-li" lay-tips="商品管理">&#xe6b5;</i>
-					<cite>商品管理</cite>
-					<i class="iconfont nav_right">&#xe697;</i></a>
-				<ul class="sub-menu">
-					<li>
-						<a onclick="changeSrc('<?= RUN . '/goods/items_list' ?>')">
-							<i class="iconfont">&#xe6a7;</i>
-							<cite>商品列表</cite>
-						</a>
-					</li>
-				</ul>
-			</li>
+<!--			<li>-->
+<!--				<a href="javascript:;">-->
+<!--					<i class="iconfont left-nav-li" lay-tips="商品管理">&#xe6b5;</i>-->
+<!--					<cite>商品管理</cite>-->
+<!--					<i class="iconfont nav_right">&#xe697;</i></a>-->
+<!--				<ul class="sub-menu">-->
+<!--					<li>-->
+<!--						<a onclick="changeSrc('--><?//= RUN . '/goods/items_list' ?><!--')">-->
+<!--							<i class="iconfont">&#xe6a7;</i>-->
+<!--							<cite>商品列表</cite>-->
+<!--						</a>-->
+<!--					</li>-->
+<!--				</ul>-->
+<!--			</li>-->
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="审核管理">&#xe705;</i>
-                    <cite>审核管理</cite>
+                    <i class="iconfont left-nav-li" lay-tips="问答管理">&#xe705;</i>
+                    <cite>问答管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
                     <li>
                         <a onclick="changeSrc('<?= RUN . '/examine/task_list' ?>')">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>入驻审核</cite>
+                            <cite>问答信息</cite>
                         </a>
                     </li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="订单管理">&#xe723;</i>
-                    <cite>订单管理</cite>
+                    <i class="iconfont left-nav-li" lay-tips="报告订单">&#xe723;</i>
+                    <cite>报告订单</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
-                    <li>
-                        <a onclick="changeSrc('<?= RUN . '/order/integralorder_list' ?>')">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>合作订单（商家）</cite>
-                        </a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a onclick="changeSrc('--><?//= RUN . '/order/integralorder_list' ?><!--')">-->
+<!--                            <i class="iconfont">&#xe6a7;</i>-->
+<!--                            <cite>合作订单（商家）</cite>-->
+<!--                        </a>-->
+<!--                    </li>-->
 					<li>
 						<a onclick="changeSrc('<?= RUN . '/order/goodsorder_list' ?>')">
 							<i class="iconfont">&#xe6a7;</i>
-							<cite>合作订单（商品）</cite>
+							<cite>房产报告订单</cite>
 						</a>
 					</li>
                 </ul>

@@ -47,7 +47,7 @@ class Examine extends CI_Controller
         $data = array();
         $oid = isset($_GET['oid']) ? $_GET['oid'] : 0;
         $task_info = $this->examine->gettaskById($oid);
-        $data['address'] = empty($task_info['address'])?'':$task_info['address'];
+        $data['tareject'] = empty($task_info['tareject'])?'':$task_info['tareject'];
         $data['content'] = empty($task_info['content'])?'':$task_info['content'];
         $data['email'] = empty($task_info['email'])?'':$task_info['email'];
         $oimgs = $this->examine->getoimgsall($oid);
@@ -74,19 +74,15 @@ class Examine extends CI_Controller
 		$data = array();
 		$id = isset($_GET['id']) ? $_GET['id'] : 0;
 		$task_info = $this->examine->gettaskByIditems($id);
+		$data['price'] = empty($task_info['price'])?'':$task_info['price'];
 		$data['email'] = empty($task_info['email'])?'':$task_info['email'];
-		$data['contentnew'] = empty($task_info['contentnew'])?'':$task_info['contentnew'];
-		$data['ename'] = empty($task_info['ename'])?'':$task_info['ename'];
-		$data['etitle'] = empty($task_info['etitle'])?'':$task_info['etitle'];
-		$data['unitprice'] = empty($task_info['unitprice'])?'':$task_info['unitprice'];
-		$data['unitnums'] = empty($task_info['unitnums'])?'':$task_info['unitnums'];
-		$data['batchprice'] = empty($task_info['batchprice'])?'':$task_info['batchprice'];
-		$data['batchnums'] = empty($task_info['batchnums'])?'':$task_info['batchnums'];
-		$data['topprice'] = empty($task_info['topprice'])?'':$task_info['topprice'];
-		$data['topnums'] = empty($task_info['topnums'])?'':$task_info['topnums'];
-		$data['sumnums'] = empty($task_info['sumnums'])?'':$task_info['sumnums'];
-		$data['place'] = empty($task_info['place'])?'':$task_info['place'];
-		$data['delivery'] = empty($task_info['delivery'])?'':$task_info['delivery'];
+		$data['btype'] = empty($task_info['btype'])?'':$task_info['btype'];
+		$data['school'] = empty($task_info['school'])?'':$task_info['school'];
+		$data['area'] = empty($task_info['area'])?'':$task_info['area'];
+		$data['money'] = empty($task_info['money'])?'':$task_info['money'];
+		$data['ftype'] = empty($task_info['ftype'])?'':$task_info['ftype'];
+		$data['status'] = empty($task_info['status'])?'未支付':'已支付';
+		$data['paynumber'] = empty($task_info['paynumber'])?'':$task_info['paynumber'];
 		$this->display("examine/examine_details_items",$data);
 	}
     /**

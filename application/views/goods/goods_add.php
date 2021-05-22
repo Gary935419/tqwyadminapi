@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-天桥伟业</title>
+    <title>我的管理后台-窝行我述</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -21,7 +21,7 @@
         <form method="post" class="layui-form" action="" name="basic_validate" id="tab">
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>商家名称
+                    <span class="x-red">*</span>资讯名称
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="text" id="gname" name="gname" lay-verify="gname"
@@ -30,42 +30,33 @@
             </div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>商家类型
-                </label>
-                <div class="layui-input-inline layui-show-xs-block">
-                    <div style="width: 300px" class="layui-input-inline layui-show-xs-block">
-                        <select name="tid" id="tid" lay-verify="tid">
-                            <?php if (isset($tidlist) && !empty($tidlist)) { ?>
-                                <option value="">请选择</option>
-                                <?php foreach ($tidlist as $k => $v) : ?>
-                                    <option value="<?= $v['tid'] ?>"><?= $v['tname'] ?></option>
-                                <?php endforeach; ?>
-                            <?php } ?>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>商家排序
+                    <span class="x-red">*</span>资讯排序
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="number" id="gsort" name="gsort" lay-verify="gsort"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
+<!--            <div class="layui-form-item">-->
+<!--                <label for="L_pass" class="layui-form-label" style="width: 30%;">-->
+<!--                    <span class="x-red">*</span>状态-->
+<!--                </label>-->
+<!--                <div class="layui-input-inline" style="width: 500px;">-->
+<!--                    <input type="radio" name="status" lay-skin="primary" title="已推荐" value="1" checked>-->
+<!--                    <input type="radio" name="status" lay-skin="primary" title="未推荐" value="0">-->
+<!--                </div>-->
+<!--            </div>-->
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>资讯日期
+				</label>
+				<div class="layui-input-inline layui-show-xs-block" style="width: 300px;">
+					<input class="layui-input" placeholder="资讯日期" name="starttime" id="starttime">
+				</div>
+			</div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>状态
-                </label>
-                <div class="layui-input-inline" style="width: 500px;">
-                    <input type="radio" name="status" lay-skin="primary" title="已推荐" value="1" checked>
-                    <input type="radio" name="status" lay-skin="primary" title="未推荐" value="0">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>商家列表图
+                    <span class="x-red">*</span>资讯列表图
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <button type="button" class="layui-btn" id="upload1">上传图片</button>
@@ -77,31 +68,17 @@
                     </div>
                 </div>
             </div>
+<!--            <div class="layui-form-item">-->
+<!--                <label for="L_pass" class="layui-form-label" style="width: 30%;">-->
+<!--                    <span class="x-red">*</span>资讯标题-->
+<!--                </label>-->
+<!--                <div class="layui-input-inline" style="width: 400px;">-->
+<!--                    <textarea id="gtitle" name="gtitle" placeholder="请输入内容" lay-verify="gtitle" class="layui-textarea"></textarea>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>详情Banner图
-                </label>
-                <div class="layui-input-inline" style="width: 300px;">
-                    <button type="button" class="layui-btn" id="uploads">上传图片</button>
-                    <div class="layui-upload-list" id="imgnew">
-
-                    </div>
-                    <div id="newinp">
-
-                    </div>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>商家标题
-                </label>
-                <div class="layui-input-inline" style="width: 400px;">
-                    <textarea id="gtitle" name="gtitle" placeholder="请输入内容" lay-verify="gtitle" class="layui-textarea"></textarea>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>商家简介
+                    <span class="x-red">*</span>资讯简介
                 </label>
                 <div class="layui-input-inline" style="width: 610px;">
                     <textarea id="gcontent" name="gcontent" placeholder="请输入内容" lay-verify="gcontent" class="layui-textarea"></textarea>
@@ -124,7 +101,16 @@
         </form>
     </div>
 </div>
-
+<script>
+layui.use(['laydate', 'form'],
+        function() {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#starttime' //指定元素
+            });
+        });
+</script>
 <script>
     layui.use('upload', function(){
         var $ = layui.jquery
@@ -208,29 +194,21 @@
             form.verify({
                 gname: function (value) {
                     if ($('#gname').val() == "") {
-                        return '请输入商家名称。';
+                        return '请输入资讯名称。';
                     }
                 },
-                gtitle: function (value) {
-                    if ($('#gtitle').val() == "") {
-                        return '请输入商家标题。';
-                    }
-                },
-                tid: function (value) {
-                    if ($("#tid option:selected").val() == "") {
-                        return '请选择商家类型。';
-                    }
-                },
+
+
                 gimg: function (value) {
                     if ($('#gimg').val() == "") {
-                        return '请上传商家列表图。';
+                        return '请上传资讯列表图。';
                     }
                 },
                 gcontent: function(value) {
                     // 将富文本编辑器的值同步到之前的textarea中
                     layedit.sync(editIndex1);
                     if ($('#gcontent').val() == "") {
-                        return '请输入商家简介。';
+                        return '请输入资讯简介。';
                     }
                 },
             });

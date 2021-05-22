@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-天桥伟业</title>
+    <title>我的管理后台-窝行我述</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -21,45 +21,20 @@
         <form method="post" class="layui-form" action="" name="basic_validate" id="tab">
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>分类名称
+                    <span class="x-red">*</span>学校名称
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="text" id="tname" name="tname" lay-verify="tname"
                            autocomplete="off" value="<?php echo $tname ?>" class="layui-input">
                 </div>
             </div>
-			<div class="layui-form-item">
-				<label for="L_pass" class="layui-form-label" style="width: 30%;">
-					<span class="x-red">*</span>是否推荐
-				</label>
-				<div class="layui-input-inline" style="width: 500px;">
-					<input type="radio" name="ishot" lay-skin="primary" title="推荐首页"
-						   value="1" <?php echo $ishot == 1 ? 'checked' : '' ?>>
-					<input type="radio" name="ishot" lay-skin="primary" title="暂不推荐"
-						   value="0" <?php echo $ishot == 0 ? 'checked' : '' ?>>
-				</div>
-			</div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>分类排序
+                    <span class="x-red">*</span>学校排序
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="number" id="tsort" name="tsort" lay-verify="tsort"
                            autocomplete="off" value="<?php echo $tsort ?>" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>分类图片
-                </label>
-                <div class="layui-input-inline" style="width: 300px;">
-                    <button type="button" class="layui-btn" id="upload1">上传图片</button>
-                    <div class="layui-upload-list">
-                        <input type="hidden" name="timg" id="timg" lay-verify="timg" autocomplete="off"
-                               class="layui-input" value="<?php echo $timg ?>">
-                        <img class="layui-upload-img" src="<?php echo $timg ?>" style="width: 100px;height: 100px;" id="timgimg" name="timgimg">
-                        <p id="demoText"></p>
-                    </div>
                 </div>
             </div>
             <input type="hidden" name="tid" id="tid" value="<?php echo $id ?>">
@@ -125,19 +100,15 @@
             form.verify({
                 tname: function (value) {
                     if ($('#tname').val() == "") {
-                        return '请输入分类名称。';
+                        return '请输入学校名称。';
                     }
                 },
                 tsort: function (value) {
                     if ($('#tsort').val() == "") {
-                        return '请输入分类排序。';
+                        return '请输入学校排序。';
                     }
                 },
-                timg: function (value) {
-                    if ($('#timg').val() == "") {
-                        return '请上传分类图片。';
-                    }
-                },
+
             });
 
             $("#tab").validate({

@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-天桥伟业</title>
+    <title>我的管理后台-窝行我述</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -28,11 +28,11 @@
         <form method="post" class="layui-form layui-form-pane" id="tab">
             <div class="layui-form-item layui-form-text">
                 <label for="desc" class="layui-form-label">
-                    审核通过说明
+                    问答回复说明
                 </label>
                 <div class="layui-input-block">
                     <textarea id="tareject" name="tareject" class="layui-textarea"
-                              lay-verify="tareject">您的入驻审核已经通过啦！</textarea>
+                              lay-verify="tareject">请输入回复说明！</textarea>
                 </div>
             </div>
             <input type="hidden" id="oid" name="oid" value="<?php echo $oid?>">

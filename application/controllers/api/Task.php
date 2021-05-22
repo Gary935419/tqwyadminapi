@@ -802,6 +802,17 @@ class Task extends CI_Controller
         $this->back_json(200, '操作成功', $data);
     }
 	/**
+	 * 客服详情
+	 */
+	public function goodsdetailskefu(){
+
+		//获取商品数据
+		$goodsdetails = $this->task->goodsdetailskefu();
+		$data['goodsdetails'] = $goodsdetails;
+
+		$this->back_json(200, '操作成功', $data);
+	}
+	/**
 	 * 商品详情
 	 */
 	public function itemsdetails(){

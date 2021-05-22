@@ -81,7 +81,7 @@ class Order extends CI_Controller
         $this->display("order/integralorder_list", $data);
     }
 	/**
-	 * 合作申请商品列表页
+	 * 报告列表
 	 */
 	public function goodsorder_list()
 	{

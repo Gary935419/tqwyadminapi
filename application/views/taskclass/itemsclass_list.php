@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-天桥伟业</title>
+    <title>我的管理后台-窝行我述</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -19,7 +19,7 @@
           <span class="layui-breadcrumb">
 <!--            <a href="--><? //= RUN . '/admin/index' ?><!--">最初のページ</a>-->
             <a>
-              <cite>商品分类</cite></a>
+              <cite>学校信息</cite></a>
           </span>
     <!--          <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="ページを更新">-->
     <!--            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>-->
@@ -32,7 +32,7 @@
                     <form class="layui-form layui-col-space5" method="get" action="<?= RUN, '/taskclass/itemsclass_list' ?>">
                         <div class="layui-inline layui-show-xs-block">
                             <input type="text" name="tname" id="tname" value="<?php echo $tname ?>"
-                                   placeholder="分类名称" autocomplete="off" class="layui-input">
+                                   placeholder="学校名称" autocomplete="off" class="layui-input">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
                             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i
@@ -49,10 +49,9 @@
                         <thead>
                         <tr>
                             <th>序号</th>
-                            <th>分类名称</th>
-							<th>是否推荐</th>
-                            <th>分类排序</th>
-                            <th>分类图片</th>
+                            <th>学校名称</th>
+                            <th>学校排序</th>
+                            <th>添加时间</th>
                             <th>操作</th>
                         </thead>
                         <tbody>
@@ -61,9 +60,10 @@
                                 <tr id="p<?= $once['id'] ?>" sid="<?= $once['id'] ?>">
                                     <td><?= $num + 1 ?></td>
                                     <td><?= $once['cname'] ?></td>
-									<td><?= $once['ishot'] == 1 ?'推荐首页':'暂不推荐' ?></td>
+<!--									<td>--><?//= $once['ishot'] == 1 ?'推荐首页':'暂不推荐' ?><!--</td>-->
                                     <td><?= $once['csort'] ?></td>
-                                    <td><img src="<?= $once['cimg'] ?>" style="width: 50px;height: 50px;"></td>
+									<td><?= date('Y-m-d H:i:s', $once['addtime']) ?></td>
+<!--                                    <td><img src="--><?//= $once['cimg'] ?><!--" style="width: 50px;height: 50px;"></td>-->
                                     <td class="td-manage">
                                         <button class="layui-btn layui-btn-normal"
                                                 onclick="xadmin.open('编辑','<?= RUN . '/taskclass/itemsclass_edit?id=' ?>'+<?= $once['id'] ?>,900,500)">

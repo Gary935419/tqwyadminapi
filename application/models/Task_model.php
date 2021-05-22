@@ -502,6 +502,12 @@ class Task_model extends CI_Model
         $sql = "SELECT * FROM `goods` where gid=$gid ";
         return $this->db->query($sql)->row_array();
     }
+	//获取客服详情
+	public function goodsdetailskefu()
+	{
+		$sql = "SELECT * FROM `setting` where sid=1 ";
+		return $this->db->query($sql)->row_array();
+	}
     //获取商品详情
 	public function itemsdetails($gid)
 	{

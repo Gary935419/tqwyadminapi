@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-天桥伟业</title>
+    <title>我的管理后台-窝行我述</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -18,7 +18,7 @@
 <div class="x-nav">
           <span class="layui-breadcrumb">
             <a>
-              <cite>商家管理</cite></a>
+              <cite>资讯管理</cite></a>
           </span>
 </div>
 <div class="layui-fluid">
@@ -29,7 +29,7 @@
                     <form class="layui-form layui-col-space5" method="get" action="<?= RUN, '/goods/goods_list' ?>">
                         <div class="layui-inline layui-show-xs-block">
                             <input type="text" name="gname" id="gname" value="<?php echo $gname ?>"
-                                   placeholder="商家名称" autocomplete="off" class="layui-input">
+                                   placeholder="资讯名称" autocomplete="off" class="layui-input">
                         </div>
                         <div class="layui-inline layui-show-xs-block">
                             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i
@@ -46,9 +46,9 @@
                         <thead>
                         <tr>
                             <th>序号</th>
-                            <th>商家名称</th>
-                            <th>商家分类</th>
-                            <th>商家图片</th>
+                            <th>资讯名称</th>
+							<th>资讯排序</th>
+                            <th>资讯图片</th>
                             <th>添加时间</th>
                             <th>操作</th>
                         </thead>
@@ -58,7 +58,7 @@
                                 <tr id="p<?= $once['gid'] ?>" sid="<?= $once['gid'] ?>">
                                     <td><?= $num + 1 ?></td>
                                     <td><?= $once['gname'] ?></td>
-                                    <td><?= $once['tname'] ?></td>
+									<td><?= $once['gsort'] ?></td>
                                     <td><img src="<?= $once['gimg'] ?>" style="width: 50px;height: 50px;"></td>
                                     <td><?= date('Y-m-d H:i:s', $once['addtime']) ?></td>
                                     <td class="td-manage">

@@ -148,7 +148,7 @@ class Order_model extends CI_Model
 			$end = strtotime($end)+86400;
 			$sqlw .= " and m.addtime <= $end ";
 		}
-		$sql = "SELECT count(1) as number FROM `orderitems` m  LEFT JOIN `member` me ON me.mid = m.mid " . $sqlw;
+		$sql = "SELECT count(1) as number FROM `reportorder` m  LEFT JOIN `member` me ON me.mid = m.mid " . $sqlw;
 
 		$number = $this->db->query($sql)->row()->number;
 		return ceil($number / 10) == 0 ? 1 : ceil($number / 10);
@@ -171,7 +171,7 @@ class Order_model extends CI_Model
 		$start = ($pg - 1) * 10;
 		$stop = 10;
 
-		$sql = "SELECT m.*,me.nickname FROM `orderitems` m  LEFT JOIN `member` me ON me.mid = m.mid " . $sqlw . " order by m.addtime desc LIMIT $start, $stop";
+		$sql = "SELECT m.*,me.nickname,me.avater FROM `reportorder` m  LEFT JOIN `member` me ON me.mid = m.mid " . $sqlw . " order by m.addtime desc LIMIT $start, $stop";
 		return $this->db->query($sql)->result_array();
 	}
 }

@@ -159,7 +159,7 @@ class Examine_model extends CI_Model
     //任务count
     public function gettaskAllPage($starttime,$end)
     {
-        $sqlw = " where 1=1 and m.ostate > 1 and m.ostate < 5";
+        $sqlw = " where 1=1 ";
         if (!empty($starttime) && !empty($end)) {
             $starttime = strtotime($starttime);
             $end = strtotime($end)+86400;
@@ -179,7 +179,7 @@ class Examine_model extends CI_Model
     //任务list
     public function gettaskAll($pg,$starttime,$end)
     {
-        $sqlw = " where 1=1 and m.ostate > 1 and m.ostate < 5";
+        $sqlw = " where 1=1 ";
         if (!empty($starttime) && !empty($end)) {
             $starttime = strtotime($starttime);
             $end = strtotime($end)+86400;
@@ -194,7 +194,7 @@ class Examine_model extends CI_Model
         $start = ($pg - 1) * 10;
         $stop = 10;
 
-        $sql = "SELECT m.*,me.nickname FROM `taorder` m  LEFT JOIN `member` me ON me.mid = m.mid " . $sqlw . " order by m.oid desc LIMIT $start, $stop";
+        $sql = "SELECT m.*,me.nickname,me.avater FROM `taorder` m  LEFT JOIN `member` me ON me.mid = m.mid " . $sqlw . " order by m.oid desc LIMIT $start, $stop";
 
         return $this->db->query($sql)->result_array();
     }
@@ -216,7 +216,7 @@ class Examine_model extends CI_Model
 	public function gettaskByIditems($id)
 	{
 		$id = $this->db->escape($id);
-		$sql = "SELECT * FROM `orderitems` where id=$id ";
+		$sql = "SELECT * FROM `reportorder` where id=$id ";
 		return $this->db->query($sql)->row_array();
 	}
     //截图

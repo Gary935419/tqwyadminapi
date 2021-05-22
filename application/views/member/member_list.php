@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-天桥伟业</title>
+    <title>我的管理后台-窝行我述</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -49,7 +49,7 @@
                             <th>会员头像</th>
                             <th>会员电话</th>
                             <th>会员性别</th>
-                            <th>兴趣商品条数</th>
+<!--                            <th>兴趣商品条数</th>-->
 <!--                            <th>会员积分</th>-->
 <!--                            <th>会员城市</th>-->
 <!--                            <th>代理状态</th>-->
@@ -66,7 +66,7 @@
                                     <td><img src="<?= $once['avater'] ?>" style="width: 50px;height: 50px;"></td>
                                     <td><?= empty($once['mobile']) ? '暂无数据' : $once['mobile'] ?></td>
                                     <td><?= $once['sex'] == 1 ? '男' : '女' ?></td>
-                                    <td><?= $once['count'] ?>条</td>
+<!--                                    <td>--><?//= $once['count'] ?><!--条</td>-->
 <!--                                    <td>--><?//= $once['integral'] ?><!--积分</td>-->
 <!--                                    <td>--><?//= $once['cityname'] ?><!--</td>-->
 <!--                                    --><?php //if ($once['is_agent'] == 1) { ?>
@@ -81,14 +81,14 @@
                                                 onclick="xadmin.open('编辑会员','<?= RUN . '/member/member_edit?mid=' ?>'+<?= $once['mid'] ?>,900,500)">
                                             <i class="layui-icon">&#xe642;</i>编辑
                                         </button>
-                                        <button class="layui-btn layui-btn-warm"
-                                                onclick="xadmin.open('发送消息','<?= RUN . '/member/send_news?mid=' ?>'+<?= $once['mid'] ?>,900,250)">
-                                            <i class="layui-icon">&#xe63a;</i>发送
-                                        </button>
-										<button class="layui-btn"
-												onclick="xadmin.open('兴趣商品','<?= RUN . '/goods/goods_news?mid=' ?>'+<?= $once['mid'] ?>,1000,600)">
-											<i class="layui-icon">&#xe600;</i>兴趣
-										</button>
+<!--                                        <button class="layui-btn layui-btn-warm"-->
+<!--                                                onclick="xadmin.open('发送消息','--><?//= RUN . '/member/send_news?mid=' ?><!--'+--><?//= $once['mid'] ?><!--,900,250)">-->
+<!--                                            <i class="layui-icon">&#xe63a;</i>发送-->
+<!--                                        </button>-->
+<!--										<button class="layui-btn"-->
+<!--												onclick="xadmin.open('兴趣商品','--><?//= RUN . '/goods/goods_news?mid=' ?><!--'+--><?//= $once['mid'] ?><!--,1000,600)">-->
+<!--											<i class="layui-icon">&#xe600;</i>兴趣-->
+<!--										</button>-->
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

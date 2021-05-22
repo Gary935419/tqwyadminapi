@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-天桥伟业</title>
+    <title>我的管理后台-窝行我述</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -19,7 +19,7 @@
 <div class="x-nav">
           <span class="layui-breadcrumb">
             <a>
-              <cite>入驻审核</cite></a>
+              <cite>问答信息</cite></a>
           </span>
 </div>
 <div class="layui-fluid">
@@ -42,30 +42,31 @@
                     <table class="layui-table layui-form">
                         <thead>
                         <tr>
-<!--                            <th>会员昵称</th>-->
-                            <th>真实姓名</th>
-                            <th>联系电话</th>
-                            <th>商家名称</th>
+                            <th>会员昵称</th>
+							<th>会员头像</th>
+<!--                            <th>真实姓名</th>-->
+<!--                            <th>联系电话</th>-->
+<!--                            <th>商家名称</th>-->
 <!--                            <th>联系邮箱</th>-->
-                            <th>审核状态</th>
-                            <th>申请详情</th>
-                            <th>原因</th>
-                            <th>申请时间</th>
+                            <th>回答状态</th>
+                            <th>问答详情</th>
+                            <th>问答时间</th>
                             <th>操作</th>
                         </thead>
                         <tbody>
                         <?php if (isset($list) && !empty($list)) { ?>
                             <?php foreach ($list as $num => $once): ?>
                                 <tr id="p<?= $once['oid'] ?>" sid="<?= $once['oid'] ?>">
-<!--                                    <td>--><?//= $once['nickname'] ?><!--</td>-->
-                                    <td><?= $once['truename'] ?></td>
-                                    <td><?= $once['mobile'] ?></td>
-                                    <td><?= $once['shopname'] ?></td>
+                                    <td><?= $once['nickname'] ?></td>
+									<td><img src="<?= $once['avater'] ?>" style="width: 50px;height: 50px;"></td>
+<!--                                    <td>--><?//= $once['truename'] ?><!--</td>-->
+<!--                                    <td>--><?//= $once['mobile'] ?><!--</td>-->
+<!--                                    <td>--><?//= $once['shopname'] ?><!--</td>-->
 <!--                                    <td>--><?//= $once['email'] ?><!--</td>-->
-                                    <?php if ($once['ostate']==2){ ?>
-                                        <td style="color: #ff820b;">审核中</td>
+                                    <?php if ($once['ostate']==1){ ?>
+                                        <td style="color: #ff820b;">问答中</td>
                                     <?php }elseif ($once['ostate']==3){ ?>
-                                        <td style="color: green;">已通过</td>
+                                        <td style="color: green;">已回复</td>
                                     <?php }elseif ($once['ostate']==4){ ?>
                                         <td style="color: red;">已驳回</td>
                                     <?php }else{ ?>
@@ -73,17 +74,16 @@
                                     <?php } ?>
                                     <td>
                                         <button class="layui-btn layui-btn-warm"
-                                                onclick="xadmin.open('申请详情','<?= RUN . '/examine/task_examine_details?oid=' ?>'+<?= $once['oid'] ?>,900,500)">
+                                                onclick="xadmin.open('问答详情','<?= RUN . '/examine/task_examine_details?oid=' ?>'+<?= $once['oid'] ?>,900,500)">
                                             <i class="layui-icon">&#xe60b;</i>查看
                                         </button>
                                     </td>
-                                    <td><?= $once['tareject'] ?></td>
                                     <td><?= date('Y-m-d H:i:s', $once['add_time']) ?></td>
                                     <td class="td-manage">
-                                        <?php if ($once['ostate']==2){ ?>
+                                        <?php if ($once['ostate']==1){ ?>
                                             <button class="layui-btn layui-btn-normal"
                                                     onclick="xadmin.open('审核操作','<?= RUN . '/examine/task_examine?oid=' ?>'+<?= $once['oid'] ?>,900,250)">
-                                                <i class="layui-icon">&#xe642;</i>通过
+                                                <i class="layui-icon">&#xe642;</i>回答
                                             </button>
                                             <button class="layui-btn layui-btn-danger"
                                                     onclick="xadmin.open('审核操作','<?= RUN . '/examine/taskno_examine?oid=' ?>'+<?= $once['oid'] ?>,900,250)">
@@ -111,7 +111,8 @@
     </div>
 </div>
 </body>
-<script>layui.use(['laydate', 'form'],
+<script>
+layui.use(['laydate', 'form'],
         function() {
             var laydate = layui.laydate;
             //执行一个laydate实例

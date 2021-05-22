@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-天桥伟业</title>
+    <title>我的管理后台-窝行我述</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -22,7 +22,7 @@
         <form method="post" class="layui-form" action="" name="basic_validate" id="tab">
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>联系人
+                    <span class="x-red">*</span>客服姓名
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="text" id="name" name="name" lay-verify="name"
@@ -31,16 +31,16 @@
             </div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>联系邮箱
+                    <span class="x-red">*</span>客服手机号
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
-                    <input type="email" id="email" name="email" lay-verify="email"
+                    <input type="number" id="email" name="email" lay-verify="email"
                            autocomplete="off" value="<?php echo $email ?>" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>联系地址
+                    <span class="x-red">*</span>服务时间
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="text" id="address" name="address" lay-verify="address"
@@ -49,7 +49,7 @@
             </div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>详细说明
+                    <span class="x-red">*</span>服务内容
                 </label>
                 <div class="layui-input-inline" style="width: 610px;">
                     <textarea id="contentnew" name="contentnew" placeholder="请输入内容" lay-verify="contentnew" class="layui-textarea"><?php echo $contentnew ?></textarea>
@@ -57,12 +57,35 @@
             </div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>主营业务
+                    <span class="x-red">*</span>购买说明
                 </label>
                 <div class="layui-input-inline" style="width: 610px;">
                     <textarea id="contentagent" name="contentagent" placeholder="请输入内容" lay-verify="contentagent" class="layui-textarea"><?php echo $contentagent ?></textarea>
                 </div>
             </div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>购买费用(单位：元)
+				</label>
+				<div class="layui-input-inline" style="width: 300px;">
+					<input type="number" id="price" name="price" lay-verify="price"
+						   autocomplete="off" value="<?php echo $price ?>" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>客服头像
+				</label>
+				<div class="layui-input-inline" style="width: 300px;">
+					<button type="button" class="layui-btn" id="upload2">上传头像</button>
+					<div class="layui-upload-list">
+						<input type="hidden" name="img" id="img" lay-verify="img" autocomplete="off"
+							   class="layui-input" value="<?php echo $img ?>">
+						<img class="layui-upload-img" src="<?php echo $img ?>" style="width: 100px;height: 100px;" id="imgimg" name="imgimg">
+						<p id="demoText"></p>
+					</div>
+				</div>
+			</div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
                     <span class="x-red">*</span>客服二维码
@@ -112,6 +135,34 @@
             ,done: function(res){
                 if(res.code == 200){
                     $('#customercode').val(res.src); //图片链接（base64）
+                    return layer.msg('上传成功');
+                }else {
+                    return layer.msg('上传失败');
+                }
+
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#upload2'
+            ,url: '<?= RUN . '/upload/pushFIle' ?>'
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#imgimg').attr('src', result); //图片链接（base64）
+                });
+            }
+            ,done: function(res){
+                if(res.code == 200){
+                    $('#img').val(res.src); //图片链接（base64）
                     return layer.msg('上传成功');
                 }else {
                     return layer.msg('上传失败');
