@@ -133,6 +133,13 @@ class Member_model extends CI_Model
         $sql = "SELECT * FROM `member` where token = $token ";
         return $this->db->query($sql)->row_array();
     }
+	//根据id查看详情
+	public function getReportinfo($id)
+	{
+		$id = $this->db->escape($id);
+		$sql = "SELECT * FROM `reportlist` where id = $id ";
+		return $this->db->query($sql)->row_array();
+	}
 	public function getquestionInfotoken($str)
 	{
 		$str = $this->db->escape($str);
@@ -176,7 +183,7 @@ class Member_model extends CI_Model
 		$sql = "INSERT INTO `taorder` (mid,ostate,content,add_time) VALUES ($mid,$ostate,$question,$add_time)";
 		return $this->db->query($sql);
 	}
-	public function reportorderinsert($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype)
+	public function reportorderinsert($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype,$checktime)
 	{
 		$mid = $this->db->escape($mid);
 		$paynumber = $this->db->escape($paynumber);
@@ -189,7 +196,8 @@ class Member_model extends CI_Model
 		$area = $this->db->escape($area);
 		$school = $this->db->escape($school);
 		$btype = $this->db->escape($btype);
-		$sql = "INSERT INTO `reportorder` (mid,paynumber,status,addtime,email,price,ftype,money,area,school,btype) VALUES ($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype)";
+		$checktime = $this->db->escape($checktime);
+		$sql = "INSERT INTO `reportorder` (mid,paynumber,status,addtime,email,price,ftype,money,area,school,btype,checktime) VALUES ($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype,$checktime)";
 		return $this->db->query($sql);
 	}
 	public function getupdatereportorder($ordernumber)
@@ -219,6 +227,42 @@ class Member_model extends CI_Model
         $sql = "SELECT * FROM `setting` where sid = 1 ";
         return $this->db->query($sql)->row_array();
     }
+	//查看是否支付
+	public function getpayInfo($btype,$school,$area,$money,$ftype,$mid,$status)
+	{
+		$btype = $this->db->escape($btype);
+		$school = $this->db->escape($school);
+		$area = $this->db->escape($area);
+		$money = $this->db->escape($money);
+		$ftype = $this->db->escape($ftype);
+		$mid = $this->db->escape($mid);
+		$status = $this->db->escape($status);
+		$sql = "SELECT * FROM `reportorder` where btype = $btype and school = $school and area = $area and money = $money and ftype = $ftype and mid = $mid and status = $status and checktime != '' order by addtime desc limit 1";
+		return $this->db->query($sql)->row_array();
+	}
+	//查看是否支付
+	public function getpayInfo1($btype,$school,$area,$money,$ftype,$checktime)
+	{
+		$btype = $this->db->escape($btype);
+		$school = $this->db->escape($school);
+		$area = $this->db->escape($area);
+		$money = $this->db->escape($money);
+		$ftype = $this->db->escape($ftype);
+		$checktime = $this->db->escape($checktime);
+		$sql = "SELECT * FROM `reportlist` where typename = $btype and schoolname = $school and areaname = $area and pricename = $money and classname = $ftype and addtime = $checktime";
+		return $this->db->query($sql)->row_array();
+	}
+	//获得报告列表
+	public function getReportlist($btype,$school,$area,$money,$ftype)
+	{
+		$btype = $this->db->escape($btype);
+		$school = $this->db->escape($school);
+		$area = $this->db->escape($area);
+		$money = $this->db->escape($money);
+		$ftype = $this->db->escape($ftype);
+		$sql = "SELECT * FROM `reportlist` where typename = $btype and schoolname = $school and areaname = $area and pricename = $money and classname = $ftype and is_delete != 1";
+		return $this->db->query($sql)->result_array();
+	}
     //获得佣金统计
     public function getcommissionsum($mid)
     {
@@ -346,6 +390,27 @@ class Member_model extends CI_Model
 	{
 		$sqlw = " where 1=1";
 		$sql = "SELECT * FROM `itemsclass` " . $sqlw . " order by addtime desc ";
+		return $this->db->query($sql)->result_array();
+	}
+	//获取价格列表
+	public function indexpricellist()
+	{
+		$sqlw = " where 1=1";
+		$sql = "SELECT * FROM `reportprice` " . $sqlw;
+		return $this->db->query($sql)->result_array();
+	}
+	//获取区域列表
+	public function indexareallist()
+	{
+		$sqlw = " where 1=1";
+		$sql = "SELECT * FROM `reportarea` " . $sqlw;
+		return $this->db->query($sql)->result_array();
+	}
+	//获取类型列表
+	public function indextypellist()
+	{
+		$sqlw = " where 1=1";
+		$sql = "SELECT * FROM `reporttype` " . $sqlw;
 		return $this->db->query($sql)->result_array();
 	}
 	//获取资讯列表

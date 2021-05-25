@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+<head>
+    <meta charset="UTF-8">
+    <title>我的管理后台-窝行我述</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <link rel="stylesheet" href="<?= STA ?>/css/font.css">
+    <link rel="stylesheet" href="<?= STA ?>/css/xadmin.css">
+    <script type="text/javascript" src="<?= STA ?>/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="<?= STA ?>/js/xadmin.js"></script>
+    <script type="text/javascript" src="<?= STA ?>/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="<?= STA ?>/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="<?= STA ?>/js/upload/jquery_form.js"></script>
+</head>
+<body>
+<div class="layui-fluid" style="padding-top: 66px;">
+    <div class="layui-row">
+        <form method="post" class="layui-form" action="" name="basic_validate" id="tab">
+            <div class="layui-form-item">
+                <label for="L_pass" class="layui-form-label" style="width: 30%;">
+                    <span class="x-red">*</span>报告名称
+                </label>
+                <div class="layui-input-inline" style="width: 300px;">
+                    <input type="text" id="gname" name="gname" lay-verify="gname"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>报告分类
+				</label>
+				<div class="layui-input-inline layui-show-xs-block">
+					<div style="width: 300px" class="layui-input-inline layui-show-xs-block">
+						<select name="gtype" id="gtype">
+							<option value="">请选择</option>
+							<option value="学校分析">学校分析</option>
+							<option value="学校预警">学校预警</option>
+							<option value="相关政策">相关政策</option>
+							<option value="区域分析">区域分析</option>
+							<option value="房源及均价分析">房源及均价分析</option>
+							<option value="重点观点导向分析">重点观点导向分析</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>学校名称
+				</label>
+				<div class="layui-input-inline layui-show-xs-block">
+					<div style="width: 300px" class="layui-input-inline layui-show-xs-block">
+						<select name="schoolname" id="schoolname" lay-verify="schoolname">
+							<?php if (isset($schoollist) && !empty($schoollist)) { ?>
+								<option value="">请选择</option>
+								<?php foreach ($schoollist as $k => $v) : ?>
+									<option value="<?= $v['cname'] ?>"><?= $v['cname'] ?></option>
+								<?php endforeach; ?>
+							<?php } ?>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>报告类别
+				</label>
+				<div class="layui-input-inline layui-show-xs-block">
+					<div style="width: 300px" class="layui-input-inline layui-show-xs-block">
+						<select name="typename" id="typename">
+							<option value="">请选择</option>
+							<option value="学区">学区</option>
+							<option value="自住">自住</option>
+							<option value="投资">投资</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>价位
+				</label>
+				<div class="layui-input-inline layui-show-xs-block">
+					<div style="width: 300px" class="layui-input-inline layui-show-xs-block">
+						<select name="pricename" id="pricename">
+							<option value="">请选择</option>
+							<option value="100万以内">100万以内</option>
+							<option value="200万以内">200万以内</option>
+							<option value="300万以内">300万以内</option>
+							<option value="400万以内">400万以内</option>
+							<option value="500万以内">500万以内</option>
+							<option value="600万以内">600万以内</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>区域
+				</label>
+				<div class="layui-input-inline layui-show-xs-block">
+					<div style="width: 300px" class="layui-input-inline layui-show-xs-block">
+						<select name="areaname" id="areaname">
+							<option value="">请选择</option>
+							<option value="中山区">中山区</option>
+							<option value="西岗区">西岗区</option>
+							<option value="沙河口区">沙河口区</option>
+							<option value="甘井子区">甘井子区</option>
+							<option value="高新园区">高新园区</option>
+							<option value="旅顺口区">旅顺口区</option>
+							<option value="开发区">开发区</option>
+							<option value="金州区">金州区</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>类型
+				</label>
+				<div class="layui-input-inline layui-show-xs-block">
+					<div style="width: 300px" class="layui-input-inline layui-show-xs-block">
+						<select name="classname" id="classname">
+							<option value="">请选择</option>
+							<option value="新房">新房</option>
+							<option value="二手房">二手房</option>
+							<option value="商用房">商用房</option>
+							<option value="回迁房">回迁房</option>
+						</select>
+					</div>
+				</div>
+			</div>
+            <div class="layui-form-item">
+                <label for="L_pass" class="layui-form-label" style="width: 30%;">
+                    <span class="x-red">*</span>报告详情
+                </label>
+                <div class="layui-input-inline" style="width: 610px;">
+                    <textarea id="gcontent" name="gcontent" placeholder="请输入内容" lay-verify="gcontent" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label" style="width: 30%;">
+                </label>
+                <div class="layui-input-inline" style="width: 300px;">
+                    <span class="x-red">※</span>请确认输入的数据是否正确。
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="L_repass" class="layui-form-label" style="width: 30%;">
+                </label>
+                <button class="layui-btn" lay-filter="add" lay-submit="">
+                    确认提交
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    layui.use(['form','layedit', 'layer'],
+        function () {
+            var form = layui.form,
+                layer = layui.layer;
+            var layedit = layui.layedit;
+            var editIndex1 = layedit.build('gcontent', {
+                height: 300,
+            });
+            //自定义验证规则
+            form.verify({
+                gname: function (value) {
+                    if ($('#gname').val() == "") {
+                        return '请输入报告名称。';
+                    }
+                },
+                gcontent: function(value) {
+                    // 将富文本编辑器的值同步到之前的textarea中
+                    layedit.sync(editIndex1);
+                    if ($('#gcontent').val() == "") {
+                        return '请输入报告详情。';
+                    }
+                },
+            });
+
+            $("#tab").validate({
+                submitHandler: function (form) {
+                    $.ajax({
+                        cache: true,
+                        type: "POST",
+                        url: "<?= RUN . '/order/goods_save' ?>",
+                        data: $('#tab').serialize(),
+                        async: false,
+                        error: function (request) {
+                            alert("error");
+                        },
+                        success: function (data) {
+                            var data = eval("(" + data + ")");
+                            if (data.success) {
+                                layer.msg(data.msg);
+                                setTimeout(function () {
+                                    cancel();
+                                }, 2000);
+                            } else {
+                                layer.msg(data.msg);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+    function cancel() {
+        //关闭当前frame
+        xadmin.close();
+    }
+</script>
+</body>
+</html>

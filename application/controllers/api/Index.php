@@ -246,24 +246,23 @@ class Index extends CI_Controller
 				$this->back_json(202, '请重新选择学校');
 			}
 			$school = $_POST['school'];
-			$area = '';
 		}elseif ($_POST['btype'] == 1){
 			$btype = "自住";
 			$school = '';
-			$area = $_POST['area'];
+
 		}elseif ($_POST['btype'] == 2){
 			$btype = "投资";
 			$school = '';
-			$area = $_POST['area'];
 		}else{
 			$btype = "数据错误";
 			$school = '';
-			$area = '';
 		}
+		$area = $_POST['area'];
 		$money = $_POST['money'];
 		$ftype = $_POST['ftype'];
 		$price = $_POST['price'];
 		$email = $_POST['email'];
+		$id = $_POST['id'];
 		$addtime = time();
 		$mid = $member['mid'];
 		$status = 0;
@@ -273,8 +272,9 @@ class Index extends CI_Controller
 		if (!empty($questionnow)){
 			$this->back_json(202, '当前已经下单！请稍后重试！');
 		}
-
-		$this->member->reportorderinsert($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype);
+		$getReportinfo = $this->member->getReportinfo($id);
+		$checktime = $getReportinfo['addtime'];
+		$this->member->reportorderinsert($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype,$checktime);
 
 		$openid = $member['openid'];
 		$appid = 'wx2807f1038eb33541';
@@ -335,8 +335,120 @@ class Index extends CI_Controller
 
 		$re = [
 			'weixin_sign' => $weixin_sign ? $weixin_sign : (object)[],
+			'id' => $id,
 		];
 		$this->back_json(200, '下单成功', $re);
+	}
+	/**
+	 * check是否支付
+	 */
+	public function getPay(){
+		//验证loginCode是否传递
+		if (!isset($_POST['token']) || empty($_POST['token'])) {
+			$this->back_json(205, '未授权登录！');
+		}
+		$token = $_POST['token'];
+		$member = $this->member->getMemberInfotoken($token);
+		if (empty($member)){
+			$this->back_json(205, '请重新登录');
+		}
+		if (empty($_POST['btype'])) {
+			$btype = "学区";
+			if ($_POST['school'] == "请选择"){
+				$this->back_json(202, '请重新选择学校');
+			}
+			$school = $_POST['school'];
+		}elseif ($_POST['btype'] == 1){
+			$btype = "自住";
+			$school = '';
+
+		}elseif ($_POST['btype'] == 2){
+			$btype = "投资";
+			$school = '';
+		}else{
+			$btype = "数据错误";
+			$school = '';
+		}
+		$area = $_POST['area'];
+		$money = $_POST['money'];
+		$ftype = $_POST['ftype'];
+		$mid = $member['mid'];
+		$status = 1;
+		$getpayInfo = $this->member->getpayInfo($btype,$school,$area,$money,$ftype,$mid,$status);
+
+		if (!empty($getpayInfo)){
+			$getpayInfo1 = $this->member->getpayInfo1($btype,$school,$area,$money,$ftype,$getpayInfo['checktime']);
+			
+			if (!empty($getpayInfo1)){
+				$payflg = 1;
+			}else{
+				$payflg = 0;
+			}
+		}else{
+			$payflg = 0;
+		}
+		$data['payflg'] = $payflg;
+		$this->back_json(200, '操作成功', $data);
+	}
+	/**
+	 * 获得报告信息
+	 */
+	public function getReportlist(){
+		//验证loginCode是否传递
+		if (!isset($_POST['token']) || empty($_POST['token'])) {
+			$this->back_json(205, '未授权登录！');
+		}
+		$token = $_POST['token'];
+		$member = $this->member->getMemberInfotoken($token);
+		if (empty($member)){
+			$this->back_json(205, '请重新登录');
+		}
+		if (empty($_POST['btype'])) {
+			$btype = "学区";
+			if ($_POST['school'] == "请选择"){
+				$this->back_json(202, '请重新选择学校');
+			}
+			$school = $_POST['school'];
+		}elseif ($_POST['btype'] == 1){
+			$btype = "自住";
+			$school = '';
+
+		}elseif ($_POST['btype'] == 2){
+			$btype = "投资";
+			$school = '';
+		}else{
+			$btype = "数据错误";
+			$school = '';
+		}
+		$area = $_POST['area'];
+		$money = $_POST['money'];
+		$ftype = $_POST['ftype'];
+
+		$getReportlist = $this->member->getReportlist($btype,$school,$area,$money,$ftype);
+
+		$data['reportlist'] = empty($getReportlist)?array():$getReportlist;
+		$this->back_json(200, '操作成功', $data);
+	}
+	/**
+	 * 获得报告信息
+	 */
+	public function get_details(){
+		//验证loginCode是否传递
+		if (!isset($_POST['token']) || empty($_POST['token'])) {
+			$this->back_json(205, '未授权登录！');
+		}
+		$token = $_POST['token'];
+		$member = $this->member->getMemberInfotoken($token);
+		if (empty($member)){
+			$this->back_json(205, '请重新登录');
+		}
+
+		$id = $_POST['id'];
+
+		$getReportinfo = $this->member->getReportinfo($id);
+
+		$data['reportinfo'] = empty($getReportinfo['gcontent'])?'':$getReportinfo['gcontent'];
+		$this->back_json(200, '操作成功', $data);
 	}
 	public function notify()
 	{
@@ -475,8 +587,11 @@ class Index extends CI_Controller
 	 * 首页学校
 	 */
 	public function indexschoollist(){
-		$indeximglist = $this->member->indexschoollist();
-		$data['schoollist'] = empty($indeximglist)?'':$indeximglist;
+		$indexschoollist = $this->member->indexschoollist();
+//		$indexpricellist = $this->member->indexpricellist();
+//		$indexarealist = $this->member->indexarealist();
+//		$indextypelist = $this->member->indextypelist();
+		$data['schoollist'] = empty($indexschoollist)?'':$indexschoollist;
 		$this->back_json(200, '操作成功', $data);
 	}
 	/**

@@ -172,12 +172,6 @@
                     <cite>报告订单</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
-<!--                    <li>-->
-<!--                        <a onclick="changeSrc('--><?//= RUN . '/order/integralorder_list' ?><!--')">-->
-<!--                            <i class="iconfont">&#xe6a7;</i>-->
-<!--                            <cite>合作订单（商家）</cite>-->
-<!--                        </a>-->
-<!--                    </li>-->
 					<li>
 						<a onclick="changeSrc('<?= RUN . '/order/goodsorder_list' ?>')">
 							<i class="iconfont">&#xe6a7;</i>
@@ -186,6 +180,20 @@
 					</li>
                 </ul>
             </li>
+			<li>
+				<a href="javascript:;">
+					<i class="iconfont left-nav-li" lay-tips="报告管理">&#xe723;</i>
+					<cite>报告管理</cite>
+					<i class="iconfont nav_right">&#xe697;</i></a>
+				<ul class="sub-menu">
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/order/goods_list' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>报告列表</cite>
+						</a>
+					</li>
+				</ul>
+			</li>
         </ul>
     </div>
 </div>

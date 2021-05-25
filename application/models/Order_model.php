@@ -9,7 +9,100 @@ class Order_model extends CI_Model
         $this->date = time();
         $this->load->database();
     }
-    //充值count
+	//商品count
+	public function getgoodsAllPage($gname)
+	{
+		$sqlw = " where 1=1 and is_delete != 1";
+		if (!empty($gname)) {
+			$sqlw .= " and ( gname like '%" . $gname . "%' ) ";
+		}
+		$sql = "SELECT count(1) as number FROM `reportlist`" . $sqlw;
+
+		$number = $this->db->query($sql)->row()->number;
+		return ceil($number / 10) == 0 ? 1 : ceil($number / 10);
+	}
+	//商品list
+	public function getgoodsAll($pg,$gname)
+	{
+		$sqlw = " where 1=1 and is_delete != 1";
+		if (!empty($gname)) {
+			$sqlw .= " and ( gname like '%" . $gname . "%' ) ";
+		}
+		$start = ($pg - 1) * 10;
+		$stop = 10;
+
+		$sql = "SELECT * FROM `reportlist` " . $sqlw . " order by addtime desc LIMIT $start, $stop";
+		return $this->db->query($sql)->result_array();
+	}
+	//商品byname
+	public function getgoodsByname($gname)
+	{
+		$gname = $this->db->escape($gname);
+		$sql = "SELECT * FROM `reportlist` where gname=$gname ";
+		return $this->db->query($sql)->row_array();
+	}
+	//商品save
+	public function goods_save($gname,$gtype,$schoolname,$typename,$pricename,$areaname,$classname,$gcontent,$addtime,$is_delete)
+	{
+		$gname = $this->db->escape($gname);
+		$gtype = $this->db->escape($gtype);
+		$schoolname = $this->db->escape($schoolname);
+		$typename = $this->db->escape($typename);
+		$pricename = $this->db->escape($pricename);
+		$areaname = $this->db->escape($areaname);
+		$classname = $this->db->escape($classname);
+		$gcontent = $this->db->escape($gcontent);
+		$addtime = $this->db->escape($addtime);
+		$is_delete = $this->db->escape($is_delete);
+		$sql = "INSERT INTO `reportlist` (gname,gtype,schoolname,typename,pricename,areaname,classname,gcontent,addtime,is_delete) VALUES ($gname,$gtype,$schoolname,$typename,$pricename,$areaname,$classname,$gcontent,$addtime,$is_delete)";
+		$this->db->query($sql);
+		$gid=$this->db->insert_id();
+		$sql1 = "UPDATE `reportlist` SET addtime=$addtime WHERE gname = $gname and schoolname = $schoolname and typename = $typename and pricename = $pricename and areaname = $areaname and classname = $classname and is_delete != 1";
+		$this->db->query($sql1);
+		return $gid;
+	}
+	//商品byid
+	public function getgoodsById($id)
+	{
+		$id = $this->db->escape($id);
+		$sql = "SELECT * FROM `reportlist` where id=$id ";
+		return $this->db->query($sql)->row_array();
+	}
+	//商品byname id
+	public function getgoodsById2($gname, $gid)
+	{
+		$gname = $this->db->escape($gname);
+		$gid = $this->db->escape($gid);
+		$sql = "SELECT * FROM `reportlist` where gname=$gname and id!=$gid ";
+		return $this->db->query($sql)->row_array();
+	}
+	//商品save_edit
+	public function goods_save_edit($id,$gname,$gtype,$schoolname,$typename,$pricename,$areaname,$classname,$gcontent,$addtime,$is_delete)
+	{
+		$id = $this->db->escape($id);
+		$gname = $this->db->escape($gname);
+		$gtype = $this->db->escape($gtype);
+		$schoolname = $this->db->escape($schoolname);
+		$typename = $this->db->escape($typename);
+		$pricename = $this->db->escape($pricename);
+		$areaname = $this->db->escape($areaname);
+		$classname = $this->db->escape($classname);
+		$gcontent = $this->db->escape($gcontent);
+		$addtime = $this->db->escape($addtime);
+		$is_delete = $this->db->escape($is_delete);
+		$sql = "UPDATE `reportlist` SET gname=$gname,gtype=$gtype,schoolname=$schoolname,typename=$typename,pricename=$pricename,areaname=$areaname,classname=$classname,gcontent=$gcontent,addtime=$addtime WHERE id = $id";
+		$this->db->query($sql);
+		$sql1 = "UPDATE `reportlist` SET addtime=$addtime WHERE gname = $gname and schoolname = $schoolname and typename = $typename and pricename = $pricename and areaname = $areaname and classname = $classname and is_delete != 1";
+		return $this->db->query($sql1);
+	}
+//商品save_edit
+	public function goods_save_delete($id)
+	{
+		$id = $this->db->escape($id);
+		$sql = "UPDATE `reportlist` SET is_delete=1 WHERE id = $id";
+		return $this->db->query($sql);
+	}
+	//充值count
     public function getrechargeorderAllPage($starttime,$end)
     {
         $sqlw = " where 1=1 ";
