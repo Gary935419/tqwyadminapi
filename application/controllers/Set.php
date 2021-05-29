@@ -64,6 +64,91 @@ class Set extends CI_Controller
         }
 
     }
+
+	/**
+	 * 通用报告修改
+	 */
+	public function set_edit_new()
+	{
+		$sid = 1;
+		$set_info = $this->set->getsetById($sid);
+		$data['content1'] = $set_info['content1'];
+		$data['content2'] = $set_info['content2'];
+		$data['content3'] = $set_info['content3'];
+		$this->display("set/set_edit_new", $data);
+	}
+	/**
+	 * 通用报告修改提交
+	 */
+	public function set_save_edit_new()
+	{
+
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
+			return;
+		}
+		$sid = 1;
+		$content1 = isset($_POST["content1"]) ? $_POST["content1"] : '';
+		$content2 = isset($_POST["content2"]) ? $_POST["content2"] : '';
+		$content3 = isset($_POST["content3"]) ? $_POST["content3"] : '';
+		$result = $this->set->set_save_edit_new($sid,$content1,$content2,$content3);
+		if ($result) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+
+	}
+
+	/**
+	 * 区域报告修改
+	 */
+	public function set_edit_new_area()
+	{
+		$sid = 1;
+		$set_info = $this->set->getsetById($sid);
+		$data['content4'] = $set_info['content4'];
+		$data['content5'] = $set_info['content5'];
+		$data['content6'] = $set_info['content6'];
+		$data['content7'] = $set_info['content7'];
+		$data['content8'] = $set_info['content8'];
+		$data['content9'] = $set_info['content9'];
+		$data['content10'] = $set_info['content10'];
+		$data['content11'] = $set_info['content11'];
+		$this->display("set/set_edit_new_area", $data);
+	}
+	/**
+	 * 区域报告修改提交
+	 */
+	public function set_save_edit_new_area()
+	{
+
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
+			return;
+		}
+		$sid = 1;
+		$content4 = isset($_POST["content4"]) ? $_POST["content4"] : '';
+		$content5 = isset($_POST["content5"]) ? $_POST["content5"] : '';
+		$content6 = isset($_POST["content6"]) ? $_POST["content6"] : '';
+		$content7 = isset($_POST["content7"]) ? $_POST["content7"] : '';
+		$content8 = isset($_POST["content8"]) ? $_POST["content8"] : '';
+		$content9 = isset($_POST["content9"]) ? $_POST["content9"] : '';
+		$content10 = isset($_POST["content10"]) ? $_POST["content10"] : '';
+		$content11 = isset($_POST["content11"]) ? $_POST["content11"] : '';
+		$result = $this->set->set_save_edit_new_area($sid,$content4,$content5,$content6,$content7,$content8,$content9,$content10,$content11);
+		if ($result) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+
+	}
+
     /**
      * 广告列表页
      */

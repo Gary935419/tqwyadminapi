@@ -28,6 +28,26 @@
                            autocomplete="off" value="<?php echo $tname ?>" class="layui-input">
                 </div>
             </div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>区域
+				</label>
+				<div class="layui-input-inline layui-show-xs-block">
+					<div style="width: 300px" class="layui-input-inline layui-show-xs-block">
+						<select name="careaname" id="careaname">
+							<option value="">请选择</option>
+							<option <?php echo $careaname == '中山区' ? 'selected' : '' ?> value="中山区">中山区</option>
+							<option <?php echo $careaname == '西岗区' ? 'selected' : '' ?> value="西岗区">西岗区</option>
+							<option <?php echo $careaname == '沙河口区' ? 'selected' : '' ?> value="沙河口区">沙河口区</option>
+							<option <?php echo $careaname == '甘井子区' ? 'selected' : '' ?> value="甘井子区">甘井子区</option>
+							<option <?php echo $careaname == '高新园区' ? 'selected' : '' ?> value="高新园区">高新园区</option>
+							<option <?php echo $careaname == '旅顺口区' ? 'selected' : '' ?> value="旅顺口区">旅顺口区</option>
+							<option <?php echo $careaname == '开发区' ? 'selected' : '' ?> value="开发区">开发区</option>
+							<option <?php echo $careaname == '金州区' ? 'selected' : '' ?> value="金州区">金州区</option>
+						</select>
+					</div>
+				</div>
+			</div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
                     <span class="x-red">*</span>学校排序

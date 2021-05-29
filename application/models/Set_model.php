@@ -31,6 +31,30 @@ class Set_model extends CI_Model
         $sql = "UPDATE `setting` SET price=$price,img=$img,name=$name,contentagent=$contentagent,email=$email,contentnew=$contentnew,customercode=$customercode,address=$address WHERE sid = $sid";
         return $this->db->query($sql);
     }
+	//设置set_save_edit
+	public function set_save_edit_new($sid,$content1,$content2,$content3)
+	{
+		$content1 = $this->db->escape($content1);
+		$content2 = $this->db->escape($content2);
+		$content3 = $this->db->escape($content3);
+		$sid = $this->db->escape($sid);
+		$sql = "UPDATE `setting` SET content1=$content1,content2=$content2,content3=$content3 WHERE sid = $sid";
+		return $this->db->query($sql);
+	}
+	public function set_save_edit_new_area($sid,$content4,$content5,$content6,$content7,$content8,$content9,$content10,$content11)
+	{
+		$content4 = $this->db->escape($content4);
+		$content5 = $this->db->escape($content5);
+		$content6 = $this->db->escape($content6);
+		$content7 = $this->db->escape($content7);
+		$content8 = $this->db->escape($content8);
+		$content9 = $this->db->escape($content9);
+		$content10 = $this->db->escape($content10);
+		$content11 = $this->db->escape($content11);
+		$sid = $this->db->escape($sid);
+		$sql = "UPDATE `setting` SET content4=$content4,content5=$content5,content6=$content6,content7=$content7,content8=$content8,content9=$content9,content10=$content10,content11=$content11 WHERE sid = $sid";
+		return $this->db->query($sql);
+	}
     //广告count
     public function getadvertisementAllPage($aname)
     {

@@ -18,6 +18,13 @@ class Member extends CI_Controller
         $this->load->model('Member_model', 'member');
         header("Content-type:text/html;charset=utf-8");
     }
+	//查询学校
+	public function getitemsclassschoolname($schoolname)
+	{
+		$schoolname = $this->db->escape($schoolname);
+		$sql = "SELECT * FROM `itemsclass` where cname=$schoolname ";
+		return $this->db->query($sql)->row_array();
+	}
     /**
      * 会员列表页
      */

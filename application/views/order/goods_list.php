@@ -31,6 +31,7 @@
                             <input type="text" name="gname" id="gname" value="<?php echo $gname ?>"
                                    placeholder="报告名称" autocomplete="off" class="layui-input">
                         </div>
+						<input type="hidden" name="btype" id="btype" value="<?php echo $btype ?>">
                         <div class="layui-inline layui-show-xs-block">
                             <button class="layui-btn" lay-submit="" lay-filter="sreach"><i
                                         class="layui-icon">&#xe615;</i></button>
@@ -38,37 +39,50 @@
                     </form>
                 </div>
                 <button class="layui-btn layui-card-header" style="float: right;margin-top: -40px;margin-right: 20px;"
-                        onclick="xadmin.open('添加','<?= RUN . '/order/goods_add' ?>',1000,600)"><i
+                        onclick="xadmin.open('添加','<?= RUN . '/order/goods_add?btype=' ?>'+'<?= $btype ?>',1000,600)"><i
                             class="layui-icon"></i>添加
                 </button>
                 <div class="layui-card-body ">
                     <table class="layui-table layui-form">
                         <thead>
-                        <tr>
-                            <th>序号</th>
                             <th>报告名称</th>
-							<th>报告分类</th>
-                            <th>报告类别</th>
-							<th>价位</th>
-							<th>区域</th>
-							<th>类型</th>
-							<th>学校</th>
-                            <th>添加时间</th>
+							<?php if ($btype==1){ ?>
+								<th>房源学校</th>
+							<?php } ?>
+							<?php if ($btype!=1){ ?>
+								<th>房源区域</th>
+							<?php } ?>
+							<th>房源类型</th>
+							<th>房源价位</th>
+                            <th>房源及均价分析</th>
+							<th>重点观点导向分析</th>
                             <th>操作</th>
                         </thead>
                         <tbody>
                         <?php if (isset($list) && !empty($list)) { ?>
                             <?php foreach ($list as $num => $once): ?>
                                 <tr id="p<?= $once['id'] ?>" sid="<?= $once['id'] ?>">
-                                    <td><?= $num + 1 ?></td>
                                     <td><?= $once['gname'] ?></td>
-									<td><?= $once['gtype'] ?></td>
-									<td><?= $once['typename'] ?></td>
-									<td><?= $once['pricename'] ?></td>
-									<td><?= $once['areaname'] ?></td>
+									<?php if ($btype==1){ ?>
+										<td><?= $once['schoolname'] ?></td>
+									<?php } ?>
+									<?php if ($btype!=1){ ?>
+										<td><?= $once['areaname'] ?></td>
+									<?php } ?>
 									<td><?= $once['classname'] ?></td>
-									<td><?= $once['schoolname'] ?></td>
-                                    <td><?= date('Y-m-d H:i:s', $once['addtime']) ?></td>
+									<td><?= $once['pricename'] ?></td>
+									<td>
+										<button class="layui-btn layui-btn-success"
+												onclick="xadmin.open('编辑','<?= RUN . '/order/goods_edit5?id=' ?>'+'<?= $once['id'] ?>',1000,600)">
+											<i class="layui-icon">&#xe642;</i>编辑报告
+										</button>
+									</td>
+									<td>
+										<button class="layui-btn layui-btn-success"
+												onclick="xadmin.open('编辑','<?= RUN . '/order/goods_edit6?id=' ?>'+'<?= $once['id'] ?>',1000,600)">
+											<i class="layui-icon">&#xe642;</i>编辑报告
+										</button>
+									</td>
                                     <td class="td-manage">
                                         <button class="layui-btn layui-btn-normal"
                                                 onclick="xadmin.open('编辑','<?= RUN . '/order/goods_edit?id=' ?>'+'<?= $once['id'] ?>',1000,600)">
@@ -88,6 +102,7 @@
                         </tbody>
                     </table>
                 </div>
+
                 <div class="layui-card-body ">
                     <div class="page">
                         <?= $pagehtml ?>

@@ -35,14 +35,15 @@ class Itemsclass_model extends CI_Model
         return $this->db->query($sql)->result_array();
     }
     //类型save
-    public function itemsclass_save($tname, $timg,$tsort,$ishot, $add_time)
+    public function itemsclass_save($tname, $timg,$tsort,$ishot,$add_time,$careaname)
     {
         $tname = $this->db->escape($tname);
         $timg = $this->db->escape($timg);
         $tsort = $this->db->escape($tsort);
         $add_time = $this->db->escape($add_time);
 		$ishot = $this->db->escape($ishot);
-        $sql = "INSERT INTO `itemsclass` (cname,cimg,csort,addtime,ishot) VALUES ($tname,$timg,$tsort,$add_time,$ishot)";
+		$careaname = $this->db->escape($careaname);
+        $sql = "INSERT INTO `itemsclass` (cname,cimg,csort,addtime,ishot,careaname) VALUES ($tname,$timg,$tsort,$add_time,$ishot,$careaname)";
         return $this->db->query($sql);
     }
     //类型delete
@@ -75,14 +76,15 @@ class Itemsclass_model extends CI_Model
         return $this->db->query($sql)->row_array();
     }
     //类型save_edit
-    public function itemsclass_save_edit($tid, $tname, $timg, $tsort,$ishot)
+    public function itemsclass_save_edit($tid, $tname, $timg, $tsort,$ishot,$careaname)
     {
         $tid = $this->db->escape($tid);
         $tname = $this->db->escape($tname);
         $timg = $this->db->escape($timg);
         $tsort = $this->db->escape($tsort);
 		$ishot = $this->db->escape($ishot);
-        $sql = "UPDATE `itemsclass` SET ishot=$ishot,cname=$tname,cimg=$timg,csort=$tsort WHERE id = $tid";
+		$careaname = $this->db->escape($careaname);
+        $sql = "UPDATE `itemsclass` SET careaname=$careaname,ishot=$ishot,cname=$tname,cimg=$timg,csort=$tsort WHERE id = $tid";
         return $this->db->query($sql);
     }
 }

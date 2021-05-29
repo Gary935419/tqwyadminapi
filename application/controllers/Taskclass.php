@@ -171,6 +171,7 @@ class Taskclass extends CI_Controller
 		}
 
 		$tname = isset($_POST["tname"]) ? $_POST["tname"] : '';
+		$careaname = isset($_POST["careaname"]) ? $_POST["careaname"] : '';
 		$timg = isset($_POST["timg"]) ? $_POST["timg"] : '';
 		$tsort = isset($_POST["tsort"]) ? $_POST["tsort"] : '';
 		$ishot = isset($_POST["ishot"]) ? $_POST["ishot"] : '0';
@@ -181,7 +182,7 @@ class Taskclass extends CI_Controller
 			echo json_encode(array('error' => true, 'msg' => "该类型名称已经存在。"));
 			return;
 		}
-		$result = $this->itemsclass->itemsclass_save($tname, $timg,$tsort, $ishot,$add_time);
+		$result = $this->itemsclass->itemsclass_save($tname, $timg,$tsort, $ishot,$add_time,$careaname);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;
@@ -221,7 +222,7 @@ class Taskclass extends CI_Controller
 		$data['tsort'] = $taskclass_info['csort'];
 		$data['ishot'] = $taskclass_info['ishot'];
 		$data['id'] = $tid;
-
+		$data['careaname'] = $taskclass_info['careaname'];
 		$this->display("taskclass/itemsclass_edit", $data);
 	}
 	/**
@@ -235,6 +236,7 @@ class Taskclass extends CI_Controller
 		}
 		$tname = isset($_POST["tname"]) ? $_POST["tname"] : '';
 		$timg = isset($_POST["timg"]) ? $_POST["timg"] : '';
+		$careaname = isset($_POST["careaname"]) ? $_POST["careaname"] : '';
 		$tsort = isset($_POST["tsort"]) ? $_POST["tsort"] : '';
 		$ishot = isset($_POST["ishot"]) ? $_POST["ishot"] : '';
 		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
@@ -245,7 +247,7 @@ class Taskclass extends CI_Controller
 			return;
 		}
 
-		$result = $this->itemsclass->itemsclass_save_edit($tid, $tname, $timg, $tsort, $ishot);
+		$result = $this->itemsclass->itemsclass_save_edit($tid, $tname, $timg, $tsort, $ishot, $careaname);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;

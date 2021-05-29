@@ -50,6 +50,7 @@
                         <tr>
                             <th>序号</th>
                             <th>学校名称</th>
+							<th>学校区域</th>
                             <th>学校排序</th>
                             <th>添加时间</th>
                             <th>操作</th>
@@ -60,6 +61,7 @@
                                 <tr id="p<?= $once['id'] ?>" sid="<?= $once['id'] ?>">
                                     <td><?= $num + 1 ?></td>
                                     <td><?= $once['cname'] ?></td>
+									<td><?= $once['careaname'] ?></td>
 <!--									<td>--><?//= $once['ishot'] == 1 ?'推荐首页':'暂不推荐' ?><!--</td>-->
                                     <td><?= $once['csort'] ?></td>
 									<td><?= date('Y-m-d H:i:s', $once['addtime']) ?></td>

@@ -24,15 +24,23 @@ class Order extends CI_Controller
 	 */
 	public function goods_list()
 	{
-
+		$btype = isset($_GET['btype']) ? $_GET['btype'] : 1;
+		if ($btype == 1){
+			$typename = '学区';
+		}elseif ($btype == 2){
+			$typename = '自住';
+		}else{
+			$typename = '投资';
+		}
 		$gname = isset($_GET['gname']) ? $_GET['gname'] : '';
 		$page = isset($_GET["page"]) ? $_GET["page"] : 1;
-		$allpage = $this->order->getgoodsAllPage($gname);
+		$allpage = $this->order->getgoodsAllPage($gname,$typename);
 		$page = $allpage > $page ? $page : $allpage;
 		$data["pagehtml"] = $this->getpage($page, $allpage, $_GET);
 		$data["page"] = $page;
 		$data["allpage"] = $allpage;
-		$list = $this->order->getgoodsAll($page, $gname);
+		$list = $this->order->getgoodsAll($page,$gname,$typename);
+		$data["btype"] = $btype;
 		$data["gname"] = $gname;
 		$data["list"] = $list;
 		$this->display("order/goods_list", $data);
@@ -42,8 +50,18 @@ class Order extends CI_Controller
 	 */
 	public function goods_add()
 	{
+		$btype = isset($_GET['btype']) ? $_GET['btype'] : 1;
+		if ($btype == 1){
+			$typename = '学区';
+		}elseif ($btype == 2){
+			$typename = '自住';
+		}else{
+			$typename = '投资';
+		}
 		$indexschoollist = $this->member->indexschoollist();
 		$data['schoollist'] = empty($indexschoollist)?'':$indexschoollist;
+		$data['typename'] = $typename;
+		$data['btype'] = $btype;
 		$this->display("order/goods_add",$data);
 	}
 	/**
@@ -65,9 +83,13 @@ class Order extends CI_Controller
 		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
 		$addtime = time();
 		$is_delete = 0;
-		$goods_info = $this->order->getgoodsByname($gname);
+		if ($typename === '学区'){
+			$getitemsclassschoolname = $this->order->getitemsclassschoolname($schoolname);
+			$areaname = $getitemsclassschoolname['careaname'];
+		}
+		$goods_info = $this->order->getgoodsByname($schoolname,$typename,$pricename,$areaname,$classname);
 		if (!empty($goods_info)) {
-			echo json_encode(array('error' => true, 'msg' => "该报告名称已经存在。"));
+			echo json_encode(array('error' => true, 'msg' => "该报告已经存在。"));
 			return;
 		}
 		$gid = $this->order->goods_save($gname,$gtype,$schoolname,$typename,$pricename,$areaname,$classname,$gcontent,$addtime,$is_delete);
@@ -131,21 +153,144 @@ class Order extends CI_Controller
 		}
 		$id = isset($_POST["id"]) ? $_POST["id"] : '';
 		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
-		$gtype = isset($_POST["gtype"]) ? $_POST["gtype"] : '';
+//		$gtype = isset($_POST["gtype"]) ? $_POST["gtype"] : '';
 		$schoolname = isset($_POST["schoolname"]) ? $_POST["schoolname"] : '';
 		$typename = isset($_POST["typename"]) ? $_POST["typename"] : '';
 		$pricename = isset($_POST["pricename"]) ? $_POST["pricename"] : '';
 		$areaname = isset($_POST["areaname"]) ? $_POST["areaname"] : '';
 		$classname = isset($_POST["classname"]) ? $_POST["classname"] : '';
-		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+//		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
 		$addtime = time();
 		$is_delete = 0;
-		$goods_info = $this->order->getgoodsById2($gname,$id);
+		if ($typename === '学区'){
+			$getitemsclassschoolname = $this->order->getitemsclassschoolname($schoolname);
+			$areaname = $getitemsclassschoolname['careaname'];
+		}
+		$goods_info = $this->order->getgoodsById2($schoolname,$typename,$pricename,$areaname,$classname,$id);
 		if (!empty($goods_info)) {
-			echo json_encode(array('error' => true, 'msg' => "该报告名称已经存在。"));
+			echo json_encode(array('error' => true, 'msg' => "该报告已经存在。"));
 			return;
 		}
-		$result = $this->order->goods_save_edit($id,$gname,$gtype,$schoolname,$typename,$pricename,$areaname,$classname,$gcontent,$addtime,$is_delete);
+		$result = $this->order->goods_save_edit($id,$gname,$schoolname,$typename,$pricename,$areaname,$classname,$addtime,$is_delete);
+		if ($result) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+
+
+	/**
+	 * 修改页
+	 */
+	public function goods_edit1()
+	{
+		$id = isset($_GET['id']) ? $_GET['id'] : 0;
+		$goods_info = $this->order->getgoodsById($id);
+		if (empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "数据错误"));
+			return;
+		}
+		$data = array();
+		$data['id'] = $id;
+		$data['gcontent'] = $goods_info['gcontent'];
+		$this->display("order/goods_edit1", $data);
+	}
+	/**
+	 * 修改页
+	 */
+	public function goods_edit2()
+	{
+		$id = isset($_GET['id']) ? $_GET['id'] : 0;
+		$goods_info = $this->order->getgoodsById($id);
+		if (empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "数据错误"));
+			return;
+		}
+		$data = array();
+		$data['id'] = $id;
+		$data['gcontent1'] = $goods_info['gcontent1'];
+		$this->display("order/goods_edit2", $data);
+	}
+	/**
+	 * 修改页
+	 */
+	public function goods_edit3()
+	{
+		$id = isset($_GET['id']) ? $_GET['id'] : 0;
+		$goods_info = $this->order->getgoodsById($id);
+		if (empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "数据错误"));
+			return;
+		}
+		$data = array();
+		$data['id'] = $id;
+		$data['gcontent2'] = $goods_info['gcontent2'];
+		$this->display("order/goods_edit3", $data);
+	}
+	/**
+	 * 修改页
+	 */
+	public function goods_edit4()
+	{
+		$id = isset($_GET['id']) ? $_GET['id'] : 0;
+		$goods_info = $this->order->getgoodsById($id);
+		if (empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "数据错误"));
+			return;
+		}
+		$data = array();
+		$data['id'] = $id;
+		$data['gcontent3'] = $goods_info['gcontent3'];
+		$this->display("order/goods_edit4", $data);
+	}
+	/**
+	 * 修改页
+	 */
+	public function goods_edit5()
+	{
+		$id = isset($_GET['id']) ? $_GET['id'] : 0;
+		$goods_info = $this->order->getgoodsById($id);
+		if (empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "数据错误"));
+			return;
+		}
+		$data = array();
+		$data['id'] = $id;
+		$data['gcontent4'] = $goods_info['gcontent4'];
+		$this->display("order/goods_edit5", $data);
+	}
+	/**
+	 * 修改页
+	 */
+	public function goods_edit6()
+	{
+		$id = isset($_GET['id']) ? $_GET['id'] : 0;
+		$goods_info = $this->order->getgoodsById($id);
+		if (empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "数据错误"));
+			return;
+		}
+		$data = array();
+		$data['id'] = $id;
+		$data['gcontent5'] = $goods_info['gcontent5'];
+		$this->display("order/goods_edit6", $data);
+	}
+	/**
+	 * 商品修改提交
+	 */
+	public function goods_save_edit1()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
+			return;
+		}
+		$id = isset($_POST["id"]) ? $_POST["id"] : '';
+		$state = isset($_POST["state"]) ? $_POST["state"] : '';
+		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+		$result = $this->order->goods_save_edit1($id,$gcontent,$state);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;

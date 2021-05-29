@@ -235,11 +235,11 @@ class Index extends CI_Controller
 		$token = $_POST['token'];
 		$member = $this->member->getMemberInfotoken($token);
 		if (empty($member)){
-			$this->back_json(205, '请重新登录');
+			$this->back_json(205, '登录超时！请重新授权！');
 		}
-		if (!isset($_POST['email']) || empty($_POST['email'])) {
-			$this->back_json(202, '请上传联系邮箱！');
-		}
+//		if (!isset($_POST['email']) || empty($_POST['email'])) {
+//			$this->back_json(202, '请上传联系邮箱！');
+//		}
 		if (empty($_POST['btype'])) {
 			$btype = "学区";
 			if ($_POST['school'] == "请选择"){
@@ -261,11 +261,11 @@ class Index extends CI_Controller
 		$money = $_POST['money'];
 		$ftype = $_POST['ftype'];
 		$price = $_POST['price'];
-		$email = $_POST['email'];
+		$email = empty($_POST['email'])?'':$_POST['email'];
 		$id = $_POST['id'];
 		$addtime = time();
 		$mid = $member['mid'];
-		$status = 0;
+		$status = 1;
 		$paynumber = "P".time();
 
 		$questionnow = $this->member->getreportorder($paynumber);
@@ -345,12 +345,12 @@ class Index extends CI_Controller
 	public function getPay(){
 		//验证loginCode是否传递
 		if (!isset($_POST['token']) || empty($_POST['token'])) {
-			$this->back_json(205, '未授权登录！');
+			$this->back_json(205, '未授权！请授权登录！');
 		}
 		$token = $_POST['token'];
 		$member = $this->member->getMemberInfotoken($token);
 		if (empty($member)){
-			$this->back_json(205, '请重新登录');
+			$this->back_json(205, '登录超时！请重新授权！');
 		}
 		if (empty($_POST['btype'])) {
 			$btype = "学区";
@@ -378,7 +378,7 @@ class Index extends CI_Controller
 
 		if (!empty($getpayInfo)){
 			$getpayInfo1 = $this->member->getpayInfo1($btype,$school,$area,$money,$ftype,$getpayInfo['checktime']);
-			
+
 			if (!empty($getpayInfo1)){
 				$payflg = 1;
 			}else{
@@ -396,31 +396,31 @@ class Index extends CI_Controller
 	public function getReportlist(){
 		//验证loginCode是否传递
 		if (!isset($_POST['token']) || empty($_POST['token'])) {
-			$this->back_json(205, '未授权登录！');
+			$this->back_json(205, '未授权！请授权登录！');
 		}
 		$token = $_POST['token'];
 		$member = $this->member->getMemberInfotoken($token);
 		if (empty($member)){
-			$this->back_json(205, '请重新登录');
+			$this->back_json(205, '登录超时！请重新授权！');
 		}
 		if (empty($_POST['btype'])) {
 			$btype = "学区";
-			if ($_POST['school'] == "请选择"){
-				$this->back_json(202, '请重新选择学校');
-			}
 			$school = $_POST['school'];
+			$getitemsclassschoolname = $this->member->getitemsclassschoolname($school);
+			$area = $getitemsclassschoolname['careaname'];
 		}elseif ($_POST['btype'] == 1){
 			$btype = "自住";
 			$school = '';
-
+			$area = $_POST['area'];
 		}elseif ($_POST['btype'] == 2){
 			$btype = "投资";
 			$school = '';
+			$area = $_POST['area'];
 		}else{
 			$btype = "数据错误";
 			$school = '';
+			$this->back_json(202, '请重新选择学校');
 		}
-		$area = $_POST['area'];
 		$money = $_POST['money'];
 		$ftype = $_POST['ftype'];
 
@@ -444,10 +444,23 @@ class Index extends CI_Controller
 		}
 
 		$id = $_POST['id'];
+		$num = $_POST['num'];
 
 		$getReportinfo = $this->member->getReportinfo($id);
+		if ($num === '1'){
+			$data['reportinfo'] = empty($getReportinfo['gcontent'])?'':$getReportinfo['gcontent'];
+		}elseif ($num === '2'){
+			$data['reportinfo'] = empty($getReportinfo['gcontent1'])?'':$getReportinfo['gcontent1'];
+		}elseif ($num === '3'){
+			$data['reportinfo'] = empty($getReportinfo['gcontent2'])?'':$getReportinfo['gcontent2'];
+		}elseif ($num === '4'){
+			$data['reportinfo'] = empty($getReportinfo['gcontent3'])?'':$getReportinfo['gcontent3'];
+		}elseif ($num === '5'){
+			$data['reportinfo'] = empty($getReportinfo['gcontent4'])?'':$getReportinfo['gcontent4'];
+		}else{
+			$data['reportinfo'] = empty($getReportinfo['gcontent5'])?'':$getReportinfo['gcontent5'];
+		}
 
-		$data['reportinfo'] = empty($getReportinfo['gcontent'])?'':$getReportinfo['gcontent'];
 		$this->back_json(200, '操作成功', $data);
 	}
 	public function notify()

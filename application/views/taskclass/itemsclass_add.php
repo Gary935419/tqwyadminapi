@@ -39,6 +39,26 @@
 <!--						   value="0" checked >-->
 <!--				</div>-->
 <!--			</div>-->
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>区域
+				</label>
+				<div class="layui-input-inline layui-show-xs-block">
+					<div style="width: 300px" class="layui-input-inline layui-show-xs-block">
+						<select name="careaname" id="careaname">
+							<option value="">请选择</option>
+							<option value="中山区">中山区</option>
+							<option value="西岗区">西岗区</option>
+							<option value="沙河口区">沙河口区</option>
+							<option value="甘井子区">甘井子区</option>
+							<option value="高新园区">高新园区</option>
+							<option value="旅顺口区">旅顺口区</option>
+							<option value="开发区">开发区</option>
+							<option value="金州区">金州区</option>
+						</select>
+					</div>
+				</div>
+			</div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
                     <span class="x-red">*</span>学校排序

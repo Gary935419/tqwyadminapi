@@ -187,9 +187,33 @@
 					<i class="iconfont nav_right">&#xe697;</i></a>
 				<ul class="sub-menu">
 					<li>
-						<a onclick="changeSrc('<?= RUN . '/order/goods_list' ?>')">
+						<a onclick="changeSrc('<?= RUN . '/order/goods_list?btype=1' ?>')">
 							<i class="iconfont">&#xe6a7;</i>
-							<cite>报告列表</cite>
+							<cite>学区房报告列表</cite>
+						</a>
+					</li>
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/order/goods_list?btype=2' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>自住房报告列表</cite>
+						</a>
+					</li>
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/order/goods_list?btype=3' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>投资房报告列表</cite>
+						</a>
+					</li>
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/set/set_edit_new' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>通用报告信息设定</cite>
+						</a>
+					</li>
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/set/set_edit_new_area' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>所属区域分析设定</cite>
 						</a>
 					</li>
 				</ul>
