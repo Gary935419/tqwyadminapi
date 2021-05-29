@@ -252,6 +252,13 @@ class Member_model extends CI_Model
 		$sql = "SELECT * FROM `reportlist` where typename = $btype and schoolname = $school and areaname = $area and pricename = $money and classname = $ftype and addtime = $checktime";
 		return $this->db->query($sql)->row_array();
 	}
+	//查询学校
+	public function getitemsclassschoolname($schoolname)
+	{
+		$schoolname = $this->db->escape($schoolname);
+		$sql = "SELECT * FROM `itemsclass` where cname=$schoolname ";
+		return $this->db->query($sql)->row_array();
+	}
 	//获得报告列表
 	public function getReportlist($btype,$school,$area,$money,$ftype)
 	{

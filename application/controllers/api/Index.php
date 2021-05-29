@@ -15,6 +15,7 @@ class Index extends CI_Controller
         parent::__construct();
         // 加载数据库类
         $this->load->model('Member_model', 'member');
+		$this->load->model('Task_model', 'task');
     }
     /**
      * 个人中心
@@ -22,12 +23,12 @@ class Index extends CI_Controller
     public function memberinfo(){
         //验证loginCode是否传递
         if (!isset($_POST['token']) || empty($_POST['token'])) {
-            $this->back_json(205, '请您先去授权！谢谢！');
+            $this->back_json(205, '请您先去授权登录！');
         }
         $token = $_POST['token'];
         $member = $this->member->getMemberInfotoken($token);
         if (empty($member)){
-            $this->back_json(205, '请重新登录');
+            $this->back_json(205, '请您先去授权登录！');
         }
         $mid = $member['mid'];
         //获得个人信息
@@ -242,22 +243,22 @@ class Index extends CI_Controller
 //		}
 		if (empty($_POST['btype'])) {
 			$btype = "学区";
-			if ($_POST['school'] == "请选择"){
-				$this->back_json(202, '请重新选择学校');
-			}
 			$school = $_POST['school'];
+			$getitemsclassschoolname = $this->member->getitemsclassschoolname($school);
+			$area = $getitemsclassschoolname['careaname'];
 		}elseif ($_POST['btype'] == 1){
 			$btype = "自住";
 			$school = '';
-
+			$area = $_POST['area'];
 		}elseif ($_POST['btype'] == 2){
 			$btype = "投资";
 			$school = '';
+			$area = $_POST['area'];
 		}else{
 			$btype = "数据错误";
 			$school = '';
+			$this->back_json(202, '请重新选择学校');
 		}
-		$area = $_POST['area'];
 		$money = $_POST['money'];
 		$ftype = $_POST['ftype'];
 		$price = $_POST['price'];
@@ -354,28 +355,27 @@ class Index extends CI_Controller
 		}
 		if (empty($_POST['btype'])) {
 			$btype = "学区";
-			if ($_POST['school'] == "请选择"){
-				$this->back_json(202, '请重新选择学校');
-			}
 			$school = $_POST['school'];
+			$getitemsclassschoolname = $this->member->getitemsclassschoolname($school);
+			$area = $getitemsclassschoolname['careaname'];
 		}elseif ($_POST['btype'] == 1){
 			$btype = "自住";
 			$school = '';
-
+			$area = $_POST['area'];
 		}elseif ($_POST['btype'] == 2){
 			$btype = "投资";
 			$school = '';
+			$area = $_POST['area'];
 		}else{
 			$btype = "数据错误";
 			$school = '';
+			$this->back_json(202, '请重新选择学校');
 		}
-		$area = $_POST['area'];
 		$money = $_POST['money'];
 		$ftype = $_POST['ftype'];
 		$mid = $member['mid'];
 		$status = 1;
 		$getpayInfo = $this->member->getpayInfo($btype,$school,$area,$money,$ftype,$mid,$status);
-
 		if (!empty($getpayInfo)){
 			$getpayInfo1 = $this->member->getpayInfo1($btype,$school,$area,$money,$ftype,$getpayInfo['checktime']);
 
@@ -446,15 +446,28 @@ class Index extends CI_Controller
 		$id = $_POST['id'];
 		$num = $_POST['num'];
 
+		$settingdetails = $this->task->goodsdetailskefu();
 		$getReportinfo = $this->member->getReportinfo($id);
 		if ($num === '1'){
-			$data['reportinfo'] = empty($getReportinfo['gcontent'])?'':$getReportinfo['gcontent'];
+			$data['reportinfo'] = empty($settingdetails['content1'])?'':$settingdetails['content1'];
 		}elseif ($num === '2'){
-			$data['reportinfo'] = empty($getReportinfo['gcontent1'])?'':$getReportinfo['gcontent1'];
+			$data['reportinfo'] = empty($settingdetails['content2'])?'':$settingdetails['content2'];
 		}elseif ($num === '3'){
-			$data['reportinfo'] = empty($getReportinfo['gcontent2'])?'':$getReportinfo['gcontent2'];
+			$data['reportinfo'] = empty($settingdetails['content3'])?'':$settingdetails['content3'];
 		}elseif ($num === '4'){
-			$data['reportinfo'] = empty($getReportinfo['gcontent3'])?'':$getReportinfo['gcontent3'];
+			if ($getReportinfo['areaname'] == '中山区'){
+				$data['reportinfo'] = empty($settingdetails['content4'])?'':$settingdetails['content4'];
+			}elseif ($getReportinfo['areaname'] == '西岗区'){
+				$data['reportinfo'] = empty($settingdetails['content5'])?'':$settingdetails['content5'];
+			}elseif ($getReportinfo['areaname'] == '沙河口区'){
+				$data['reportinfo'] = empty($settingdetails['content6'])?'':$settingdetails['content6'];
+			}elseif ($getReportinfo['areaname'] == '甘井子区'){
+				$data['reportinfo'] = empty($settingdetails['content7'])?'':$settingdetails['content7'];
+			}elseif ($getReportinfo['areaname'] == '高新园区'){
+				$data['reportinfo'] = empty($settingdetails['content8'])?'':$settingdetails['content8'];
+			}else{
+				$this->back_json(205, '请求失败');
+			}
 		}elseif ($num === '5'){
 			$data['reportinfo'] = empty($getReportinfo['gcontent4'])?'':$getReportinfo['gcontent4'];
 		}else{
