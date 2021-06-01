@@ -19,6 +19,14 @@ class Order extends CI_Controller
 		$this->load->model('Member_model', 'member');
         header("Content-type:text/html;charset=utf-8");
     }
+	public function goods_list1()
+	{
+		$this->display("order/goods_list1");
+	}
+	public function goods_list2()
+	{
+		$this->display("order/goods_list2");
+	}
 	/**
 	 * 商品列表页
 	 */

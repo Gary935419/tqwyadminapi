@@ -448,30 +448,86 @@ class Index extends CI_Controller
 
 		$settingdetails = $this->task->goodsdetailskefu();
 		$getReportinfo = $this->member->getReportinfo($id);
-		if ($num === '1'){
-			$data['reportinfo'] = empty($settingdetails['content1'])?'':$settingdetails['content1'];
-		}elseif ($num === '2'){
-			$data['reportinfo'] = empty($settingdetails['content2'])?'':$settingdetails['content2'];
-		}elseif ($num === '3'){
-			$data['reportinfo'] = empty($settingdetails['content3'])?'':$settingdetails['content3'];
-		}elseif ($num === '4'){
-			if ($getReportinfo['areaname'] == '中山区'){
-				$data['reportinfo'] = empty($settingdetails['content4'])?'':$settingdetails['content4'];
-			}elseif ($getReportinfo['areaname'] == '西岗区'){
-				$data['reportinfo'] = empty($settingdetails['content5'])?'':$settingdetails['content5'];
-			}elseif ($getReportinfo['areaname'] == '沙河口区'){
-				$data['reportinfo'] = empty($settingdetails['content6'])?'':$settingdetails['content6'];
-			}elseif ($getReportinfo['areaname'] == '甘井子区'){
-				$data['reportinfo'] = empty($settingdetails['content7'])?'':$settingdetails['content7'];
-			}elseif ($getReportinfo['areaname'] == '高新园区'){
-				$data['reportinfo'] = empty($settingdetails['content8'])?'':$settingdetails['content8'];
+		if ($getReportinfo['typename'] == '学区'){
+			if ($num === '1'){
+				$data['reportinfo'] = empty($settingdetails['content1'])?'':$settingdetails['content1'];
+			}elseif ($num === '2'){
+				$data['reportinfo'] = empty($settingdetails['content2'])?'':$settingdetails['content2'];
+			}elseif ($num === '3'){
+				$data['reportinfo'] = empty($settingdetails['content3'])?'':$settingdetails['content3'];
+			}elseif ($num === '4'){
+				if ($getReportinfo['areaname'] == '中山区'){
+					$data['reportinfo'] = empty($settingdetails['content4'])?'':$settingdetails['content4'];
+				}elseif ($getReportinfo['areaname'] == '西岗区'){
+					$data['reportinfo'] = empty($settingdetails['content5'])?'':$settingdetails['content5'];
+				}elseif ($getReportinfo['areaname'] == '沙河口区'){
+					$data['reportinfo'] = empty($settingdetails['content6'])?'':$settingdetails['content6'];
+				}elseif ($getReportinfo['areaname'] == '甘井子区'){
+					$data['reportinfo'] = empty($settingdetails['content7'])?'':$settingdetails['content7'];
+				}elseif ($getReportinfo['areaname'] == '高新园区'){
+					$data['reportinfo'] = empty($settingdetails['content8'])?'':$settingdetails['content8'];
+				}else{
+					$this->back_json(205, '请求失败');
+				}
+			}elseif ($num === '5'){
+				$data['reportinfo'] = empty($getReportinfo['gcontent4'])?'':$getReportinfo['gcontent4'];
 			}else{
-				$this->back_json(205, '请求失败');
+				$data['reportinfo'] = empty($getReportinfo['gcontent5'])?'':$getReportinfo['gcontent5'];
 			}
-		}elseif ($num === '5'){
-			$data['reportinfo'] = empty($getReportinfo['gcontent4'])?'':$getReportinfo['gcontent4'];
+		}elseif ($getReportinfo['typename'] == '自住'){
+			if ($num === '1'){
+				$data['reportinfo'] = empty($settingdetails['content9'])?'':$settingdetails['content9'];
+			}elseif ($num === '2'){
+				$data['reportinfo'] = empty($settingdetails['content10'])?'':$settingdetails['content10'];
+			}elseif ($num === '3'){
+				$data['reportinfo'] = empty($settingdetails['content11'])?'':$settingdetails['content11'];
+			}elseif ($num === '4'){
+				if ($getReportinfo['areaname'] == '中山区'){
+					$data['reportinfo'] = empty($settingdetails['content12'])?'':$settingdetails['content12'];
+				}elseif ($getReportinfo['areaname'] == '西岗区'){
+					$data['reportinfo'] = empty($settingdetails['content13'])?'':$settingdetails['content13'];
+				}elseif ($getReportinfo['areaname'] == '沙河口区'){
+					$data['reportinfo'] = empty($settingdetails['content14'])?'':$settingdetails['content14'];
+				}elseif ($getReportinfo['areaname'] == '甘井子区'){
+					$data['reportinfo'] = empty($settingdetails['content15'])?'':$settingdetails['content15'];
+				}elseif ($getReportinfo['areaname'] == '高新园区'){
+					$data['reportinfo'] = empty($settingdetails['content16'])?'':$settingdetails['content16'];
+				}else{
+					$this->back_json(205, '请求失败');
+				}
+			}elseif ($num === '5'){
+				$data['reportinfo'] = empty($getReportinfo['gcontent4'])?'':$getReportinfo['gcontent4'];
+			}else{
+				$data['reportinfo'] = empty($getReportinfo['gcontent5'])?'':$getReportinfo['gcontent5'];
+			}
+		}elseif ($getReportinfo['typename'] == '投资'){
+			if ($num === '1'){
+				$data['reportinfo'] = empty($settingdetails['content17'])?'':$settingdetails['content17'];
+			}elseif ($num === '2'){
+				$data['reportinfo'] = empty($settingdetails['content18'])?'':$settingdetails['content18'];
+			}elseif ($num === '3'){
+				$data['reportinfo'] = empty($settingdetails['content19'])?'':$settingdetails['content19'];
+			}elseif ($num === '4'){
+				if ($getReportinfo['areaname'] == '中山区'){
+					$data['reportinfo'] = empty($settingdetails['content20'])?'':$settingdetails['content20'];
+				}elseif ($getReportinfo['areaname'] == '西岗区'){
+					$data['reportinfo'] = empty($settingdetails['content21'])?'':$settingdetails['content21'];
+				}elseif ($getReportinfo['areaname'] == '沙河口区'){
+					$data['reportinfo'] = empty($settingdetails['content22'])?'':$settingdetails['content22'];
+				}elseif ($getReportinfo['areaname'] == '甘井子区'){
+					$data['reportinfo'] = empty($settingdetails['content23'])?'':$settingdetails['content23'];
+				}elseif ($getReportinfo['areaname'] == '高新园区'){
+					$data['reportinfo'] = empty($settingdetails['content24'])?'':$settingdetails['content24'];
+				}else{
+					$this->back_json(205, '请求失败');
+				}
+			}elseif ($num === '5'){
+				$data['reportinfo'] = empty($getReportinfo['gcontent4'])?'':$getReportinfo['gcontent4'];
+			}else{
+				$data['reportinfo'] = empty($getReportinfo['gcontent5'])?'':$getReportinfo['gcontent5'];
+			}
 		}else{
-			$data['reportinfo'] = empty($getReportinfo['gcontent5'])?'':$getReportinfo['gcontent5'];
+			$this->back_json(205, '请求失败');
 		}
 
 		$this->back_json(200, '操作成功', $data);

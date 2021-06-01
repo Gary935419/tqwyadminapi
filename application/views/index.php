@@ -138,20 +138,38 @@
                     </li>
                 </ul>
             </li>
-<!--			<li>-->
-<!--				<a href="javascript:;">-->
-<!--					<i class="iconfont left-nav-li" lay-tips="商品管理">&#xe6b5;</i>-->
-<!--					<cite>商品管理</cite>-->
-<!--					<i class="iconfont nav_right">&#xe697;</i></a>-->
-<!--				<ul class="sub-menu">-->
-<!--					<li>-->
-<!--						<a onclick="changeSrc('--><?//= RUN . '/goods/items_list' ?><!--')">-->
-<!--							<i class="iconfont">&#xe6a7;</i>-->
-<!--							<cite>商品列表</cite>-->
-<!--						</a>-->
-<!--					</li>-->
-<!--				</ul>-->
-<!--			</li>-->
+			<li>
+				<a href="javascript:;">
+					<i class="iconfont left-nav-li" lay-tips="搬家服务">&#xe6b5;</i>
+					<cite>服务中心</cite>
+					<i class="iconfont nav_right">&#xe697;</i></a>
+				<ul class="sub-menu">
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/goods/goods_list1' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>搬家服务</cite>
+						</a>
+					</li>
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/goods/goods_list2' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>装修服务</cite>
+						</a>
+					</li>
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/goods/goods_list3' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>保洁服务</cite>
+						</a>
+					</li>
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/goods/goods_list4' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>法律服务</cite>
+						</a>
+					</li>
+				</ul>
+			</li>
             <li>
                 <a href="javascript:;">
                     <i class="iconfont left-nav-li" lay-tips="问答管理">&#xe705;</i>
@@ -205,13 +223,13 @@
 						</a>
 					</li>
 					<li>
-						<a onclick="changeSrc('<?= RUN . '/set/set_edit_new' ?>')">
+						<a onclick="changeSrc('<?= RUN . '/order/goods_list1' ?>')">
 							<i class="iconfont">&#xe6a7;</i>
 							<cite>通用报告信息设定</cite>
 						</a>
 					</li>
 					<li>
-						<a onclick="changeSrc('<?= RUN . '/set/set_edit_new_area' ?>')">
+						<a onclick="changeSrc('<?= RUN . '/order/goods_list2 ' ?>')">
 							<i class="iconfont">&#xe6a7;</i>
 							<cite>所属区域分析设定</cite>
 						</a>

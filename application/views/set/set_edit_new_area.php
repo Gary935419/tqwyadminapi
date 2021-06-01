@@ -26,68 +26,13 @@
 		<form method="post" class="layui-form" action="" name="basic_validate" id="tab">
 			<div class="layui-form-item">
 				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">
-					<span class="x-red">*</span>区域分析 --- 中山区
+					<span class="x-red">*</span><?php echo $msg ?>
 				</label>
 				<div class="layui-input-inline" style="width: 1000px;">
-					<div id="summernot1"></div>
+					<div id="summernot"></div>
 				</div>
 			</div>
-			<div class="layui-form-item">
-				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">
-					<span class="x-red">*</span>区域分析 --- 西岗区
-				</label>
-				<div class="layui-input-inline" style="width: 1000px;">
-					<div id="summernot2"></div>
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">
-					<span class="x-red">*</span>区域分析 --- 沙河口区
-				</label>
-				<div class="layui-input-inline" style="width: 1000px;">
-					<div id="summernot3"></div>
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">
-					<span class="x-red">*</span>区域分析 --- 甘井子区
-				</label>
-				<div class="layui-input-inline" style="width: 1000px;">
-					<div id="summernot4"></div>
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">
-					<span class="x-red">*</span>区域分析 --- 高新园区
-				</label>
-				<div class="layui-input-inline" style="width: 1000px;">
-					<div id="summernot5"></div>
-				</div>
-			</div>
-<!--			<div class="layui-form-item">-->
-<!--				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">-->
-<!--					<span class="x-red">*</span>区域分析 --- 旅顺口区-->
-<!--				</label>-->
-<!--				<div class="layui-input-inline" style="width: 1000px;">-->
-<!--					<div id="summernot6"></div>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--			<div class="layui-form-item">-->
-<!--				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">-->
-<!--					<span class="x-red">*</span>区域分析 --- 开发区-->
-<!--				</label>-->
-<!--				<div class="layui-input-inline" style="width: 1000px;">-->
-<!--					<div id="summernot7"></div>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--			<div class="layui-form-item">-->
-<!--				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">-->
-<!--					<span class="x-red">*</span>区域分析 --- 金州区-->
-<!--				</label>-->
-<!--				<div class="layui-input-inline" style="width: 1000px;">-->
-<!--					<div id="summernot8"></div>-->
-<!--				</div>-->
-<!--			</div>-->
+
 			<div class="layui-form-item">
 				<label class="layui-form-label" style="width: 30%;">
 				</label>
@@ -95,14 +40,9 @@
 					<span class="x-red">※</span>请确认输入的数据是否正确。
 				</div>
 			</div>
-			<textarea id="content4" name="content4" style="display: none"><?php echo $content4 ?></textarea>
-			<textarea id="content5" name="content5" style="display: none"><?php echo $content5 ?></textarea>
-			<textarea id="content6" name="content6" style="display: none"><?php echo $content6 ?></textarea>
-			<textarea id="content7" name="content7" style="display: none"><?php echo $content7 ?></textarea>
-			<textarea id="content8" name="content8" style="display: none"><?php echo $content8 ?></textarea>
-			<textarea id="content9" name="content9" style="display: none"><?php echo $content9 ?></textarea>
-			<textarea id="content10" name="content10" style="display: none"><?php echo $content10 ?></textarea>
-			<textarea id="content11" name="content11" style="display: none"><?php echo $content11 ?></textarea>
+			<input type="hidden" id="id" name="id" value="<?php echo $id ?>">
+			<textarea id="content" name="content" style="display: none"><?php echo $content ?></textarea>
+
 			<div class="layui-form-item">
 				<label for="L_repass" class="layui-form-label" style="width: 30%;">
 				</label>
@@ -115,95 +55,12 @@
 </div>
 <script>
 $(document).ready(function() {
-        var content4=  $('#content4').val();
-        $('#summernot1').summernote('code',content4);
+        var content=  $('#content').val();
+        $('#summernot').summernote('code',content);
 
-        var content5=  $('#content5').val();
-        $('#summernot2').summernote('code',content5);
-
-        var content6=  $('#content6').val();
-        $('#summernot3').summernote('code',content6);
-
-        var content7=  $('#content7').val();
-        $('#summernot4').summernote('code',content7);
-
-        var content8=  $('#content8').val();
-        $('#summernot5').summernote('code',content8);
-
-        var content9=  $('#content9').val();
-        $('#summernot6').summernote('code',content9);
-
-        var content10=  $('#content10').val();
-        $('#summernot7').summernote('code',content10);
-
-        var content11=  $('#content11').val();
-        $('#summernot8').summernote('code',content11);
     });
     $(document).ready(function() {
-        $("#summernot1").summernote({
-            lang : "zh-CN",
-            height: 666,
-            focus: true,
-            lang: 'zh-CN',
-			onImageUpload: function(files, editor, $editable) {
-				uploadSummerPic(files[0], editor, $editable);
-			}
-        })
-        $("#summernot2").summernote({
-            lang : "zh-CN",
-            height: 666,
-            focus: true,
-            lang: 'zh-CN',
-			onImageUpload: function(files, editor, $editable) {
-				uploadSummerPic(files[0], editor, $editable);
-			}
-        })
-        $("#summernot3").summernote({
-            lang : "zh-CN",
-            height: 666,
-            focus: true,
-            lang: 'zh-CN',
-			onImageUpload: function(files, editor, $editable) {
-				uploadSummerPic(files[0], editor, $editable);
-			}
-        })
-        $("#summernot4").summernote({
-            lang : "zh-CN",
-            height: 666,
-            focus: true,
-            lang: 'zh-CN',
-			onImageUpload: function(files, editor, $editable) {
-				uploadSummerPic(files[0], editor, $editable);
-			}
-        })
-        $("#summernot5").summernote({
-            lang : "zh-CN",
-            height: 666,
-            focus: true,
-            lang: 'zh-CN',
-			onImageUpload: function(files, editor, $editable) {
-				uploadSummerPic(files[0], editor, $editable);
-			}
-        })
-        $("#summernot6").summernote({
-            lang : "zh-CN",
-            height: 666,
-            focus: true,
-            lang: 'zh-CN',
-			onImageUpload: function(files, editor, $editable) {
-				uploadSummerPic(files[0], editor, $editable);
-			}
-        })
-        $("#summernot7").summernote({
-            lang : "zh-CN",
-            height: 666,
-            focus: true,
-            lang: 'zh-CN',
-			onImageUpload: function(files, editor, $editable) {
-				uploadSummerPic(files[0], editor, $editable);
-			}
-        })
-        $("#summernot8").summernote({
+        $("#summernot").summernote({
             lang : "zh-CN",
             height: 666,
             focus: true,
@@ -237,22 +94,8 @@ $(document).ready(function() {
                 layer = layui.layer;
             $("#tab").validate({
                 submitHandler: function (form) {
-                var content4 = $('#summernot1').summernote('code');
-                $('#content4').val(content4);
-                var content5 = $('#summernot2').summernote('code');
-                $('#content5').val(content5);
-                var content6 = $('#summernot3').summernote('code');
-                $('#content6').val(content6);
-                var content7 = $('#summernot4').summernote('code');
-                $('#content7').val(content7);
-                var content8 = $('#summernot5').summernote('code');
-                $('#content8').val(content8);
-                var content9 = $('#summernot6').summernote('code');
-                $('#content9').val(content9);
-                var content10 = $('#summernot7').summernote('code');
-                $('#content10').val(content10);
-                var content11 = $('#summernot8').summernote('code');
-                $('#content11').val(content11);
+                var content = $('#summernot').summernote('code');
+                $('#content').val(content);
                     $.ajax({
                         cache: true,
                         type: "POST",

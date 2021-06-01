@@ -21,50 +21,67 @@
         <form method="post" class="layui-form" action="" name="basic_validate" id="tab">
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>资讯名称
+                    <span class="x-red">*</span>搬家名称
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="text" id="gname" name="gname" lay-verify="gname"
-                           autocomplete="off" value="<?php echo $gname ?>" class="layui-input">
+                           autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>资讯排序
+                    <span class="x-red">*</span>搬家排序
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="number" id="gsort" name="gsort" lay-verify="gsort"
-                           autocomplete="off" value="<?php echo $gsort ?>" class="layui-input">
+                           autocomplete="off" class="layui-input">
                 </div>
             </div>
+<!--            <div class="layui-form-item">-->
+<!--                <label for="L_pass" class="layui-form-label" style="width: 30%;">-->
+<!--                    <span class="x-red">*</span>状态-->
+<!--                </label>-->
+<!--                <div class="layui-input-inline" style="width: 500px;">-->
+<!--                    <input type="radio" name="status" lay-skin="primary" title="已推荐" value="1" checked>-->
+<!--                    <input type="radio" name="status" lay-skin="primary" title="未推荐" value="0">-->
+<!--                </div>-->
+<!--            </div>-->
 			<div class="layui-form-item">
 				<label for="L_pass" class="layui-form-label" style="width: 30%;">
-					<span class="x-red">*</span>资讯日期
+					<span class="x-red">*</span>搬家日期
 				</label>
 				<div class="layui-input-inline layui-show-xs-block" style="width: 300px;">
-					<input class="layui-input" placeholder="资讯日期" value="<?php echo $starttime ?>" name="starttime" id="starttime">
+					<input class="layui-input" placeholder="搬家日期" name="starttime" id="starttime">
 				</div>
 			</div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>资讯列表图
+                    <span class="x-red">*</span>搬家列表图
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <button type="button" class="layui-btn" id="upload1">上传图片</button>
                     <div class="layui-upload-list">
-                        <input type="hidden" name="gimg" value="<?php echo $gimg ?>" id="gimg" lay-verify="gimg" autocomplete="off"
+                        <input type="hidden" name="gimg" id="gimg" lay-verify="gimg" autocomplete="off"
                                class="layui-input">
-                        <img class="layui-upload-img" src="<?php echo $gimg ?>" style="width: 100px;height: 100px;" id="gimgimg" name="gimgimg">
+                        <img class="layui-upload-img" style="width: 100px;height: 100px;display: none;" id="gimgimg" name="gimgimg">
                         <p id="demoText"></p>
                     </div>
                 </div>
             </div>
+<!--            <div class="layui-form-item">-->
+<!--                <label for="L_pass" class="layui-form-label" style="width: 30%;">-->
+<!--                    <span class="x-red">*</span>资讯标题-->
+<!--                </label>-->
+<!--                <div class="layui-input-inline" style="width: 400px;">-->
+<!--                    <textarea id="gtitle" name="gtitle" placeholder="请输入内容" lay-verify="gtitle" class="layui-textarea"></textarea>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>资讯简介
+                    <span class="x-red">*</span>搬家简介
                 </label>
                 <div class="layui-input-inline" style="width: 610px;">
-                    <textarea id="gcontent" name="gcontent" placeholder="请输入内容" lay-verify="gcontent" class="layui-textarea"><?php echo $gcontent ?></textarea>
+                    <textarea id="gcontent" name="gcontent" placeholder="请输入内容" lay-verify="gcontent" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -74,7 +91,6 @@
                     <span class="x-red">※</span>请确认输入的数据是否正确。
                 </div>
             </div>
-            <input type="hidden" id="gid" name="gid" value="<?php echo $gid ?>">
             <div class="layui-form-item">
                 <label for="L_repass" class="layui-form-label" style="width: 30%;">
                 </label>
@@ -178,25 +194,21 @@ layui.use(['laydate', 'form'],
             form.verify({
                 gname: function (value) {
                     if ($('#gname').val() == "") {
-                        return '请输入资讯名称。';
+                        return '请输入搬家名称。';
                     }
                 },
 
-                gsort: function (value) {
-                    if ($('#gsort').val() == "") {
-                        return '请输入资讯排序。';
-                    }
-                },
+
                 gimg: function (value) {
                     if ($('#gimg').val() == "") {
-                        return '请上传资讯列表图。';
+                        return '请上传搬家列表图。';
                     }
                 },
                 gcontent: function(value) {
                     // 将富文本编辑器的值同步到之前的textarea中
                     layedit.sync(editIndex1);
                     if ($('#gcontent').val() == "") {
-                        return '请输入资讯简介。';
+                        return '请输入搬家简介。';
                     }
                 },
             });
@@ -206,7 +218,7 @@ layui.use(['laydate', 'form'],
                     $.ajax({
                         cache: true,
                         type: "POST",
-                        url: "<?= RUN . '/goods/goods_save_edit' ?>",
+                        url: "<?= RUN . '/goods/goods_save1' ?>",
                         data: $('#tab').serialize(),
                         async: false,
                         error: function (request) {

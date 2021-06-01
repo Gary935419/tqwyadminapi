@@ -21,7 +21,7 @@
         <form method="post" class="layui-form" action="" name="basic_validate" id="tab">
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>资讯名称
+                    <span class="x-red">*</span>名称
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="text" id="gname" name="gname" lay-verify="gname"
@@ -30,7 +30,7 @@
             </div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>资讯排序
+                    <span class="x-red">*</span>排序
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="number" id="gsort" name="gsort" lay-verify="gsort"
@@ -39,15 +39,15 @@
             </div>
 			<div class="layui-form-item">
 				<label for="L_pass" class="layui-form-label" style="width: 30%;">
-					<span class="x-red">*</span>资讯日期
+					<span class="x-red">*</span>日期
 				</label>
 				<div class="layui-input-inline layui-show-xs-block" style="width: 300px;">
-					<input class="layui-input" placeholder="资讯日期" value="<?php echo $starttime ?>" name="starttime" id="starttime">
+					<input class="layui-input" placeholder="搬家日期" value="<?php echo $starttime ?>" name="starttime" id="starttime">
 				</div>
 			</div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>资讯列表图
+                    <span class="x-red">*</span>列表图
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <button type="button" class="layui-btn" id="upload1">上传图片</button>
@@ -61,7 +61,7 @@
             </div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>资讯简介
+                    <span class="x-red">*</span>简介
                 </label>
                 <div class="layui-input-inline" style="width: 610px;">
                     <textarea id="gcontent" name="gcontent" placeholder="请输入内容" lay-verify="gcontent" class="layui-textarea"><?php echo $gcontent ?></textarea>
@@ -178,25 +178,25 @@ layui.use(['laydate', 'form'],
             form.verify({
                 gname: function (value) {
                     if ($('#gname').val() == "") {
-                        return '请输入资讯名称。';
+                        return '请输入名称。';
                     }
                 },
 
                 gsort: function (value) {
                     if ($('#gsort').val() == "") {
-                        return '请输入资讯排序。';
+                        return '请输入排序。';
                     }
                 },
                 gimg: function (value) {
                     if ($('#gimg').val() == "") {
-                        return '请上传资讯列表图。';
+                        return '请上传列表图。';
                     }
                 },
                 gcontent: function(value) {
                     // 将富文本编辑器的值同步到之前的textarea中
                     layedit.sync(editIndex1);
                     if ($('#gcontent').val() == "") {
-                        return '请输入资讯简介。';
+                        return '请输入简介。';
                     }
                 },
             });
@@ -206,7 +206,7 @@ layui.use(['laydate', 'form'],
                     $.ajax({
                         cache: true,
                         type: "POST",
-                        url: "<?= RUN . '/goods/goods_save_edit' ?>",
+                        url: "<?= RUN . '/goods/goods_save_edit3' ?>",
                         data: $('#tab').serialize(),
                         async: false,
                         error: function (request) {

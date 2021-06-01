@@ -32,27 +32,69 @@ class Set_model extends CI_Model
         return $this->db->query($sql);
     }
 	//设置set_save_edit
-	public function set_save_edit_new($sid,$content1,$content2,$content3)
+	public function set_save_edit_new($sid,$content,$id)
 	{
-		$content1 = $this->db->escape($content1);
-		$content2 = $this->db->escape($content2);
-		$content3 = $this->db->escape($content3);
+		$content = $this->db->escape($content);
 		$sid = $this->db->escape($sid);
-		$sql = "UPDATE `setting` SET content1=$content1,content2=$content2,content3=$content3 WHERE sid = $sid";
+		if ($id === '1'){
+			$sql = "UPDATE `setting` SET content1=$content WHERE sid = $sid";
+		}elseif ($id === '2'){
+			$sql = "UPDATE `setting` SET content2=$content WHERE sid = $sid";
+		}elseif ($id === '3'){
+			$sql = "UPDATE `setting` SET content3=$content WHERE sid = $sid";
+		}elseif ($id === '9'){
+			$sql = "UPDATE `setting` SET content9=$content WHERE sid = $sid";
+		}elseif ($id === '10'){
+			$sql = "UPDATE `setting` SET content10=$content WHERE sid = $sid";
+		}elseif ($id === '11'){
+			$sql = "UPDATE `setting` SET content11=$content WHERE sid = $sid";
+		}elseif ($id === '17'){
+			$sql = "UPDATE `setting` SET content17=$content WHERE sid = $sid";
+		}elseif ($id === '18'){
+			$sql = "UPDATE `setting` SET content18=$content WHERE sid = $sid";
+		}elseif ($id === '19'){
+			$sql = "UPDATE `setting` SET content19=$content WHERE sid = $sid";
+		}else{
+			$sql = "UPDATE `setting` SET content19=$content WHERE sid = $sid";
+		}
 		return $this->db->query($sql);
 	}
-	public function set_save_edit_new_area($sid,$content4,$content5,$content6,$content7,$content8,$content9,$content10,$content11)
+	public function set_save_edit_new_area($sid,$content,$id)
 	{
-		$content4 = $this->db->escape($content4);
-		$content5 = $this->db->escape($content5);
-		$content6 = $this->db->escape($content6);
-		$content7 = $this->db->escape($content7);
-		$content8 = $this->db->escape($content8);
-		$content9 = $this->db->escape($content9);
-		$content10 = $this->db->escape($content10);
-		$content11 = $this->db->escape($content11);
+		$content = $this->db->escape($content);
 		$sid = $this->db->escape($sid);
-		$sql = "UPDATE `setting` SET content4=$content4,content5=$content5,content6=$content6,content7=$content7,content8=$content8,content9=$content9,content10=$content10,content11=$content11 WHERE sid = $sid";
+
+		if ($id === '4'){
+			$sql = "UPDATE `setting` SET content4=$content WHERE sid = $sid";
+		}elseif ($id === '5'){
+			$sql = "UPDATE `setting` SET content5=$content WHERE sid = $sid";
+		}elseif ($id === '6'){
+			$sql = "UPDATE `setting` SET content6=$content WHERE sid = $sid";
+		}elseif ($id === '7'){
+			$sql = "UPDATE `setting` SET content7=$content WHERE sid = $sid";
+		}elseif ($id === '8'){
+			$sql = "UPDATE `setting` SET content8=$content WHERE sid = $sid";
+		}elseif ($id === '12'){
+			$sql = "UPDATE `setting` SET content12=$content WHERE sid = $sid";
+		}elseif ($id === '13'){
+			$sql = "UPDATE `setting` SET content13=$content WHERE sid = $sid";
+		}elseif ($id === '14'){
+			$sql = "UPDATE `setting` SET content14=$content WHERE sid = $sid";
+		}elseif ($id === '15'){
+			$sql = "UPDATE `setting` SET content15=$content WHERE sid = $sid";
+		}elseif ($id === '16'){
+			$sql = "UPDATE `setting` SET content16=$content WHERE sid = $sid";
+		}elseif ($id === '20'){
+			$sql = "UPDATE `setting` SET content20=$content WHERE sid = $sid";
+		}elseif ($id === '21'){
+			$sql = "UPDATE `setting` SET content21=$content WHERE sid = $sid";
+		}elseif ($id === '22'){
+			$sql = "UPDATE `setting` SET content22=$content WHERE sid = $sid";
+		}elseif ($id === '23'){
+			$sql = "UPDATE `setting` SET content23=$content WHERE sid = $sid";
+		}else{
+			$sql = "UPDATE `setting` SET content24=$content WHERE sid = $sid";
+		}
 		return $this->db->query($sql);
 	}
     //广告count

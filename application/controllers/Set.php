@@ -71,10 +71,39 @@ class Set extends CI_Controller
 	public function set_edit_new()
 	{
 		$sid = 1;
+		$id = isset($_GET['id']) ? $_GET['id'] : 1;
 		$set_info = $this->set->getsetById($sid);
-		$data['content1'] = $set_info['content1'];
-		$data['content2'] = $set_info['content2'];
-		$data['content3'] = $set_info['content3'];
+		$data['id'] = $id;
+		if ($id == 1){
+			$data['msg'] = "重点学校分析编辑";
+			$data['content'] = $set_info['content1'];
+		}elseif ($id == 2){
+			$data['msg'] = "重点学校预警编辑";
+			$data['content'] = $set_info['content2'];
+		}elseif ($id == 3){
+			$data['msg'] = "教育相关政策编辑";
+			$data['content'] = $set_info['content3'];
+		}elseif ($id == 9){
+			$data['msg'] = "自住房分析编辑";
+			$data['content'] = $set_info['content9'];
+		}elseif ($id == 10){
+			$data['msg'] = "自住房预警编辑";
+			$data['content'] = $set_info['content10'];
+		}elseif ($id == 11){
+			$data['msg'] = "自住房政策编辑";
+			$data['content'] = $set_info['content11'];
+		}elseif ($id == 17){
+			$data['msg'] = "投资房分析编辑";
+			$data['content'] = $set_info['content17'];
+		}elseif ($id == 18){
+			$data['msg'] = "投资房预警编辑";
+			$data['content'] = $set_info['content18'];
+		}elseif ($id == 19){
+			$data['msg'] = "投资房政策编辑";
+			$data['content'] = $set_info['content19'];
+		}else{
+			$data['msg'] = "数据错误";
+		}
 		$this->display("set/set_edit_new", $data);
 	}
 	/**
@@ -88,10 +117,9 @@ class Set extends CI_Controller
 			return;
 		}
 		$sid = 1;
-		$content1 = isset($_POST["content1"]) ? $_POST["content1"] : '';
-		$content2 = isset($_POST["content2"]) ? $_POST["content2"] : '';
-		$content3 = isset($_POST["content3"]) ? $_POST["content3"] : '';
-		$result = $this->set->set_save_edit_new($sid,$content1,$content2,$content3);
+		$id = isset($_POST["id"]) ? $_POST["id"] : '';
+		$content = isset($_POST["content"]) ? $_POST["content"] : '';
+		$result = $this->set->set_save_edit_new($sid,$content,$id);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;
@@ -108,15 +136,67 @@ class Set extends CI_Controller
 	public function set_edit_new_area()
 	{
 		$sid = 1;
+		$id = isset($_GET['id']) ? $_GET['id'] : 1;
 		$set_info = $this->set->getsetById($sid);
-		$data['content4'] = $set_info['content4'];
-		$data['content5'] = $set_info['content5'];
-		$data['content6'] = $set_info['content6'];
-		$data['content7'] = $set_info['content7'];
-		$data['content8'] = $set_info['content8'];
-		$data['content9'] = $set_info['content9'];
-		$data['content10'] = $set_info['content10'];
-		$data['content11'] = $set_info['content11'];
+		$data['id'] = $id;
+		if ($id == 4 || $id == 12 || $id == 20){
+			$data['msg'] = "区域分析 --- 中山区";
+			if ($id == 4){
+				$data['content'] = $set_info['content4'];
+			}
+			if ($id == 12){
+				$data['content'] = $set_info['content12'];
+			}
+			if ($id == 20){
+				$data['content'] = $set_info['content20'];
+			}
+		}elseif ($id == 5 || $id == 13 || $id == 21){
+			$data['msg'] = "区域分析 --- 西岗区";
+			if ($id == 5){
+				$data['content'] = $set_info['content5'];
+			}
+			if ($id == 13){
+				$data['content'] = $set_info['content13'];
+			}
+			if ($id == 21){
+				$data['content'] = $set_info['content21'];
+			}
+		}elseif ($id == 6 || $id == 14 || $id == 22){
+			$data['msg'] = "区域分析 --- 沙河口区";
+			if ($id == 6){
+				$data['content'] = $set_info['content6'];
+			}
+			if ($id == 14){
+				$data['content'] = $set_info['content14'];
+			}
+			if ($id == 22){
+				$data['content'] = $set_info['content22'];
+			}
+		}elseif ($id == 7 || $id == 15 || $id == 23){
+			$data['msg'] = "区域分析 --- 甘井子区";
+			if ($id == 7){
+				$data['content'] = $set_info['content7'];
+			}
+			if ($id == 15){
+				$data['content'] = $set_info['content15'];
+			}
+			if ($id == 23){
+				$data['content'] = $set_info['content23'];
+			}
+		}elseif ($id == 8 || $id == 16 || $id == 24){
+			$data['msg'] = "区域分析 --- 高新园区";
+			if ($id == 8){
+				$data['content'] = $set_info['content8'];
+			}
+			if ($id == 16){
+				$data['content'] = $set_info['content16'];
+			}
+			if ($id == 24){
+				$data['content'] = $set_info['content24'];
+			}
+		}else{
+			$data['msg'] = "数据错误";
+		}
 		$this->display("set/set_edit_new_area", $data);
 	}
 	/**
@@ -130,15 +210,9 @@ class Set extends CI_Controller
 			return;
 		}
 		$sid = 1;
-		$content4 = isset($_POST["content4"]) ? $_POST["content4"] : '';
-		$content5 = isset($_POST["content5"]) ? $_POST["content5"] : '';
-		$content6 = isset($_POST["content6"]) ? $_POST["content6"] : '';
-		$content7 = isset($_POST["content7"]) ? $_POST["content7"] : '';
-		$content8 = isset($_POST["content8"]) ? $_POST["content8"] : '';
-		$content9 = isset($_POST["content9"]) ? $_POST["content9"] : '';
-		$content10 = isset($_POST["content10"]) ? $_POST["content10"] : '';
-		$content11 = isset($_POST["content11"]) ? $_POST["content11"] : '';
-		$result = $this->set->set_save_edit_new_area($sid,$content4,$content5,$content6,$content7,$content8,$content9,$content10,$content11);
+		$id = isset($_POST["id"]) ? $_POST["id"] : '';
+		$content = isset($_POST["content"]) ? $_POST["content"] : '';
+		$result = $this->set->set_save_edit_new_area($sid,$content,$id);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;

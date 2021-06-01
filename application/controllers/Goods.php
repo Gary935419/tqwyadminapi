@@ -156,7 +156,7 @@ class Goods extends CI_Controller
         $status = isset($_POST["status"]) ? $_POST["status"] : '0';
         $goods_info = $this->goods->getgoodsById2($gname,$gid);
         if (!empty($goods_info)) {
-            echo json_encode(array('error' => true, 'msg' => "该商家名称已经存在。"));
+            echo json_encode(array('error' => true, 'msg' => "该资讯名称已经存在。"));
             return;
         }
 
@@ -175,6 +175,550 @@ class Goods extends CI_Controller
             return;
         }
     }
+
+
+	/**
+	 * 商品列表页
+	 */
+	public function goods_list1()
+	{
+
+		$gname = isset($_GET['gname']) ? $_GET['gname'] : '';
+		$page = isset($_GET["page"]) ? $_GET["page"] : 1;
+		$allpage = $this->goods->getgoodsAllPage1($gname);
+		$page = $allpage > $page ? $page : $allpage;
+		$data["pagehtml"] = $this->getpage($page, $allpage, $_GET);
+		$data["page"] = $page;
+		$data["allpage"] = $allpage;
+		$list = $this->goods->getgoodsAllNew1($page, $gname);
+
+		$data["gname"] = $gname;
+
+		$data["list"] = $list;
+		$this->display("goods/goods_list1", $data);
+	}
+	/**
+	 * 商品添加页
+	 */
+	public function goods_add1()
+	{
+		$this->display("goods/goods_add1");
+	}
+	/**
+	 * 商品添加提交
+	 */
+	public function goods_save1()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法添加数据"));
+			return;
+		}
+		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
+		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
+		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
+		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
+		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
+		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+		$addtime = time();
+		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
+		$goods_info = $this->goods->getgoodsByname1($gname);
+		if (!empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "该搬家名称已经存在。"));
+			return;
+		}
+		$gid = $this->goods->goods_save1($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
+
+		if ($gid) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+	/**
+	 * 商品删除
+	 */
+	public function goods_delete1()
+	{
+		$id = isset($_POST['id']) ? $_POST['id'] : 0;
+		if ($this->goods->goods_delete1($id)) {
+			echo json_encode(array('success' => true, 'msg' => "删除成功"));
+			return;
+		} else {
+			echo json_encode(array('success' => false, 'msg' => "删除失败"));
+			return;
+		}
+	}
+	/**
+	 * 类型修改页
+	 */
+	public function goods_edit1()
+	{
+		$gid = isset($_GET['gid']) ? $_GET['gid'] : 0;
+		$goods_info = $this->goods->getgoodsById1($gid);
+		if (empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "数据错误"));
+			return;
+		}
+
+		$data = array();
+		$data['gname'] = $goods_info['gname'];
+		$data['starttime'] = $goods_info['gtitle'];
+		$data['gcontent'] = $goods_info['gcontent'];
+		$data['gimg'] = $goods_info['gimg'];
+		$data['gsort'] = $goods_info['gsort'];
+
+		$data['gid'] = $gid;
+
+
+		$this->display("goods/goods_edit1", $data);
+	}
+	/**
+	 * 商品修改提交
+	 */
+	public function goods_save_edit1()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
+			return;
+		}
+		$gid = isset($_POST["gid"]) ? $_POST["gid"] : '';
+		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
+		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
+		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
+		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
+		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$avater = isset($_POST["avater"]) ? $_POST["avater"] : '';
+		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
+		$goods_info = $this->goods->getgoodsById21($gname,$gid);
+		if (!empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "该搬家名称已经存在。"));
+			return;
+		}
+		$result = $this->goods->goods_save_edit1($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
+		if ($result) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+
+
+
+
+	/**
+	 * 商品列表页
+	 */
+	public function goods_list2()
+	{
+
+		$gname = isset($_GET['gname']) ? $_GET['gname'] : '';
+		$page = isset($_GET["page"]) ? $_GET["page"] : 1;
+		$allpage = $this->goods->getgoodsAllPage2($gname);
+		$page = $allpage > $page ? $page : $allpage;
+		$data["pagehtml"] = $this->getpage($page, $allpage, $_GET);
+		$data["page"] = $page;
+		$data["allpage"] = $allpage;
+		$list = $this->goods->getgoodsAllNew2($page, $gname);
+
+		$data["gname"] = $gname;
+
+		$data["list"] = $list;
+		$this->display("goods/goods_list2", $data);
+	}
+	/**
+	 * 商品添加页
+	 */
+	public function goods_add2()
+	{
+		$this->display("goods/goods_add2");
+	}
+	/**
+	 * 商品添加提交
+	 */
+	public function goods_save2()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法添加数据"));
+			return;
+		}
+		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
+		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
+		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
+		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
+		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
+		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+		$addtime = time();
+		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
+		$goods_info = $this->goods->getgoodsByname2($gname);
+		if (!empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "该装修名称已经存在。"));
+			return;
+		}
+		$gid = $this->goods->goods_save2($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
+
+		if ($gid) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+	/**
+	 * 商品删除
+	 */
+	public function goods_delete2()
+	{
+		$id = isset($_POST['id']) ? $_POST['id'] : 0;
+		if ($this->goods->goods_delete2($id)) {
+			echo json_encode(array('success' => true, 'msg' => "删除成功"));
+			return;
+		} else {
+			echo json_encode(array('success' => false, 'msg' => "删除失败"));
+			return;
+		}
+	}
+	/**
+	 * 类型修改页
+	 */
+	public function goods_edit2()
+	{
+		$gid = isset($_GET['gid']) ? $_GET['gid'] : 0;
+		$goods_info = $this->goods->getgoodsById12($gid);
+		if (empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "数据错误"));
+			return;
+		}
+
+		$data = array();
+		$data['gname'] = $goods_info['gname'];
+		$data['starttime'] = $goods_info['gtitle'];
+		$data['gcontent'] = $goods_info['gcontent'];
+		$data['gimg'] = $goods_info['gimg'];
+		$data['gsort'] = $goods_info['gsort'];
+
+		$data['gid'] = $gid;
+
+
+		$this->display("goods/goods_edit2", $data);
+	}
+	/**
+	 * 商品修改提交
+	 */
+	public function goods_save_edit2()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
+			return;
+		}
+		$gid = isset($_POST["gid"]) ? $_POST["gid"] : '';
+		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
+		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
+		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
+		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
+		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$avater = isset($_POST["avater"]) ? $_POST["avater"] : '';
+		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
+		$goods_info = $this->goods->getgoodsById22($gname,$gid);
+		if (!empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "该装修名称已经存在。"));
+			return;
+		}
+		$result = $this->goods->goods_save_edit2($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
+		if ($result) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+
+
+
+
+	/**
+	 * 商品列表页
+	 */
+	public function goods_list3()
+	{
+
+		$gname = isset($_GET['gname']) ? $_GET['gname'] : '';
+		$page = isset($_GET["page"]) ? $_GET["page"] : 1;
+		$allpage = $this->goods->getgoodsAllPage3($gname);
+		$page = $allpage > $page ? $page : $allpage;
+		$data["pagehtml"] = $this->getpage($page, $allpage, $_GET);
+		$data["page"] = $page;
+		$data["allpage"] = $allpage;
+		$list = $this->goods->getgoodsAllNew3($page, $gname);
+
+		$data["gname"] = $gname;
+
+		$data["list"] = $list;
+		$this->display("goods/goods_list3", $data);
+	}
+	/**
+	 * 商品添加页
+	 */
+	public function goods_add3()
+	{
+		$this->display("goods/goods_add3");
+	}
+	/**
+	 * 商品添加提交
+	 */
+	public function goods_save3()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法添加数据"));
+			return;
+		}
+		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
+		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
+		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
+		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
+		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
+		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+		$addtime = time();
+		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
+		$goods_info = $this->goods->getgoodsByname3($gname);
+		if (!empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "该装修名称已经存在。"));
+			return;
+		}
+		$gid = $this->goods->goods_save3($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
+
+		if ($gid) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+	/**
+	 * 商品删除
+	 */
+	public function goods_delete3()
+	{
+		$id = isset($_POST['id']) ? $_POST['id'] : 0;
+		if ($this->goods->goods_delete3($id)) {
+			echo json_encode(array('success' => true, 'msg' => "删除成功"));
+			return;
+		} else {
+			echo json_encode(array('success' => false, 'msg' => "删除失败"));
+			return;
+		}
+	}
+	/**
+	 * 类型修改页
+	 */
+	public function goods_edit3()
+	{
+		$gid = isset($_GET['gid']) ? $_GET['gid'] : 0;
+		$goods_info = $this->goods->getgoodsById123($gid);
+		if (empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "数据错误"));
+			return;
+		}
+
+		$data = array();
+		$data['gname'] = $goods_info['gname'];
+		$data['starttime'] = $goods_info['gtitle'];
+		$data['gcontent'] = $goods_info['gcontent'];
+		$data['gimg'] = $goods_info['gimg'];
+		$data['gsort'] = $goods_info['gsort'];
+
+		$data['gid'] = $gid;
+
+
+		$this->display("goods/goods_edit3", $data);
+	}
+	/**
+	 * 商品修改提交
+	 */
+	public function goods_save_edit3()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
+			return;
+		}
+		$gid = isset($_POST["gid"]) ? $_POST["gid"] : '';
+		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
+		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
+		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
+		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
+		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$avater = isset($_POST["avater"]) ? $_POST["avater"] : '';
+		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
+		$goods_info = $this->goods->getgoodsById223($gname,$gid);
+		if (!empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "该装修名称已经存在。"));
+			return;
+		}
+		$result = $this->goods->goods_save_edit3($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
+		if ($result) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+
+
+
+
+
+	/**
+	 * 商品列表页
+	 */
+	public function goods_list4()
+	{
+
+		$gname = isset($_GET['gname']) ? $_GET['gname'] : '';
+		$page = isset($_GET["page"]) ? $_GET["page"] : 1;
+		$allpage = $this->goods->getgoodsAllPage4($gname);
+		$page = $allpage > $page ? $page : $allpage;
+		$data["pagehtml"] = $this->getpage($page, $allpage, $_GET);
+		$data["page"] = $page;
+		$data["allpage"] = $allpage;
+		$list = $this->goods->getgoodsAllNew4($page, $gname);
+
+		$data["gname"] = $gname;
+
+		$data["list"] = $list;
+		$this->display("goods/goods_list4", $data);
+	}
+	/**
+	 * 商品添加页
+	 */
+	public function goods_add4()
+	{
+		$this->display("goods/goods_add4");
+	}
+	/**
+	 * 商品添加提交
+	 */
+	public function goods_save4()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法添加数据"));
+			return;
+		}
+		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
+		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
+		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
+		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
+		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
+		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+		$addtime = time();
+		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
+		$goods_info = $this->goods->getgoodsByname4($gname);
+		if (!empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "该装修名称已经存在。"));
+			return;
+		}
+		$gid = $this->goods->goods_save4($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
+
+		if ($gid) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+	/**
+	 * 商品删除
+	 */
+	public function goods_delete4()
+	{
+		$id = isset($_POST['id']) ? $_POST['id'] : 0;
+		if ($this->goods->goods_delete4($id)) {
+			echo json_encode(array('success' => true, 'msg' => "删除成功"));
+			return;
+		} else {
+			echo json_encode(array('success' => false, 'msg' => "删除失败"));
+			return;
+		}
+	}
+	/**
+	 * 类型修改页
+	 */
+	public function goods_edit4()
+	{
+		$gid = isset($_GET['gid']) ? $_GET['gid'] : 0;
+		$goods_info = $this->goods->getgoodsById1234($gid);
+		if (empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "数据错误"));
+			return;
+		}
+
+		$data = array();
+		$data['gname'] = $goods_info['gname'];
+		$data['starttime'] = $goods_info['gtitle'];
+		$data['gcontent'] = $goods_info['gcontent'];
+		$data['gimg'] = $goods_info['gimg'];
+		$data['gsort'] = $goods_info['gsort'];
+
+		$data['gid'] = $gid;
+
+
+		$this->display("goods/goods_edit4", $data);
+	}
+	/**
+	 * 商品修改提交
+	 */
+	public function goods_save_edit4()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
+			return;
+		}
+		$gid = isset($_POST["gid"]) ? $_POST["gid"] : '';
+		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
+		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
+		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
+		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
+		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$avater = isset($_POST["avater"]) ? $_POST["avater"] : '';
+		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
+		$goods_info = $this->goods->getgoodsById2234($gname,$gid);
+		if (!empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "该装修名称已经存在。"));
+			return;
+		}
+		$result = $this->goods->goods_save_edit4($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
+		if ($result) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+
+
+
+
+
 
 	/**
 	 * 兴趣商品

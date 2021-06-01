@@ -26,26 +26,10 @@
 		<form method="post" class="layui-form" action="" name="basic_validate" id="tab">
 			<div class="layui-form-item">
 				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">
-					<span class="x-red">*</span>大连市内重点学校分析
+					<span class="x-red">*</span><?php echo $msg ?>
 				</label>
 				<div class="layui-input-inline" style="width: 1000px;">
 					<div id="summernot"></div>
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">
-					<span class="x-red">*</span>大连市内重点学校预警
-				</label>
-				<div class="layui-input-inline" style="width: 1000px;">
-					<div id="summernot1"></div>
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">
-					<span class="x-red">*</span>大连市教育相关政策
-				</label>
-				<div class="layui-input-inline" style="width: 1000px;">
-					<div id="summernot2"></div>
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -55,9 +39,8 @@
 					<span class="x-red">※</span>请确认输入的数据是否正确。
 				</div>
 			</div>
-			<textarea id="content1" name="content1" style="display: none"><?php echo $content1 ?></textarea>
-			<textarea id="content2" name="content2" style="display: none"><?php echo $content2 ?></textarea>
-			<textarea id="content3" name="content3" style="display: none"><?php echo $content3 ?></textarea>
+			<input type="hidden" id="id" name="id" value="<?php echo $id ?>">
+			<textarea id="content" name="content" style="display: none"><?php echo $content ?></textarea>
 			<div class="layui-form-item">
 				<label for="L_repass" class="layui-form-label" style="width: 30%;">
 				</label>
@@ -70,35 +53,11 @@
 </div>
 <script>
 $(document).ready(function() {
-        var content1=  $('#content1').val();
-        $('#summernot').summernote('code',content1);
-
-        var content2=  $('#content2').val();
-        $('#summernot1').summernote('code',content2);
-
-        var content3=  $('#content3').val();
-        $('#summernot2').summernote('code',content3);
+        var content=  $('#content').val();
+        $('#summernot').summernote('code',content);
     });
     $(document).ready(function() {
         $("#summernot").summernote({
-            lang : "zh-CN",
-            height: 666,
-            focus: true,
-            lang: 'zh-CN',
-			onImageUpload: function(files, editor, $editable) {
-				uploadSummerPic(files[0], editor, $editable);
-			}
-        })
-        $("#summernot1").summernote({
-            lang : "zh-CN",
-            height: 666,
-            focus: true,
-            lang: 'zh-CN',
-			onImageUpload: function(files, editor, $editable) {
-				uploadSummerPic(files[0], editor, $editable);
-			}
-        })
-        $("#summernot2").summernote({
             lang : "zh-CN",
             height: 666,
             focus: true,
@@ -132,12 +91,9 @@ $(document).ready(function() {
                 layer = layui.layer;
             $("#tab").validate({
                 submitHandler: function (form) {
-                var detail1 = $('#summernot').summernote('code');
-                $('#content1').val(detail1);
-                var detail2 = $('#summernot1').summernote('code');
-                $('#content2').val(detail2);
-                var detail3 = $('#summernot2').summernote('code');
-                $('#content3').val(detail3);
+                var detail = $('#summernot').summernote('code');
+                $('#content').val(detail);
+
                     $.ajax({
                         cache: true,
                         type: "POST",
@@ -149,6 +105,7 @@ $(document).ready(function() {
                         },
                         success: function (data) {
                             var data = eval("(" + data + ")");
+                            console.log(data);
                             if (data.success) {
                                 layer.msg(data.msg);
                                 setTimeout(function () {
