@@ -427,6 +427,30 @@ class Member_model extends CI_Model
 		$sql = "SELECT * FROM `goods` " . $sqlw . " order by gtitle desc";
 		return $this->db->query($sql)->result_array();
 	}
+	public function getindexnewlist1()
+	{
+		$sqlw = " where 1=1";
+		$sql = "SELECT * FROM `home` " . $sqlw . " order by gtitle desc";
+		return $this->db->query($sql)->result_array();
+	}
+	public function getindexnewlist2()
+	{
+		$sqlw = " where 1=1";
+		$sql = "SELECT * FROM `decorate` " . $sqlw . " order by gtitle desc";
+		return $this->db->query($sql)->result_array();
+	}
+	public function getindexnewlist3()
+	{
+		$sqlw = " where 1=1";
+		$sql = "SELECT * FROM `gamble` " . $sqlw . " order by gtitle desc";
+		return $this->db->query($sql)->result_array();
+	}
+	public function getindexnewlist4()
+	{
+		$sqlw = " where 1=1";
+		$sql = "SELECT * FROM `thelaw` " . $sqlw . " order by gtitle desc";
+		return $this->db->query($sql)->result_array();
+	}
 	//获取问答列表
 	public function getquestionlist($str)
 	{

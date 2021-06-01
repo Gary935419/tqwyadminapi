@@ -693,6 +693,26 @@ class Index extends CI_Controller
 		$data['indexnewlist'] = empty($indexnewlist)?array():$indexnewlist;
 		$this->back_json(200, '操作成功', $data);
 	}
+	public function indexnewlist1(){
+		$indexnewlist = $this->member->getindexnewlist1();
+		$data['indexnewlist'] = empty($indexnewlist)?array():$indexnewlist;
+		$this->back_json(200, '操作成功', $data);
+	}
+	public function indexnewlist2(){
+		$indexnewlist = $this->member->getindexnewlist2();
+		$data['indexnewlist'] = empty($indexnewlist)?array():$indexnewlist;
+		$this->back_json(200, '操作成功', $data);
+	}
+	public function indexnewlist3(){
+		$indexnewlist = $this->member->getindexnewlist3();
+		$data['indexnewlist'] = empty($indexnewlist)?array():$indexnewlist;
+		$this->back_json(200, '操作成功', $data);
+	}
+	public function indexnewlist4(){
+		$indexnewlist = $this->member->getindexnewlist4();
+		$data['indexnewlist'] = empty($indexnewlist)?array():$indexnewlist;
+		$this->back_json(200, '操作成功', $data);
+	}
 	/**
 	 * 首页问答
 	 */

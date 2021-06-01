@@ -801,6 +801,34 @@ class Task extends CI_Controller
         $data['goodsimglist'] = empty($goodsimglist)?array():$goodsimglist;
         $this->back_json(200, '操作成功', $data);
     }
+	public function goodsdetails1(){
+		$gid = $_POST['gid'];
+		//获取商品数据
+		$goodsdetails = $this->task->goodsdetails1($gid);
+		$data['goodsdetails'] = $goodsdetails;
+		$this->back_json(200, '操作成功', $data);
+	}
+	public function goodsdetails2(){
+		$gid = $_POST['gid'];
+		//获取商品数据
+		$goodsdetails = $this->task->goodsdetails2($gid);
+		$data['goodsdetails'] = $goodsdetails;
+		$this->back_json(200, '操作成功', $data);
+	}
+	public function goodsdetails3(){
+		$gid = $_POST['gid'];
+		//获取商品数据
+		$goodsdetails = $this->task->goodsdetails3($gid);
+		$data['goodsdetails'] = $goodsdetails;
+		$this->back_json(200, '操作成功', $data);
+	}
+	public function goodsdetails4(){
+		$gid = $_POST['gid'];
+		//获取商品数据
+		$goodsdetails = $this->task->goodsdetails4($gid);
+		$data['goodsdetails'] = $goodsdetails;
+		$this->back_json(200, '操作成功', $data);
+	}
 	/**
 	 * 客服详情
 	 */
