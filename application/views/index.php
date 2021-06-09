@@ -168,6 +168,18 @@
 							<cite>法律服务</cite>
 						</a>
 					</li>
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/goods/goods_list5' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>二手房估价</cite>
+						</a>
+					</li>
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/goods/goods_list6' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>格局规划</cite>
+						</a>
+					</li>
 				</ul>
 			</li>
             <li>

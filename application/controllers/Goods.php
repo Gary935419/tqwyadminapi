@@ -75,7 +75,7 @@ class Goods extends CI_Controller
         $status = isset($_POST["status"]) ? $_POST["status"] : '0';
         $goods_info = $this->goods->getgoodsByname($gname);
         if (!empty($goods_info)) {
-            echo json_encode(array('error' => true, 'msg' => "该资讯名称已经存在。"));
+            echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
             return;
         }
         $gid = $this->goods->goods_save($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
@@ -156,7 +156,7 @@ class Goods extends CI_Controller
         $status = isset($_POST["status"]) ? $_POST["status"] : '0';
         $goods_info = $this->goods->getgoodsById2($gname,$gid);
         if (!empty($goods_info)) {
-            echo json_encode(array('error' => true, 'msg' => "该资讯名称已经存在。"));
+            echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
             return;
         }
 
@@ -224,7 +224,7 @@ class Goods extends CI_Controller
 		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
 		$goods_info = $this->goods->getgoodsByname1($gname);
 		if (!empty($goods_info)) {
-			echo json_encode(array('error' => true, 'msg' => "该搬家名称已经存在。"));
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
 		$gid = $this->goods->goods_save1($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
@@ -296,7 +296,7 @@ class Goods extends CI_Controller
 		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
 		$goods_info = $this->goods->getgoodsById21($gname,$gid);
 		if (!empty($goods_info)) {
-			echo json_encode(array('error' => true, 'msg' => "该搬家名称已经存在。"));
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
 		$result = $this->goods->goods_save_edit1($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
@@ -359,7 +359,7 @@ class Goods extends CI_Controller
 		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
 		$goods_info = $this->goods->getgoodsByname2($gname);
 		if (!empty($goods_info)) {
-			echo json_encode(array('error' => true, 'msg' => "该装修名称已经存在。"));
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
 		$gid = $this->goods->goods_save2($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
@@ -431,7 +431,7 @@ class Goods extends CI_Controller
 		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
 		$goods_info = $this->goods->getgoodsById22($gname,$gid);
 		if (!empty($goods_info)) {
-			echo json_encode(array('error' => true, 'msg' => "该装修名称已经存在。"));
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
 		$result = $this->goods->goods_save_edit2($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
@@ -494,7 +494,7 @@ class Goods extends CI_Controller
 		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
 		$goods_info = $this->goods->getgoodsByname3($gname);
 		if (!empty($goods_info)) {
-			echo json_encode(array('error' => true, 'msg' => "该装修名称已经存在。"));
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
 		$gid = $this->goods->goods_save3($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
@@ -566,7 +566,7 @@ class Goods extends CI_Controller
 		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
 		$goods_info = $this->goods->getgoodsById223($gname,$gid);
 		if (!empty($goods_info)) {
-			echo json_encode(array('error' => true, 'msg' => "该装修名称已经存在。"));
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
 		$result = $this->goods->goods_save_edit3($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
@@ -630,7 +630,7 @@ class Goods extends CI_Controller
 		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
 		$goods_info = $this->goods->getgoodsByname4($gname);
 		if (!empty($goods_info)) {
-			echo json_encode(array('error' => true, 'msg' => "该装修名称已经存在。"));
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
 		$gid = $this->goods->goods_save4($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
@@ -702,10 +702,285 @@ class Goods extends CI_Controller
 		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
 		$goods_info = $this->goods->getgoodsById2234($gname,$gid);
 		if (!empty($goods_info)) {
-			echo json_encode(array('error' => true, 'msg' => "该装修名称已经存在。"));
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
 		$result = $this->goods->goods_save_edit4($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
+		if ($result) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+
+
+
+
+
+
+	/**
+	 * 商品列表页
+	 */
+	public function goods_list5()
+	{
+
+		$gname = isset($_GET['gname']) ? $_GET['gname'] : '';
+		$page = isset($_GET["page"]) ? $_GET["page"] : 1;
+		$allpage = $this->goods->getgoodsAllPage5($gname);
+		$page = $allpage > $page ? $page : $allpage;
+		$data["pagehtml"] = $this->getpage($page, $allpage, $_GET);
+		$data["page"] = $page;
+		$data["allpage"] = $allpage;
+		$list = $this->goods->getgoodsAllNew5($page, $gname);
+
+		$data["gname"] = $gname;
+
+		$data["list"] = $list;
+		$this->display("goods/goods_list5", $data);
+	}
+	/**
+	 * 商品添加页
+	 */
+	public function goods_add5()
+	{
+		$this->display("goods/goods_add5");
+	}
+	/**
+	 * 商品添加提交
+	 */
+	public function goods_save5()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法添加数据"));
+			return;
+		}
+		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
+		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
+		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
+		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
+		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
+		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+		$addtime = time();
+		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
+		$goods_info = $this->goods->getgoodsByname5($gname);
+		if (!empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
+			return;
+		}
+		$gid = $this->goods->goods_save5($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
+
+		if ($gid) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+	/**
+	 * 商品删除
+	 */
+	public function goods_delete5()
+	{
+		$id = isset($_POST['id']) ? $_POST['id'] : 0;
+		if ($this->goods->goods_delete5($id)) {
+			echo json_encode(array('success' => true, 'msg' => "删除成功"));
+			return;
+		} else {
+			echo json_encode(array('success' => false, 'msg' => "删除失败"));
+			return;
+		}
+	}
+	/**
+	 * 类型修改页
+	 */
+	public function goods_edit5()
+	{
+		$gid = isset($_GET['gid']) ? $_GET['gid'] : 0;
+		$goods_info = $this->goods->getgoodsById12345($gid);
+		if (empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "数据错误"));
+			return;
+		}
+
+		$data = array();
+		$data['gname'] = $goods_info['gname'];
+		$data['starttime'] = $goods_info['gtitle'];
+		$data['gcontent'] = $goods_info['gcontent'];
+		$data['gimg'] = $goods_info['gimg'];
+		$data['gsort'] = $goods_info['gsort'];
+
+		$data['gid'] = $gid;
+
+
+		$this->display("goods/goods_edit5", $data);
+	}
+	/**
+	 * 商品修改提交
+	 */
+	public function goods_save_edit5()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
+			return;
+		}
+		$gid = isset($_POST["gid"]) ? $_POST["gid"] : '';
+		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
+		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
+		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
+		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
+		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$avater = isset($_POST["avater"]) ? $_POST["avater"] : '';
+		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
+		$goods_info = $this->goods->getgoodsById22345($gname,$gid);
+		if (!empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
+			return;
+		}
+		$result = $this->goods->goods_save_edit5($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
+		if ($result) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+
+
+
+
+
+
+
+	/**
+	 * 商品列表页
+	 */
+	public function goods_list6()
+	{
+
+		$gname = isset($_GET['gname']) ? $_GET['gname'] : '';
+		$page = isset($_GET["page"]) ? $_GET["page"] : 1;
+		$allpage = $this->goods->getgoodsAllPage6($gname);
+		$page = $allpage > $page ? $page : $allpage;
+		$data["pagehtml"] = $this->getpage($page, $allpage, $_GET);
+		$data["page"] = $page;
+		$data["allpage"] = $allpage;
+		$list = $this->goods->getgoodsAllNew6($page, $gname);
+
+		$data["gname"] = $gname;
+
+		$data["list"] = $list;
+		$this->display("goods/goods_list6", $data);
+	}
+	/**
+	 * 商品添加页
+	 */
+	public function goods_add6()
+	{
+		$this->display("goods/goods_add6");
+	}
+	/**
+	 * 商品添加提交
+	 */
+	public function goods_save6()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法添加数据"));
+			return;
+		}
+		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
+		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
+		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
+		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
+		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
+		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+		$addtime = time();
+		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
+		$goods_info = $this->goods->getgoodsByname6($gname);
+		if (!empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
+			return;
+		}
+		$gid = $this->goods->goods_save6($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
+
+		if ($gid) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+	/**
+	 * 商品删除
+	 */
+	public function goods_delete6()
+	{
+		$id = isset($_POST['id']) ? $_POST['id'] : 0;
+		if ($this->goods->goods_delete6($id)) {
+			echo json_encode(array('success' => true, 'msg' => "删除成功"));
+			return;
+		} else {
+			echo json_encode(array('success' => false, 'msg' => "删除失败"));
+			return;
+		}
+	}
+	/**
+	 * 类型修改页
+	 */
+	public function goods_edit6()
+	{
+		$gid = isset($_GET['gid']) ? $_GET['gid'] : 0;
+		$goods_info = $this->goods->getgoodsById123456($gid);
+		if (empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "数据错误"));
+			return;
+		}
+
+		$data = array();
+		$data['gname'] = $goods_info['gname'];
+		$data['starttime'] = $goods_info['gtitle'];
+		$data['gcontent'] = $goods_info['gcontent'];
+		$data['gimg'] = $goods_info['gimg'];
+		$data['gsort'] = $goods_info['gsort'];
+
+		$data['gid'] = $gid;
+
+
+		$this->display("goods/goods_edit6", $data);
+	}
+	/**
+	 * 商品修改提交
+	 */
+	public function goods_save_edit6()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
+			return;
+		}
+		$gid = isset($_POST["gid"]) ? $_POST["gid"] : '';
+		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
+		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
+		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
+		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
+		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
+		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$avater = isset($_POST["avater"]) ? $_POST["avater"] : '';
+		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
+		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
+		$goods_info = $this->goods->getgoodsById223456($gname,$gid);
+		if (!empty($goods_info)) {
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
+			return;
+		}
+		$result = $this->goods->goods_save_edit6($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;
@@ -802,7 +1077,7 @@ class Goods extends CI_Controller
 		$ishot = isset($_POST["ishot"]) ? $_POST["ishot"] : '0';
 		$goods_info = $this->goods->getitemsByname($ename);
 		if (!empty($goods_info)) {
-			echo json_encode(array('error' => true, 'msg' => "该商品名称已经存在。"));
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
 		$gid = $this->goods->items_save($topprice,$topnums,$cid,$ename,$etitle,$unitprice,$unitnums,$batchprice,$batchnums,$sumnums,$place,$delivery,$esort,$gimg,$content,$parameter,$addtime,$ishot);
@@ -902,7 +1177,7 @@ class Goods extends CI_Controller
 		$ishot = isset($_POST["ishot"]) ? $_POST["ishot"] : '0';
 		$goods_info = $this->goods->getitemsById2($ename,$id);
 		if (!empty($goods_info)) {
-			echo json_encode(array('error' => true, 'msg' => "该商品名称已经存在。"));
+			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
 

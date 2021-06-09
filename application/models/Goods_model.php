@@ -510,6 +510,206 @@ class Goods_model extends CI_Model
 
 
 
+	//商品count
+	public function getgoodsAllPage5($gname)
+	{
+		$sqlw = " where 1=1 ";
+		if (!empty($gname)) {
+			$sqlw .= " and ( gname like '%" . $gname . "%' ) ";
+		}
+		$sql = "SELECT count(1) as number FROM `ercar`" . $sqlw;
+
+		$number = $this->db->query($sql)->row()->number;
+		return ceil($number / 10) == 0 ? 1 : ceil($number / 10);
+	}
+	//商品list
+	public function getgoodsAllNew5($pg,$gname)
+	{
+		$sqlw = " where 1=1 ";
+		if (!empty($gname)) {
+			$sqlw .= " and ( gname like '%" . $gname . "%' ) ";
+		}
+		$start = ($pg - 1) * 10;
+		$stop = 10;
+
+		$sql = "SELECT * FROM `ercar` " . $sqlw . " order by gsort desc LIMIT $start, $stop";
+		return $this->db->query($sql)->result_array();
+	}
+	//商品图片list
+	public function getgoodsimgsAllNew5($gid)
+	{
+		$gid = $this->db->escape($gid);
+		$sqlw = " where 1=1 and gid = $gid";
+		$sql = "SELECT * FROM `ercar` " . $sqlw;
+		return $this->db->query($sql)->result_array();
+	}
+	//商品byname
+	public function getgoodsByname5($gname)
+	{
+		$gname = $this->db->escape($gname);
+		$sql = "SELECT * FROM `ercar` where gname=$gname ";
+		return $this->db->query($sql)->row_array();
+	}
+	//商品save
+	public function goods_save5($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime)
+	{
+		$gname = $this->db->escape($gname);
+		$starttime = $this->db->escape($starttime);
+		$gtitle = $this->db->escape($gtitle);
+		$tid = $this->db->escape($tid);
+		$gsort = $this->db->escape($gsort);
+		$gimg = $this->db->escape($gimg);
+		$gcontent = $this->db->escape($gcontent);
+		$addtime = $this->db->escape($addtime);
+		$status = $this->db->escape($status);
+		$sql = "INSERT INTO `ercar` (gname, gtitle,gsort,gimg,gcontent,addtime) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime)";
+		$this->db->query($sql);
+		$gid=$this->db->insert_id();
+		return $gid;
+	}
+	//商品delete
+	public function goods_delete5($id)
+	{
+		$id = $this->db->escape($id);
+		$sql = "DELETE FROM ercar WHERE gid = $id";
+		return $this->db->query($sql);
+	}
+	//商品byid
+	public function getgoodsById12345($id)
+	{
+		$id = $this->db->escape($id);
+		$sql = "SELECT * FROM `ercar` where gid=$id ";
+		return $this->db->query($sql)->row_array();
+	}
+	//商品byname id
+	public function getgoodsById22345($gname, $gid)
+	{
+		$gname = $this->db->escape($gname);
+		$gid = $this->db->escape($gid);
+		$sql = "SELECT * FROM `ercar` where gname=$gname and gid!=$gid ";
+		return $this->db->query($sql)->row_array();
+	}
+	//商品save_edit
+	public function goods_save_edit5($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime)
+	{
+		$gid = $this->db->escape($gid);
+		$gname = $this->db->escape($gname);
+		$gtitle = $this->db->escape($gtitle);
+		$tid = $this->db->escape($tid);
+		$starttime = $this->db->escape($starttime);
+		$gsort = $this->db->escape($gsort);
+		$gimg = $this->db->escape($gimg);
+		$gcontent = $this->db->escape($gcontent);
+		$status = $this->db->escape($status);
+		$sql = "UPDATE `ercar` SET gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
+		return $this->db->query($sql);
+	}
+
+
+
+
+
+
+	//商品count
+	public function getgoodsAllPage6($gname)
+	{
+		$sqlw = " where 1=1 ";
+		if (!empty($gname)) {
+			$sqlw .= " and ( gname like '%" . $gname . "%' ) ";
+		}
+		$sql = "SELECT count(1) as number FROM `plane`" . $sqlw;
+
+		$number = $this->db->query($sql)->row()->number;
+		return ceil($number / 10) == 0 ? 1 : ceil($number / 10);
+	}
+	//商品list
+	public function getgoodsAllNew6($pg,$gname)
+	{
+		$sqlw = " where 1=1 ";
+		if (!empty($gname)) {
+			$sqlw .= " and ( gname like '%" . $gname . "%' ) ";
+		}
+		$start = ($pg - 1) * 10;
+		$stop = 10;
+
+		$sql = "SELECT * FROM `plane` " . $sqlw . " order by gsort desc LIMIT $start, $stop";
+		return $this->db->query($sql)->result_array();
+	}
+	//商品图片list
+	public function getgoodsimgsAllNew6($gid)
+	{
+		$gid = $this->db->escape($gid);
+		$sqlw = " where 1=1 and gid = $gid";
+		$sql = "SELECT * FROM `plane` " . $sqlw;
+		return $this->db->query($sql)->result_array();
+	}
+	//商品byname
+	public function getgoodsByname6($gname)
+	{
+		$gname = $this->db->escape($gname);
+		$sql = "SELECT * FROM `plane` where gname=$gname ";
+		return $this->db->query($sql)->row_array();
+	}
+	//商品save
+	public function goods_save6($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime)
+	{
+		$gname = $this->db->escape($gname);
+		$starttime = $this->db->escape($starttime);
+		$gtitle = $this->db->escape($gtitle);
+		$tid = $this->db->escape($tid);
+		$gsort = $this->db->escape($gsort);
+		$gimg = $this->db->escape($gimg);
+		$gcontent = $this->db->escape($gcontent);
+		$addtime = $this->db->escape($addtime);
+		$status = $this->db->escape($status);
+		$sql = "INSERT INTO `plane` (gname, gtitle,gsort,gimg,gcontent,addtime) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime)";
+		$this->db->query($sql);
+		$gid=$this->db->insert_id();
+		return $gid;
+	}
+	//商品delete
+	public function goods_delete6($id)
+	{
+		$id = $this->db->escape($id);
+		$sql = "DELETE FROM plane WHERE gid = $id";
+		return $this->db->query($sql);
+	}
+	//商品byid
+	public function getgoodsById123456($id)
+	{
+		$id = $this->db->escape($id);
+		$sql = "SELECT * FROM `plane` where gid=$id ";
+		return $this->db->query($sql)->row_array();
+	}
+	//商品byname id
+	public function getgoodsById223456($gname, $gid)
+	{
+		$gname = $this->db->escape($gname);
+		$gid = $this->db->escape($gid);
+		$sql = "SELECT * FROM `plane` where gname=$gname and gid!=$gid ";
+		return $this->db->query($sql)->row_array();
+	}
+	//商品save_edit
+	public function goods_save_edit6($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime)
+	{
+		$gid = $this->db->escape($gid);
+		$gname = $this->db->escape($gname);
+		$gtitle = $this->db->escape($gtitle);
+		$tid = $this->db->escape($tid);
+		$starttime = $this->db->escape($starttime);
+		$gsort = $this->db->escape($gsort);
+		$gimg = $this->db->escape($gimg);
+		$gcontent = $this->db->escape($gcontent);
+		$status = $this->db->escape($status);
+		$sql = "UPDATE `plane` SET gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
+		return $this->db->query($sql);
+	}
+
+
+
+
+
+
 
 
 

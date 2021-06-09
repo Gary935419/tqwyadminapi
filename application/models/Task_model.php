@@ -526,6 +526,18 @@ class Task_model extends CI_Model
 		$sql = "SELECT * FROM `thelaw` where gid=$gid ";
 		return $this->db->query($sql)->row_array();
 	}
+	public function goodsdetails5($gid)
+	{
+		$gid = $this->db->escape($gid);
+		$sql = "SELECT * FROM `ercar` where gid=$gid ";
+		return $this->db->query($sql)->row_array();
+	}
+	public function goodsdetails6($gid)
+	{
+		$gid = $this->db->escape($gid);
+		$sql = "SELECT * FROM `plane` where gid=$gid ";
+		return $this->db->query($sql)->row_array();
+	}
 	//获取客服详情
 	public function goodsdetailskefu()
 	{

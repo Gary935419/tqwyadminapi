@@ -34,11 +34,11 @@ class Order extends CI_Controller
 	{
 		$btype = isset($_GET['btype']) ? $_GET['btype'] : 1;
 		if ($btype == 1){
-			$typename = '学区';
+			$typename = '学区需求';
 		}elseif ($btype == 2){
-			$typename = '自住';
+			$typename = '自住需求';
 		}else{
-			$typename = '投资';
+			$typename = '投资需求';
 		}
 		$gname = isset($_GET['gname']) ? $_GET['gname'] : '';
 		$page = isset($_GET["page"]) ? $_GET["page"] : 1;
@@ -60,11 +60,11 @@ class Order extends CI_Controller
 	{
 		$btype = isset($_GET['btype']) ? $_GET['btype'] : 1;
 		if ($btype == 1){
-			$typename = '学区';
+			$typename = '学区需求';
 		}elseif ($btype == 2){
-			$typename = '自住';
+			$typename = '自住需求';
 		}else{
-			$typename = '投资';
+			$typename = '投资需求';
 		}
 		$indexschoollist = $this->member->indexschoollist();
 		$data['schoollist'] = empty($indexschoollist)?'':$indexschoollist;
@@ -91,7 +91,7 @@ class Order extends CI_Controller
 		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
 		$addtime = time();
 		$is_delete = 0;
-		if ($typename === '学区'){
+		if ($typename === '学区需求'){
 			$getitemsclassschoolname = $this->order->getitemsclassschoolname($schoolname);
 			$areaname = $getitemsclassschoolname['careaname'];
 		}
@@ -170,7 +170,7 @@ class Order extends CI_Controller
 //		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
 		$addtime = time();
 		$is_delete = 0;
-		if ($typename === '学区'){
+		if ($typename === '学区需求'){
 			$getitemsclassschoolname = $this->order->getitemsclassschoolname($schoolname);
 			$areaname = $getitemsclassschoolname['careaname'];
 		}

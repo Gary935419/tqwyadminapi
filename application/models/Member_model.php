@@ -451,6 +451,18 @@ class Member_model extends CI_Model
 		$sql = "SELECT * FROM `thelaw` " . $sqlw . " order by gtitle desc";
 		return $this->db->query($sql)->result_array();
 	}
+	public function getindexnewlist5()
+	{
+		$sqlw = " where 1=1";
+		$sql = "SELECT * FROM `ercar` " . $sqlw . " order by gtitle desc";
+		return $this->db->query($sql)->result_array();
+	}
+	public function getindexnewlist6()
+	{
+		$sqlw = " where 1=1";
+		$sql = "SELECT * FROM `plane` " . $sqlw . " order by gtitle desc";
+		return $this->db->query($sql)->result_array();
+	}
 	//获取问答列表
 	public function getquestionlist($str)
 	{

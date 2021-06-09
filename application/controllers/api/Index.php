@@ -242,16 +242,16 @@ class Index extends CI_Controller
 //			$this->back_json(202, '请上传联系邮箱！');
 //		}
 		if (empty($_POST['btype'])) {
-			$btype = "学区";
+			$btype = "学区需求";
 			$school = $_POST['school'];
 			$getitemsclassschoolname = $this->member->getitemsclassschoolname($school);
 			$area = $getitemsclassschoolname['careaname'];
 		}elseif ($_POST['btype'] == 1){
-			$btype = "自住";
+			$btype = "自住需求";
 			$school = '';
 			$area = $_POST['area'];
 		}elseif ($_POST['btype'] == 2){
-			$btype = "投资";
+			$btype = "投资需求";
 			$school = '';
 			$area = $_POST['area'];
 		}else{
@@ -354,16 +354,16 @@ class Index extends CI_Controller
 			$this->back_json(205, '登录超时！请重新授权！');
 		}
 		if (empty($_POST['btype'])) {
-			$btype = "学区";
+			$btype = "学区需求";
 			$school = $_POST['school'];
 			$getitemsclassschoolname = $this->member->getitemsclassschoolname($school);
 			$area = $getitemsclassschoolname['careaname'];
 		}elseif ($_POST['btype'] == 1){
-			$btype = "自住";
+			$btype = "自住需求";
 			$school = '';
 			$area = $_POST['area'];
 		}elseif ($_POST['btype'] == 2){
-			$btype = "投资";
+			$btype = "投资需求";
 			$school = '';
 			$area = $_POST['area'];
 		}else{
@@ -404,16 +404,16 @@ class Index extends CI_Controller
 			$this->back_json(205, '登录超时！请重新授权！');
 		}
 		if (empty($_POST['btype'])) {
-			$btype = "学区";
+			$btype = "学区需求";
 			$school = $_POST['school'];
 			$getitemsclassschoolname = $this->member->getitemsclassschoolname($school);
 			$area = $getitemsclassschoolname['careaname'];
 		}elseif ($_POST['btype'] == 1){
-			$btype = "自住";
+			$btype = "自住需求";
 			$school = '';
 			$area = $_POST['area'];
 		}elseif ($_POST['btype'] == 2){
-			$btype = "投资";
+			$btype = "投资需求";
 			$school = '';
 			$area = $_POST['area'];
 		}else{
@@ -448,7 +448,7 @@ class Index extends CI_Controller
 
 		$settingdetails = $this->task->goodsdetailskefu();
 		$getReportinfo = $this->member->getReportinfo($id);
-		if ($getReportinfo['typename'] == '学区'){
+		if ($getReportinfo['typename'] == '学区需求'){
 			if ($num === '1'){
 				$data['reportinfo'] = empty($settingdetails['content1'])?'':$settingdetails['content1'];
 			}elseif ($num === '2'){
@@ -474,7 +474,7 @@ class Index extends CI_Controller
 			}else{
 				$data['reportinfo'] = empty($getReportinfo['gcontent5'])?'':$getReportinfo['gcontent5'];
 			}
-		}elseif ($getReportinfo['typename'] == '自住'){
+		}elseif ($getReportinfo['typename'] == '自住需求'){
 			if ($num === '1'){
 				$data['reportinfo'] = empty($settingdetails['content9'])?'':$settingdetails['content9'];
 			}elseif ($num === '2'){
@@ -500,7 +500,7 @@ class Index extends CI_Controller
 			}else{
 				$data['reportinfo'] = empty($getReportinfo['gcontent5'])?'':$getReportinfo['gcontent5'];
 			}
-		}elseif ($getReportinfo['typename'] == '投资'){
+		}elseif ($getReportinfo['typename'] == '投资需求'){
 			if ($num === '1'){
 				$data['reportinfo'] = empty($settingdetails['content17'])?'':$settingdetails['content17'];
 			}elseif ($num === '2'){
@@ -710,6 +710,16 @@ class Index extends CI_Controller
 	}
 	public function indexnewlist4(){
 		$indexnewlist = $this->member->getindexnewlist4();
+		$data['indexnewlist'] = empty($indexnewlist)?array():$indexnewlist;
+		$this->back_json(200, '操作成功', $data);
+	}
+	public function indexnewlist5(){
+		$indexnewlist = $this->member->getindexnewlist5();
+		$data['indexnewlist'] = empty($indexnewlist)?array():$indexnewlist;
+		$this->back_json(200, '操作成功', $data);
+	}
+	public function indexnewlist6(){
+		$indexnewlist = $this->member->getindexnewlist6();
 		$data['indexnewlist'] = empty($indexnewlist)?array():$indexnewlist;
 		$this->back_json(200, '操作成功', $data);
 	}

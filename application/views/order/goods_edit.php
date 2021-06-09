@@ -46,7 +46,7 @@
 <!--					</div>-->
 <!--				</div>-->
 <!--			</div>-->
-			<div class="layui-form-item" style="display: <?php echo $typename==='学区'?'block':'none' ?>">
+			<div class="layui-form-item" style="display: <?php echo $typename==='学区需求'?'block':'none' ?>">
 				<label for="L_pass" class="layui-form-label" style="width: 30%;">
 					<span class="x-red">*</span>学校名称
 				</label>
@@ -94,7 +94,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="layui-form-item" style="display: <?php echo $typename==='学区'?'none':'block' ?>">
+			<div class="layui-form-item" style="display: <?php echo $typename==='学区需求'?'none':'block' ?>">
 				<label for="L_pass" class="layui-form-label" style="width: 30%;">
 					<span class="x-red">*</span>区域
 				</label>
