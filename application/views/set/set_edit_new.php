@@ -24,12 +24,20 @@
 <div class="layui-fluid" style="padding-top: 66px;">
     <div class="layui-row">
 		<form method="post" class="layui-form" action="" name="basic_validate" id="tab">
+<!--			<div class="layui-form-item">-->
+<!--				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">-->
+<!--					<span class="x-red">*</span>--><?php //echo $msg ?>
+<!--				</label>-->
+<!--				<div class="layui-input-inline" style="width: 1000px;">-->
+<!--					<div id="summernot"></div>-->
+<!--				</div>-->
+<!--			</div>-->
 			<div class="layui-form-item">
-				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
 					<span class="x-red">*</span><?php echo $msg ?>
 				</label>
-				<div class="layui-input-inline" style="width: 1000px;">
-					<div id="summernot"></div>
+				<div class="layui-input-inline" style="width: 610px;">
+					<textarea id="content" name="content" placeholder="请输入内容" lay-verify="content" class="layui-textarea"><?php echo $content ?></textarea>
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -40,7 +48,7 @@
 				</div>
 			</div>
 			<input type="hidden" id="id" name="id" value="<?php echo $id ?>">
-			<textarea id="content" name="content" style="display: none"><?php echo $content ?></textarea>
+<!--			<textarea id="content" name="content" style="display: none">--><?php //echo $content ?><!--</textarea>-->
 			<div class="layui-form-item">
 				<label for="L_repass" class="layui-form-label" style="width: 30%;">
 				</label>
@@ -52,48 +60,107 @@
     </div>
 </div>
 <script>
-$(document).ready(function() {
-        var content=  $('#content').val();
-        $('#summernot').summernote('code',content);
+layui.use(['laydate', 'form'],
+        function() {
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#starttime' //指定元素
+            });
+        });
+</script>
+<script>
+    layui.use('upload', function(){
+        var $ = layui.jquery
+            ,upload = layui.upload;
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#upload1'
+            ,url: '<?= RUN . '/upload/pushFIle' ?>'
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#gimgimg').attr('src', result); //图片链接（base64）
+                    var img = document.getElementById("gimgimg");
+                    img.style.display="block";
+                });
+            }
+            ,done: function(res){
+                if(res.code == 200){
+                    $('#gimg').val(res.src); //图片链接（base64）
+                    return layer.msg('上传成功');
+                }else {
+                    return layer.msg('上传失败');
+                }
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
+        });
+        //多图片上传
+        upload.render({
+            elem: '#uploads'
+            ,url: '<?= RUN . '/upload/pushFIle' ?>'
+            ,multiple: true
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                var timestamp = (new Date()).valueOf();
+                obj.preview(function(index, file, result){
+                    $('#imgnew').append('<img id="avaterimg'+ timestamp +'" style="width:100px;height:100px;" src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img"><p id="avaterimgp'+ timestamp +'" style="margin-top: -70px;margin-left: -43px;" class="layui-btn layui-btn-xs layui-btn-danger demo-delete" onclick="jusp('+ timestamp +')">删除</p>')
+                });
+            }
+            ,done: function(res){
+                //上传完毕
+                if(res.code == 200){
+                    var timestamp = (new Date()).valueOf();
+                    $('#newinp').append('<input type="hidden" name="avater[]" id="avater'+ timestamp +'" value="'+ res.src +'">')
+                    return layer.msg('上传成功');
+                }else {
+                    return layer.msg('上传失败');
+                }
+            }
+        });
     });
-    $(document).ready(function() {
-        $("#summernot").summernote({
-            lang : "zh-CN",
-            height: 666,
-            focus: true,
-            lang: 'zh-CN',
-			onImageUpload: function(files, editor, $editable) {
-				uploadSummerPic(files[0], editor, $editable);
-			}
-        })
-    });
-    function uploadSummerPic(file, editor, $editable) {
-    var fd = new FormData();
-    fd.append("file", file);
-    $.ajax({
-        type:"POST",
-        url:"/index.php/upload/upload_img",
-        data: fd,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-                    var obj = JSON.parse(data);
-                    url=obj.data.src;
-                    console.log(obj.data.src);
-            editor.insertImage($editable, url);
-        }
-    });
-}
+    function jusp(index) {
+        $("#avater"+index).remove();
+        $("#avaterimg"+index).remove();
+        $("#avaterimgp"+index).remove();
+    }
+</script>
+<script>
     layui.use(['form','layedit', 'layer'],
         function () {
             var form = layui.form,
                 layer = layui.layer;
+            var layedit = layui.layedit;
+            layedit.set({
+                uploadImage: {
+                    url: '<?= RUN . '/upload/pushFIletextarea' ?>',
+                    type: 'post',
+                }
+            });
+            var editIndex1 = layedit.build('content', {
+                height: 300,
+            });
+            //自定义验证规则
+            form.verify({
+                content: function(value) {
+                    // 将富文本编辑器的值同步到之前的textarea中
+                    layedit.sync(editIndex1);
+                    if ($('#content').val() == "") {
+                        return '请输入内容信息。';
+                    }
+                },
+            });
+
             $("#tab").validate({
                 submitHandler: function (form) {
-                var detail = $('#summernot').summernote('code');
-                $('#content').val(detail);
-
                     $.ajax({
                         cache: true,
                         type: "POST",
@@ -105,7 +172,6 @@ $(document).ready(function() {
                         },
                         success: function (data) {
                             var data = eval("(" + data + ")");
-                            console.log(data);
                             if (data.success) {
                                 layer.msg(data.msg);
                                 setTimeout(function () {
@@ -125,5 +191,79 @@ $(document).ready(function() {
         xadmin.close();
     }
 </script>
+<!--<script>-->
+<!--$(document).ready(function() {-->
+<!--        var content=  $('#content').val();-->
+<!--        $('#summernot').summernote('code',content);-->
+<!--    });-->
+<!--    $(document).ready(function() {-->
+<!--        $("#summernot").summernote({-->
+<!--            lang : "zh-CN",-->
+<!--            height: 666,-->
+<!--            focus: true,-->
+<!--            lang: 'zh-CN',-->
+<!--			onImageUpload: function(files, editor, $editable) {-->
+<!--				uploadSummerPic(files[0], editor, $editable);-->
+<!--			}-->
+<!--        })-->
+<!--    });-->
+<!--    function uploadSummerPic(file, editor, $editable) {-->
+<!--    var fd = new FormData();-->
+<!--    fd.append("file", file);-->
+<!--    $.ajax({-->
+<!--        type:"POST",-->
+<!--        url:"/index.php/upload/upload_img",-->
+<!--        data: fd,-->
+<!--        cache: false,-->
+<!--        contentType: false,-->
+<!--        processData: false,-->
+<!--        success: function (data) {-->
+<!--                    var obj = JSON.parse(data);-->
+<!--                    url=obj.data.src;-->
+<!--                    console.log(obj.data.src);-->
+<!--            editor.insertImage($editable, url);-->
+<!--        }-->
+<!--    });-->
+<!--}-->
+<!--    layui.use(['form','layedit', 'layer'],-->
+<!--        function () {-->
+<!--            var form = layui.form,-->
+<!--                layer = layui.layer;-->
+<!--            $("#tab").validate({-->
+<!--                submitHandler: function (form) {-->
+<!--                var detail = $('#summernot').summernote('code');-->
+<!--                $('#content').val(detail);-->
+<!---->
+<!--                    $.ajax({-->
+<!--                        cache: true,-->
+<!--                        type: "POST",-->
+<!--                        url: "--><?//= RUN . '/set/set_save_edit_new' ?><!--",-->
+<!--                        data: $('#tab').serialize(),-->
+<!--                        async: false,-->
+<!--                        error: function (request) {-->
+<!--                            alert("error");-->
+<!--                        },-->
+<!--                        success: function (data) {-->
+<!--                            var data = eval("(" + data + ")");-->
+<!--                            console.log(data);-->
+<!--                            if (data.success) {-->
+<!--                                layer.msg(data.msg);-->
+<!--                                setTimeout(function () {-->
+<!--                                    cancel();-->
+<!--                                }, 2000);-->
+<!--                            } else {-->
+<!--                                layer.msg(data.msg);-->
+<!--                            }-->
+<!--                        }-->
+<!--                    });-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!---->
+<!--    function cancel() {-->
+<!--        //关闭当前frame-->
+<!--        xadmin.close();-->
+<!--    }-->
+<!--</script>-->
 </body>
 </html>
