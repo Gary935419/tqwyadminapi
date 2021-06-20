@@ -96,6 +96,14 @@ class Member_model extends CI_Model
         $sql = "UPDATE `member` SET cityname=$cityname,is_agent=$is_agent,avater=$avater,nickname=$nickname,sex=$sex,mobile=$mobile,gid=$gid,status=$status,email=$email,truename=$truename,opend_bank=$opend_bank,bank_card=$bank_card WHERE mid = $mid";
         return $this->db->query($sql);
     }
+	//会員内容修改提交
+	public function member_save_edit_pdf($pdfurl,$mid)
+	{
+		$pdfurl = $this->db->escape($pdfurl);
+		$mid = $this->db->escape($mid);
+		$sql = "UPDATE `member` SET pdfurl=$pdfurl WHERE mid = $mid";
+		return $this->db->query($sql);
+	}
     //会員消息保存
     public function member_new_save($mid,$ncontent, $add_time, $if_flag)
     {
@@ -152,6 +160,12 @@ class Member_model extends CI_Model
 		$sql = "SELECT * FROM `reportorder` where paynumber = $str ";
 		return $this->db->query($sql)->row_array();
 	}
+	public function getreportorder1($str)
+	{
+		$str = $this->db->escape($str);
+		$sql = "SELECT * FROM `viporder` where paynumber = $str ";
+		return $this->db->query($sql)->row_array();
+	}
     //会员注册
     public function register($member_id,$badd_time,$is_agent,$cityname,$gid,$avater,$nickname,$sex,$openid,$token,$add_time,$wallet,$status,$integral,$state,$idnumber)
     {
@@ -200,6 +214,23 @@ class Member_model extends CI_Model
 		$sql = "INSERT INTO `reportorder` (mid,paynumber,status,addtime,email,price,ftype,money,area,school,btype,checktime) VALUES ($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype,$checktime)";
 		return $this->db->query($sql);
 	}
+
+	public function reportorderinsert1($mid,$paynumber,$status,$addtime,$price)
+	{
+		$mid = $this->db->escape($mid);
+		$paynumber = $this->db->escape($paynumber);
+		$status = $this->db->escape($status);
+		$addtime = $this->db->escape($addtime);
+		$price = $this->db->escape($price);
+		$sql = "INSERT INTO `viporder` (mid,paynumber,status,addtime,price) VALUES ($mid,$paynumber,$status,$addtime,$price)";
+		return $this->db->query($sql);
+	}
+	public function getupdatereportorder1($ordernumber)
+	{
+		$paynumber = $this->db->escape($ordernumber);
+		$sql = "UPDATE `viporder` SET status=1 WHERE paynumber = $paynumber";
+		return $this->db->query($sql);
+	}
 	public function getupdatereportorder($ordernumber)
 	{
 		$paynumber = $this->db->escape($ordernumber);
@@ -214,6 +245,19 @@ class Member_model extends CI_Model
         $sql = "UPDATE `member` SET token=$token WHERE mid = $mid";
         return $this->db->query($sql);
     }
+	public function member_edit2($mid,$phone)
+	{
+		$mid = $this->db->escape($mid);
+		$phone = $this->db->escape($phone);
+		$sql = "UPDATE `member` SET mobile=$phone WHERE mid = $mid";
+		return $this->db->query($sql);
+	}
+	public function member_edit1($mid)
+	{
+		$mid = $this->db->escape($mid);
+		$sql = "UPDATE `member` SET isvip=1 WHERE mid = $mid";
+		return $this->db->query($sql);
+	}
     //根据id查看详情
     public function getgradeInfo($gid)
     {
@@ -241,7 +285,7 @@ class Member_model extends CI_Model
 		return $this->db->query($sql)->row_array();
 	}
 	//查看是否支付
-	public function getpayInfo1($btype,$school,$area,$money,$ftype,$checktime)
+	public function getpayInfo2($btype,$school,$area,$money,$ftype,$checktime)
 	{
 		$btype = $this->db->escape($btype);
 		$school = $this->db->escape($school);
@@ -250,6 +294,14 @@ class Member_model extends CI_Model
 		$ftype = $this->db->escape($ftype);
 		$checktime = $this->db->escape($checktime);
 		$sql = "SELECT * FROM `reportlist` where typename = $btype and schoolname = $school and areaname = $area and pricename = $money and classname = $ftype and addtime = $checktime";
+		return $this->db->query($sql)->row_array();
+	}
+	//查看是否支付
+	public function getpayInfo1($mid,$status)
+	{
+		$mid = $this->db->escape($mid);
+		$status = $this->db->escape($status);
+		$sql = "SELECT * FROM `viporder` where mid = $mid and status = $status order by addtime desc limit 1";
 		return $this->db->query($sql)->row_array();
 	}
 	//查询学校

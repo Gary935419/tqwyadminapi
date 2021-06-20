@@ -82,7 +82,7 @@ class Login extends CI_Controller
             $this->member->register($member_id,$badd_time,$is_agent,$cityname,$gid,$avater,$nickname,$sex,$openid,$token,$add_time,$wallet,$status,$integral,$state,$idnumber);
 
             $member_newinfo = $this->member->getMemberInfo($openid);
-
+			$member_newinfo['session_key'] = $resultnew['session_key'];
             $this->back_json(200, '操作成功',$member_newinfo);
 
         } else {
@@ -90,7 +90,6 @@ class Login extends CI_Controller
             $token = $this->_get_token($member_info_one['mid']);
             $this->member->member_edit($member_info_one['mid'], $token);
             $member_info_one_new = $this->member->getmemberById($member_info_one['mid']);
-
             $this->back_json(200, '操作成功',$member_info_one_new);
         }
     }

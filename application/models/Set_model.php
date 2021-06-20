@@ -17,7 +17,7 @@ class Set_model extends CI_Model
         return $this->db->query($sql)->row_array();
     }
     //设置set_save_edit
-    public function set_save_edit($name,$contentagent,$email,$customercode,$address,$sid,$contentnew,$img,$price)
+    public function set_save_edit($name,$contentagent,$email,$customercode,$address,$sid,$contentnew,$img,$price,$price1,$contentagent1)
     {
         $name = $this->db->escape($name);
         $email = $this->db->escape($email);
@@ -28,7 +28,9 @@ class Set_model extends CI_Model
         $customercode = $this->db->escape($customercode);
         $contentnew = $this->db->escape($contentnew);
         $contentagent = $this->db->escape($contentagent);
-        $sql = "UPDATE `setting` SET price=$price,img=$img,name=$name,contentagent=$contentagent,email=$email,contentnew=$contentnew,customercode=$customercode,address=$address WHERE sid = $sid";
+		$price1 = $this->db->escape($price1);
+		$contentagent1 = $this->db->escape($contentagent1);
+        $sql = "UPDATE `setting` SET contentagent1=$contentagent1,price1=$price1,price=$price,img=$img,name=$name,contentagent=$contentagent,email=$email,contentnew=$contentnew,customercode=$customercode,address=$address WHERE sid = $sid";
         return $this->db->query($sql);
     }
 	//设置set_save_edit

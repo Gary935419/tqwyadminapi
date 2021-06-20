@@ -76,6 +76,19 @@ class Member extends CI_Controller
 
         $this->display("member/member_edit", $data);
     }
+	/**
+	 * 会员修改页
+	 */
+	public function member_editpdf()
+	{
+		$mid = isset($_GET['mid']) ? $_GET['mid'] : 0;
+		$data = array();
+		$member_info = $this->member->getmemberById($mid);
+		$data['pdfurl'] = $member_info['pdfurl'];
+		$data['mid'] = $mid;
+
+		$this->display("member/member_editpdf", $data);
+	}
     /**
      * 会员修改提交
      */
@@ -108,6 +121,28 @@ class Member extends CI_Controller
         }
 
     }
+	/**
+	 * 会员修改提交  pdf
+	 */
+	public function member_save_edit_pdf()
+	{
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
+			return;
+		}
+		$mid = isset($_POST["mid"]) ? $_POST["mid"] : '';
+		$pdfurl = isset($_POST["pdfurl"]) ? $_POST["pdfurl"] : '';
+
+		$result = $this->member->member_save_edit_pdf($pdfurl,$mid);
+		if ($result) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+
+	}
     /**
      * 发送消息页
      */

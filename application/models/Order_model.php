@@ -309,4 +309,46 @@ class Order_model extends CI_Model
 		$sql = "SELECT m.*,me.nickname,me.avater FROM `reportorder` m  LEFT JOIN `member` me ON me.mid = m.mid " . $sqlw . " order by m.addtime desc LIMIT $start, $stop";
 		return $this->db->query($sql)->result_array();
 	}
+
+	//合作订单商品count
+	public function getgoodsorderAllPage1($starttime,$end)
+	{
+		$sqlw = " where 1=1 ";
+		if (!empty($starttime) && !empty($end)) {
+			$starttime = strtotime($starttime);
+			$end = strtotime($end)+86400;
+			$sqlw .= " and m.addtime >= $starttime and m.addtime <= $end ";
+		} elseif (!empty($starttime) && empty($end)) {
+			$starttime = strtotime($starttime);
+			$sqlw .= " and m.addtime >= $starttime ";
+		} elseif (empty($starttime) && !empty($end)) {
+			$end = strtotime($end)+86400;
+			$sqlw .= " and m.addtime <= $end ";
+		}
+		$sql = "SELECT count(1) as number FROM `viporder` m  LEFT JOIN `member` me ON me.mid = m.mid " . $sqlw;
+
+		$number = $this->db->query($sql)->row()->number;
+		return ceil($number / 10) == 0 ? 1 : ceil($number / 10);
+	}
+	//合作订单商品list
+	public function getgoodsorderAll1($pg,$starttime,$end)
+	{
+		$sqlw = " where 1=1 ";
+		if (!empty($starttime) && !empty($end)) {
+			$starttime = strtotime($starttime);
+			$end = strtotime($end)+86400;
+			$sqlw .= " and m.addtime >= $starttime and m.addtime <= $end ";
+		} elseif (!empty($starttime) && empty($end)) {
+			$starttime = strtotime($starttime);
+			$sqlw .= " and m.addtime >= $starttime ";
+		} elseif (empty($starttime) && !empty($end)) {
+			$end = strtotime($end)+86400;
+			$sqlw .= " and m.addtime <= $end ";
+		}
+		$start = ($pg - 1) * 10;
+		$stop = 10;
+
+		$sql = "SELECT m.*,me.nickname,me.avater FROM `viporder` m  LEFT JOIN `member` me ON me.mid = m.mid " . $sqlw . " order by m.addtime desc LIMIT $start, $stop";
+		return $this->db->query($sql)->result_array();
+	}
 }

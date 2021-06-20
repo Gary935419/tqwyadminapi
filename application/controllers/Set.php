@@ -32,6 +32,8 @@ class Set extends CI_Controller
         $data['address'] = $set_info['address'];
         $data['contentnew'] = $set_info['contentnew'];
         $data['contentagent'] = $set_info['contentagent'];
+		$data['contentagent1'] = $set_info['contentagent1'];
+		$data['price1'] = $set_info['price1'];
         $data['customercode'] = $set_info['customercode'];
         $this->display("set/set_edit", $data);
     }
@@ -51,10 +53,12 @@ class Set extends CI_Controller
         $address = isset($_POST["address"]) ? $_POST["address"] : '';
 		$img = isset($_POST["img"]) ? $_POST["img"] : '';
 		$price = isset($_POST["price"]) ? $_POST["price"] : '';
+		$price1 = isset($_POST["price1"]) ? $_POST["price1"] : '';
         $customercode = isset($_POST["customercode"]) ? $_POST["customercode"] : '';
         $contentnew = isset($_POST["contentnew"]) ? $_POST["contentnew"] : '';
         $contentagent = isset($_POST["contentagent"]) ? $_POST["contentagent"] : '';
-        $result = $this->set->set_save_edit($name,$contentagent,$email,$customercode,$address,$sid,$contentnew,$img,$price);
+		$contentagent1 = isset($_POST["contentagent1"]) ? $_POST["contentagent1"] : '';
+        $result = $this->set->set_save_edit($name,$contentagent,$email,$customercode,$address,$sid,$contentnew,$img,$price,$price1,$contentagent1);
         if ($result) {
             echo json_encode(array('success' => true, 'msg' => "操作成功。"));
             return;

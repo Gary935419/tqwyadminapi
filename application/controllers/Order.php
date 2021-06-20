@@ -390,4 +390,25 @@ class Order extends CI_Controller
 		$data["end"] = $end;
 		$this->display("order/goodsorder_list", $data);
 	}
+	/**
+	 * vip服务列表
+	 */
+	public function viporder_list()
+	{
+
+		$start = isset($_GET['start']) ? $_GET['start'] : '';
+		$end = isset($_GET['end']) ? $_GET['end'] : '';
+		$page = isset($_GET["page"]) ? $_GET["page"] : 1;
+
+		$allpage = $this->order->getgoodsorderAllPage1($start,$end);
+		$page = $allpage > $page ? $page : $allpage;
+		$data["pagehtml"] = $this->getpage($page, $allpage, $_GET);
+		$data["page"] = $page;
+		$data["allpage"] = $allpage;
+		$list = $this->order->getgoodsorderAll1($page,$start,$end);
+		$data["list"] = $list;
+		$data["start"] = $start;
+		$data["end"] = $end;
+		$this->display("order/viporder_list", $data);
+	}
 }

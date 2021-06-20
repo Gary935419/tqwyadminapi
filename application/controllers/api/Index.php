@@ -266,7 +266,7 @@ class Index extends CI_Controller
 		$id = $_POST['id'];
 		$addtime = time();
 		$mid = $member['mid'];
-		$status = 1;
+		$status = 0;
 		$paynumber = "P".time();
 
 		$questionnow = $this->member->getreportorder($paynumber);
@@ -341,6 +341,94 @@ class Index extends CI_Controller
 		$this->back_json(200, '下单成功', $re);
 	}
 	/**
+	 * 下单
+	 */
+	public function orderinsert1(){
+		//验证loginCode是否传递
+		if (!isset($_POST['token']) || empty($_POST['token'])) {
+			$this->back_json(205, '未授权登录！');
+		}
+		$token = $_POST['token'];
+		$member = $this->member->getMemberInfotoken($token);
+		if (empty($member)){
+			$this->back_json(205, '登录超时！请重新授权！');
+		}
+
+		$price = $_POST['price'];
+		$addtime = time();
+		$mid = $member['mid'];
+		$status = 0;
+		$paynumber = "P".time();
+
+		$questionnow = $this->member->getreportorder1($paynumber);
+		if (!empty($questionnow)){
+			$this->back_json(202, '当前已经下单！请稍后重试！');
+		}
+		$this->member->reportorderinsert1($mid,$paynumber,$status,$addtime,$price);
+
+		$openid = $member['openid'];
+		$appid = 'wx2807f1038eb33541';
+		$key = "dalianzhiyeyoudao123456789012345";
+		$mch_id = "1609582735";
+		$money = $price;
+
+		$orderCode = $paynumber;   //  订单号
+//        随机字符串
+		$str = "QWERTYUIPADGHJKLZXCVNM1234567890";
+		$nonce = str_shuffle($str);
+
+		$pay['appid'] = $appid;
+		$pay['body'] = '订单支付';               //商品描述
+		$pay['mch_id'] = $mch_id;            //商户号
+		$pay['nonce_str'] = $nonce;        //随机字符串
+		$pay['notify_url'] = 'https://dltqwy.com/index.php/api/Index/notify1';
+		$pay['openid'] = $openid;
+		$pay['out_trade_no'] = $orderCode;       //订单号
+		$pay['spbill_create_ip'] = $_SERVER['SERVER_ADDR']; // 终端IP
+		$pay['total_fee'] = 100 * $money; //支付金额
+		$pay['trade_type'] = 'JSAPI';    //交易类型
+//        组建签名（不可换行 空格  否则哭吧）
+		$stringA = "appid=" . $pay['appid'] . "&body=" . $pay['body'] . "&mch_id=" . $pay['mch_id'] . "&nonce_str=" . $pay['nonce_str'] . "&notify_url=" . $pay['notify_url'] . "&openid=" . $pay['openid'] . "&out_trade_no=" . $pay['out_trade_no'] . "&spbill_create_ip=" . $pay['spbill_create_ip'] . "&total_fee=" . $pay['total_fee'] . "&trade_type=" . $pay['trade_type'];
+		$stringSignTemp = $stringA . "&key=" . $key; //注：key为商户平台设置的密钥key(这个还需要再确认一下)
+		$sign = strtoupper(md5($stringSignTemp)); //注：MD5签名方式
+		$pay['sign'] = $sign;              //签名
+//        统一下单请求
+		$url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+		$data = $this->arrayToXml($pay);
+		$res = $this->wxpost($url, $data);
+//        对 统一下单返回得参数进行处理
+		$pay_arr = $this->xmlToArray($res);  //这里是数组
+
+		if ($pay_arr['return_code'] == 'FAIL' || $pay_arr['result_code'] == 'FAIL') {
+			echo json_encode($res);
+			exit;
+		}
+//        调起支付数据签名字段
+		$timeStamp = time();
+		$nonce_pay = str_shuffle($str);
+		$package = $pay_arr['prepay_id'];
+		$signType = "MD5";
+		$stringPay = "appId=" . $appid . "&nonceStr=" . $nonce_pay . "&package=prepay_id=" . $package . "&signType=" . $signType . "&timeStamp=" . $timeStamp . "&key=" . $key;
+		$paySign = strtoupper(md5($stringPay));
+		$rpay['timeStamp'] = (string)$timeStamp;
+		$rpay['nonceStr'] = $nonce_pay;
+		$rpay['_package'] = "prepay_id=" . $package;
+		$rpay['signType'] = $signType;
+		$rpay['paySign'] = $paySign;
+		$rpay['orders'] = $orderCode;
+
+		$weixin_sign = [
+			'order_no' => $paynumber,
+			'money' => $money,
+			'app_request' => $rpay,
+		];
+
+		$re = [
+			'weixin_sign' => $weixin_sign ? $weixin_sign : (object)[],
+		];
+		$this->back_json(200, '下单成功', $re);
+	}
+	/**
 	 * check是否支付
 	 */
 	public function getPay(){
@@ -376,9 +464,9 @@ class Index extends CI_Controller
 		$mid = $member['mid'];
 		$status = 1;
 		$getpayInfo = $this->member->getpayInfo($btype,$school,$area,$money,$ftype,$mid,$status);
-		if (!empty($getpayInfo)){
-			$getpayInfo1 = $this->member->getpayInfo1($btype,$school,$area,$money,$ftype,$getpayInfo['checktime']);
 
+		if (!empty($getpayInfo)){
+			$getpayInfo1 = $this->member->getpayInfo2($btype,$school,$area,$money,$ftype,$getpayInfo['checktime']);
 			if (!empty($getpayInfo1)){
 				$payflg = 1;
 			}else{
@@ -389,6 +477,33 @@ class Index extends CI_Controller
 		}
 		$data['payflg'] = $payflg;
 		$this->back_json(200, '操作成功', $data);
+	}
+	/**
+	 * check是否支付
+	 */
+	public function getPayvip(){
+		//验证loginCode是否传递
+		if (!isset($_POST['token']) || empty($_POST['token'])) {
+			$this->back_json(205, '未授权！请授权登录！');
+		}
+		$token = $_POST['token'];
+		$member = $this->member->getMemberInfotoken($token);
+		if (empty($member)){
+			$this->back_json(205, '登录超时！请重新授权！');
+		}
+
+		$mid = $member['mid'];
+		$status = 1;
+		$getpayInfo = $this->member->getpayInfo1($mid,$status);
+		if (!empty($getpayInfo)){
+			$payflg = 1;
+			$data['payflg'] = $payflg;
+			$this->back_json(200, '操作成功', $data);
+		}else{
+			$payflg = 0;
+			$data['payflg'] = $payflg;
+			$this->back_json(300, '抱歉！您还没有购买vip服务！', $data);
+		}
 	}
 	/**
 	 * 获得报告信息
@@ -554,6 +669,30 @@ class Index extends CI_Controller
 			exit();
 		}
 	}
+	public function notify1()
+	{
+		if (!$xml = file_get_contents('php://input')) {
+//            return json(array('code' => 205, 'info' => "not found data"));
+			$this->back_json(204, 'not found data！');
+		}
+		// 将服务器返回的XML数据转化为数组
+		$data = $this->fromXml($xml);
+		// 保存微信服务器返回的签名sign
+		$dataSign = $data['sign'];
+		// sign不参与签名算法
+		unset($data['sign']);
+		// 生成签名
+		$sign = $this->sign($data);
+
+		if (($sign === $dataSign) && ($data['return_code'] == 'SUCCESS') && ($data['result_code'] == 'SUCCESS')) {
+			$paynumber = $data['out_trade_no'];
+			$this->member->getupdatereportorder1($paynumber);
+			$orderinfo = $this->member->getreportorder1($paynumber);
+			$this->member->member_edit1($orderinfo['mid']);
+			echo 'SUCCESS';
+			exit();
+		}
+	}
 	//签名 $data要先排好顺序
 	private function sign($data){
 		$stringA = '';
@@ -683,6 +822,8 @@ class Index extends CI_Controller
 		$indeximglist = $this->member->getsetInfo();
 		$data['price'] = empty($indeximglist['price'])?0.00:$indeximglist['price'];
 		$data['sellstr'] = empty($indeximglist['contentagent'])?'':$indeximglist['contentagent'];
+		$data['price1'] = empty($indeximglist['price1'])?0.00:$indeximglist['price1'];
+		$data['sellstr1'] = empty($indeximglist['contentagent1'])?'':$indeximglist['contentagent1'];
 		$this->back_json(200, '操作成功', $data);
 	}
 	/**
@@ -958,4 +1099,58 @@ class Index extends CI_Controller
             return false;
         }
     }
+
+	/**
+	 * 检验数据的真实性，并且获取解密后的明文.
+	 * @param $encryptedData string 加密的用户数据
+	 * @param $iv string 与用户数据一同返回的初始向量
+	 * @param $data string 解密后的原文
+	 *
+	 * @return int 成功0，失败返回对应的错误码
+	 */
+	public function checknumber()
+	{
+		//验证loginCode是否传递
+		if (!isset($_POST['token']) || empty($_POST['token'])) {
+			$this->back_json(205, '未授权登录！');
+		}
+
+		$token = $_POST['token'];
+		$member = $this->member->getMemberInfotoken($token);
+		if (empty($member)){
+			$this->back_json(205, '请重新登录');
+		}
+		$mid = $member['mid'];
+		$encrypdata = $_POST['encrypdata'];
+		$ivdata = $_POST['ivdata'];
+		$sessionKey = $_POST['sessionKey'];
+		if (strlen($sessionKey) != 24) {
+			$this->back_json(205, 'sessionKey数据错误！');
+		}
+		$aesKey=base64_decode($sessionKey);
+
+
+		if (strlen($ivdata) != 24) {
+			$this->back_json(205, 'ivdata数据错误！');
+		}
+		$aesIV=base64_decode($ivdata);
+
+		$aesCipher=base64_decode($encrypdata);
+
+		$result=openssl_decrypt( $aesCipher, "AES-128-CBC", $aesKey, 1, $aesIV);
+
+		$dataObj=json_decode($result);
+
+		if(empty($dataObj))
+		{
+			$this->back_json(205, '数据错误！');
+		}
+		if($dataObj->watermark->appid != 'wx2807f1038eb33541')
+		{
+			$this->back_json(205, '数据错误appid！');
+		}
+		$phone = $dataObj->phoneNumber;
+		$this->member->member_edit2($mid,$phone);
+		$this->back_json(200, 'success！');
+	}
 }

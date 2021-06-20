@@ -44,6 +44,22 @@ class Upload extends CI_Controller
         echo json_encode(array('code' => 200,'src' => "https://dltqwy.com".$src, 'msg' => "上传成功"));
         return;
     }
+	/**
+	 * pdf上传
+	 */
+	public function pushFIlePdf(){
+		$src="";
+		$_swap = time();
+		$number=$this->GetRandStr(2);
+		$_swap = $_swap.$number;
+		$fileName = $_swap.".".substr(strrchr($_FILES['file']['name'], '.'), 1);
+		move_uploaded_file($_FILES['file']["tmp_name"], "./static/uploads/".$fileName);
+		if (file_exists("./static/uploads/".$fileName)) {
+			$src="/static/uploads/".$fileName;
+		}
+		echo json_encode(array('code' => 200,'src' => "https://dltqwy.com".$src, 'msg' => "上传成功"));
+		return;
+	}
     /**
      * 富文本单图片上传
      */

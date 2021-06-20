@@ -19,7 +19,7 @@
 <div class="x-nav">
           <span class="layui-breadcrumb">
             <a>
-              <cite>房产报告订单</cite></a>
+              <cite>vip服务订单</cite></a>
           </span>
 </div>
 <div class="layui-fluid">
@@ -27,7 +27,7 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body ">
-                    <form class="layui-form layui-col-space5" method="get" action="<?= RUN, '/order/goodsorder_list' ?>">
+                    <form class="layui-form layui-col-space5" method="get" action="<?= RUN, '/order/viporder_list' ?>">
                         <div class="layui-input-inline layui-show-xs-block">
                             <input class="layui-input" placeholder="开始日期" value="<?php echo $start ?>" name="start" id="start"></div>
                         <div class="layui-input-inline layui-show-xs-block">
@@ -45,10 +45,8 @@
 							<th>支付单号</th>
                             <th>会员昵称</th>
                             <th>会员头像</th>
-                            <th>报告类型</th>
-                            <th>报告费用</th>
+                            <th>订单费用</th>
                             <th>订单状态</th>
-                            <th>报告详情</th>
                             <th>购买时间</th>
                         </thead>
                         <tbody>
@@ -58,19 +56,12 @@
 									<td><?= $once['paynumber'] ?></td>
                                     <td><?= $once['nickname'] ?></td>
 									<td><img src="<?= $once['avater'] ?>" style="width: 50px;height: 50px;"></td>
-									<td><?= $once['btype'] ?></td>
 									<td><?= $once['price'] ?>元</td>
                                     <?php if ($once['status']==1){ ?>
                                         <td style="color: green;">已支付</td>
                                     <?php }else{ ?>
                                         <td style="color: red;">未支付</td>
                                     <?php } ?>
-                                    <td>
-                                        <button class="layui-btn layui-btn-warm"
-                                                onclick="xadmin.open('报告详情','<?= RUN . '/examine/examine_details_items?id=' ?>'+<?= $once['id'] ?>,900,500)">
-                                            <i class="layui-icon">&#xe60b;</i>查看
-                                        </button>
-                                    </td>
                                     <td><?= date('Y-m-d H:i:s', $once['addtime']) ?></td>
                                 </tr>
                             <?php endforeach; ?>

@@ -49,6 +49,7 @@
                             <th>会员头像</th>
                             <th>会员电话</th>
                             <th>会员性别</th>
+							<th>会员状态</th>
 <!--                            <th>兴趣商品条数</th>-->
 <!--                            <th>会员积分</th>-->
 <!--                            <th>会员城市</th>-->
@@ -66,6 +67,7 @@
                                     <td><img src="<?= $once['avater'] ?>" style="width: 50px;height: 50px;"></td>
                                     <td><?= empty($once['mobile']) ? '暂无数据' : $once['mobile'] ?></td>
                                     <td><?= $once['sex'] == 1 ? '男' : '女' ?></td>
+									<td><?= $once['isvip'] == 1 ? '会员' : '非会员' ?></td>
 <!--                                    <td>--><?//= $once['count'] ?><!--条</td>-->
 <!--                                    <td>--><?//= $once['integral'] ?><!--积分</td>-->
 <!--                                    <td>--><?//= $once['cityname'] ?><!--</td>-->
@@ -81,6 +83,10 @@
                                                 onclick="xadmin.open('编辑会员','<?= RUN . '/member/member_edit?mid=' ?>'+<?= $once['mid'] ?>,900,500)">
                                             <i class="layui-icon">&#xe642;</i>编辑
                                         </button>
+										<button class="layui-btn layui-btn-normal"
+												onclick="xadmin.open('PDF','<?= RUN . '/member/member_editpdf?mid=' ?>'+<?= $once['mid'] ?>,900,500)">
+											<i class="layui-icon">&#xe642;</i>PDF
+										</button>
 <!--                                        <button class="layui-btn layui-btn-warm"-->
 <!--                                                onclick="xadmin.open('发送消息','--><?//= RUN . '/member/send_news?mid=' ?><!--'+--><?//= $once['mid'] ?><!--,900,250)">-->
 <!--                                            <i class="layui-icon">&#xe63a;</i>发送-->

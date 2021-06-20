@@ -198,14 +198,20 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont left-nav-li" lay-tips="报告订单">&#xe723;</i>
-                    <cite>报告订单</cite>
+                    <i class="iconfont left-nav-li" lay-tips="订单管理">&#xe723;</i>
+                    <cite>订单管理</cite>
                     <i class="iconfont nav_right">&#xe697;</i></a>
                 <ul class="sub-menu">
 					<li>
 						<a onclick="changeSrc('<?= RUN . '/order/goodsorder_list' ?>')">
 							<i class="iconfont">&#xe6a7;</i>
 							<cite>房产报告订单</cite>
+						</a>
+					</li>
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/order/viporder_list' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>vip服务订单</cite>
 						</a>
 					</li>
                 </ul>

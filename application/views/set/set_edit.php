@@ -57,7 +57,7 @@
             </div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>购买说明
+                    <span class="x-red">*</span>报告购买说明
                 </label>
                 <div class="layui-input-inline" style="width: 610px;">
                     <textarea id="contentagent" name="contentagent" placeholder="请输入内容" lay-verify="contentagent" class="layui-textarea"><?php echo $contentagent ?></textarea>
@@ -65,11 +65,28 @@
             </div>
 			<div class="layui-form-item">
 				<label for="L_pass" class="layui-form-label" style="width: 30%;">
-					<span class="x-red">*</span>购买费用(单位：元)
+					<span class="x-red">*</span>报告购买费用(单位：元)
 				</label>
 				<div class="layui-input-inline" style="width: 300px;">
 					<input type="number" id="price" name="price" lay-verify="price"
 						   autocomplete="off" value="<?php echo $price ?>" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>vip购买说明
+				</label>
+				<div class="layui-input-inline" style="width: 610px;">
+					<textarea id="contentagent1" name="contentagent1" placeholder="请输入内容" lay-verify="contentagent1" class="layui-textarea"><?php echo $contentagent1 ?></textarea>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>vip购买费用(单位：元)
+				</label>
+				<div class="layui-input-inline" style="width: 300px;">
+					<input type="number" id="price1" name="price1" lay-verify="price1"
+						   autocomplete="off" value="<?php echo $price1 ?>" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -198,6 +215,9 @@
             var editIndex2 = layedit.build('contentagent', {
                 height: 300,
             });
+            var editIndex3 = layedit.build('contentagent1', {
+                height: 300,
+            });
             //自定义验证规则
             form.verify({
                 name: function (value) {
@@ -226,7 +246,14 @@
                     // 将富文本编辑器的值同步到之前的textarea中
                     layedit.sync(editIndex2);
                     if ($('#contentagent').val() == "") {
-                        return '请输入主营业务。';
+                        return '请输入购买说明。';
+                    }
+                },
+                contentagent1: function(value) {
+                    // 将富文本编辑器的值同步到之前的textarea中
+                    layedit.sync(editIndex3);
+                    if ($('#contentagent1').val() == "") {
+                        return '请输入购买说明。';
                     }
                 },
                 customercode: function (value) {
