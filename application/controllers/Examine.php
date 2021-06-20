@@ -93,6 +93,9 @@ class Examine extends CI_Controller
         $oid = isset($_GET['oid']) ? $_GET['oid'] : 0;
         $data = array();
         $data['oid'] = $oid;
+		$task_info = $this->examine->gettaskById($oid);
+		$data['tareject'] = empty($task_info['tareject'])?'':$task_info['tareject'];
+		$data['content'] = empty($task_info['content'])?'':$task_info['content'];
         $this->display("examine/task_examine", $data);
     }
     /**
@@ -306,6 +309,20 @@ class Examine extends CI_Controller
 			return;
 		} else {
 			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+	}
+	/**
+	 * 类型删除
+	 */
+	public function itemsclass_delete()
+	{
+		$id = isset($_POST['id']) ? $_POST['id'] : 0;
+		if ($this->examine->itemsclass_delete($id)) {
+			echo json_encode(array('success' => true, 'msg' => "删除成功"));
+			return;
+		} else {
+			echo json_encode(array('success' => false, 'msg' => "删除失败"));
 			return;
 		}
 	}

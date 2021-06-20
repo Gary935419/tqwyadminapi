@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-窝行我述</title>
+    <title>我的管理后台-置业友道</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -82,14 +82,17 @@
                                     <td class="td-manage">
                                         <?php if ($once['ostate']==1){ ?>
                                             <button class="layui-btn layui-btn-normal"
-                                                    onclick="xadmin.open('审核操作','<?= RUN . '/examine/task_examine?oid=' ?>'+<?= $once['oid'] ?>,900,250)">
+                                                    onclick="xadmin.open('审核操作','<?= RUN . '/examine/task_examine?oid=' ?>'+<?= $once['oid'] ?>,900,500)">
                                                 <i class="layui-icon">&#xe642;</i>回答
                                             </button>
-                                            <button class="layui-btn layui-btn-danger"
-                                                    onclick="xadmin.open('审核操作','<?= RUN . '/examine/taskno_examine?oid=' ?>'+<?= $once['oid'] ?>,900,250)">
-                                                <i class="layui-icon">&#xe642;</i>驳回
-                                            </button>
+<!--                                            <button class="layui-btn layui-btn-danger"-->
+<!--                                                    onclick="xadmin.open('审核操作','--><?//= RUN . '/examine/taskno_examine?oid=' ?><!--'+--><?//= $once['oid'] ?><!--,900,250)">-->
+<!--                                                <i class="layui-icon">&#xe642;</i>驳回-->
+<!--                                            </button>-->
                                         <?php } ?>
+										<button class="layui-btn layui-btn-danger"
+												onclick="taskclass_delete('<?= $once['oid'] ?>')"><i class="layui-icon">&#xe640;</i>删除
+										</button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -124,5 +127,40 @@ layui.use(['laydate', 'form'],
                 elem: '#end' //指定元素
             });
         });
+</script>
+<script>
+    function taskclass_delete(id) {
+        layer.confirm('您是否确认删除？', {
+                title: '温馨提示',
+                btn: ['确认', '取消']
+                // 按钮
+            },
+            function (index) {
+                $.ajax({
+                    type: "post",
+                    data: {"id": id},
+                    dataType: "json",
+                    url: "<?= RUN . '/examine/itemsclass_delete' ?>",
+                    success: function (data) {
+                        if (data.success) {
+                            $("#p" + id).remove();
+                            layer.alert(data.msg, {
+                                    title: '温馨提示',
+                                    icon: 6,
+                                    btn: ['确认']
+                                },
+                            );
+                        } else {
+                            layer.alert(data.msg, {
+                                    title: '温馨提示',
+                                    icon: 5,
+                                    btn: ['确认']
+                                },
+                            );
+                        }
+                    },
+                });
+            });
+    }
 </script>
 </html>

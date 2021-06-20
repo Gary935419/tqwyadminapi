@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-窝行我述</title>
+    <title>我的管理后台-置业友道</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -21,7 +21,7 @@
 <!-- 顶部开始 -->
 <div class="container">
     <div class="logo">
-        <a href="<?= RUN . '/admin/index' ?>"> 我的管理后台-窝行我述 </a>
+        <a href="<?= RUN . '/admin/index' ?>"> 我的管理后台-置业友道 </a>
     </div>
 
     <div class="left_open">

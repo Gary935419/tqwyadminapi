@@ -342,4 +342,11 @@ class Examine_model extends CI_Model
 		$sql = "SELECT * FROM `orderitems` where id=$id ";
 		return $this->db->query($sql)->row_array();
 	}
+	//类型delete
+	public function itemsclass_delete($id)
+	{
+		$id = $this->db->escape($id);
+		$sql = "DELETE FROM taorder WHERE oid = $id";
+		return $this->db->query($sql);
+	}
 }

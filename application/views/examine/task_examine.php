@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-窝行我述</title>
+    <title>我的管理后台-置业友道</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -26,6 +26,15 @@
 <div class="layui-fluid">
     <div class="layui-row">
         <form method="post" class="layui-form layui-form-pane" id="tab">
+			<div class="layui-form-item layui-form-text">
+				<label for="desc" class="layui-form-label">
+					问题内容
+				</label>
+				<div class="layui-input-block">
+                    <textarea readonly placeholder="暂无提交问题内容" id="content" name="content" class="layui-textarea"
+							  lay-verify="content"><?php echo $content ?></textarea>
+				</div>
+			</div>
             <div class="layui-form-item layui-form-text">
                 <label for="desc" class="layui-form-label">
                     问答回复说明

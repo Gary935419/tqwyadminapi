@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-窝行我述</title>
+    <title>我的管理后台-置业友道</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -54,8 +54,18 @@
 							<?php } ?>
 							<th>房源类型</th>
 							<th>房源价位</th>
-                            <th>房源及均价分析</th>
-							<th>重点观点导向分析</th>
+							<?php if ($btype==1){ ?>
+								<th>房源及均价分析</th>
+								<th>重点观点导向分析</th>
+							<?php } ?>
+							<?php if ($btype==2){ ?>
+								<th>区域房源及价格分析</th>
+								<th>置业友道观点导向分析</th>
+							<?php } ?>
+							<?php if ($btype==3){ ?>
+								<th>投资区域房源及价格分析</th>
+								<th>投资置业友道观点导向分析</th>
+							<?php } ?>
                             <th>操作</th>
                         </thead>
                         <tbody>

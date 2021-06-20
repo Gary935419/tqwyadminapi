@@ -2,7 +2,7 @@
 <html class="x-admin-sm">
 <head>
     <meta charset="UTF-8">
-    <title>我的管理后台-窝行我述</title>
+    <title>我的管理后台-置业友道</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport"
@@ -64,19 +64,19 @@
 									<td>
 										<button class="layui-btn layui-btn-success"
 												onclick="xadmin.open('编辑','<?= RUN . '/set/set_edit_new?id=9' ?>',1000,600)">
-											<i class="layui-icon">&#xe642;</i>自住房分析编辑
+											<i class="layui-icon">&#xe642;</i>房地产相关政策分析
 										</button>
 									</td>
 									<td>
 										<button class="layui-btn layui-btn-success"
 												onclick="xadmin.open('编辑','<?= RUN . '/set/set_edit_new?id=10' ?>',1000,600)">
-											<i class="layui-icon">&#xe642;</i>自住房预警编辑
+											<i class="layui-icon">&#xe642;</i>大连房地产市场分析
 										</button>
 									</td>
 									<td>
 										<button class="layui-btn layui-btn-success"
 												onclick="xadmin.open('编辑','<?= RUN . '/set/set_edit_new?id=11' ?>',1000,600)">
-											<i class="layui-icon">&#xe642;</i>自住房政策编辑
+											<i class="layui-icon">&#xe642;</i>未来房产走势分析
 										</button>
 									</td>
 								</tr>
