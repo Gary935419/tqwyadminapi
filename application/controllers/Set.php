@@ -18,6 +18,70 @@ class Set extends CI_Controller
         $this->load->model('Set_model', 'set');
         header("Content-type:text/html;charset=utf-8");
     }
+	/**
+	 * 设置修改页
+	 */
+	public function set_editer()
+	{
+		$sid = 1;
+		$set_info = $this->set->getsetById($sid);
+		$data['ertext'] = $set_info['ertext'];
+		$this->display("set/set_editer", $data);
+	}
+	/**
+	 * 设置修改提交
+	 */
+	public function set_save_editer()
+	{
+
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
+			return;
+		}
+		$sid = 1;
+		$ertext = isset($_POST["ertext"]) ? $_POST["ertext"] : '';
+		$result = $this->set->set_save_editer($sid,$ertext);
+		if ($result) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+
+	}
+	/**
+	 * 设置修改页
+	 */
+	public function set_editxin()
+	{
+		$sid = 1;
+		$set_info = $this->set->getsetById($sid);
+		$data['xintext'] = $set_info['xintext'];
+		$this->display("set/set_editxin", $data);
+	}
+	/**
+	 * 设置修改提交
+	 */
+	public function set_save_editxin()
+	{
+
+		if (empty($_SESSION['user_name'])) {
+			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
+			return;
+		}
+		$sid = 1;
+		$xintext = isset($_POST["xintext"]) ? $_POST["xintext"] : '';
+		$result = $this->set->set_save_editxin($sid,$xintext);
+		if ($result) {
+			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
+			return;
+		} else {
+			echo json_encode(array('error' => false, 'msg' => "操作失败"));
+			return;
+		}
+
+	}
     /**
      * 设置修改页
      */

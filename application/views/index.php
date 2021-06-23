@@ -102,6 +102,18 @@
                             <cite>联系我们</cite>
                         </a>
                     </li>
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/set/set_editer' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>二手房交易管理</cite>
+						</a>
+					</li>
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/set/set_editxin' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>新房交易管理</cite>
+						</a>
+					</li>
                 </ul>
             </li>
             <li>

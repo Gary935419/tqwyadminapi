@@ -33,6 +33,27 @@ class Set_model extends CI_Model
         $sql = "UPDATE `setting` SET contentagent1=$contentagent1,price1=$price1,price=$price,img=$img,name=$name,contentagent=$contentagent,email=$email,contentnew=$contentnew,customercode=$customercode,address=$address WHERE sid = $sid";
         return $this->db->query($sql);
     }
+
+	public function set_save_editer($sid,$ertext)
+	{
+		$ertext = $this->db->escape($ertext);
+
+		$sid = $this->db->escape($sid);
+
+		$sql = "UPDATE `setting` SET ertext=$ertext WHERE sid = $sid";
+		return $this->db->query($sql);
+	}
+
+	public function set_save_editxin($sid,$xintext)
+	{
+		$xintext = $this->db->escape($xintext);
+
+		$sid = $this->db->escape($sid);
+
+		$sql = "UPDATE `setting` SET xintext=$xintext WHERE sid = $sid";
+		return $this->db->query($sql);
+	}
+
 	//设置set_save_edit
 	public function set_save_edit_new($sid,$content,$id)
 	{
