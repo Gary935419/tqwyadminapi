@@ -275,7 +275,7 @@ class Index extends CI_Controller
 		}
 		$getReportinfo = $this->member->getReportinfo($id);
 		$checktime = $getReportinfo['addtime'];
-		$this->member->reportorderinsert($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype,$checktime);
+		$this->member->reportorderinsert($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype,$checktime,$id);
 
 		$openid = $member['openid'];
 		$appid = 'wx2807f1038eb33541';
@@ -647,6 +647,37 @@ class Index extends CI_Controller
 
 		$this->back_json(200, '操作成功', $data);
 	}
+	public function get_detailsmy(){
+		//验证loginCode是否传递
+		if (!isset($_POST['token']) || empty($_POST['token'])) {
+			$this->back_json(205, '未授权登录！');
+		}
+		$token = $_POST['token'];
+		$member = $this->member->getMemberInfotoken($token);
+		if (empty($member)){
+			$this->back_json(205, '请重新登录');
+		}
+
+		$id = $_POST['id'];
+		$num = $_POST['num'];
+
+		$getReportinfo = $this->member->getReportinfomy($id);
+		if ($num == 1){
+			$data['reportinfo'] = $getReportinfo['reportinfo1'];
+		}elseif ($num == 2){
+			$data['reportinfo'] = $getReportinfo['reportinfo2'];
+		}elseif ($num == 3){
+			$data['reportinfo'] = $getReportinfo['reportinfo3'];
+		}elseif ($num == 4){
+			$data['reportinfo'] = $getReportinfo['reportinfo4'];
+		}elseif ($num == 5){
+			$data['reportinfo'] = $getReportinfo['reportinfo5'];
+		}else{
+			$data['reportinfo'] = $getReportinfo['reportinfo6'];
+		}
+
+		$this->back_json(200, '操作成功', $data);
+	}
 	public function notify()
 	{
 		if (!$xml = file_get_contents('php://input')) {
@@ -665,6 +696,75 @@ class Index extends CI_Controller
 		if (($sign === $dataSign) && ($data['return_code'] == 'SUCCESS') && ($data['result_code'] == 'SUCCESS')) {
 			$paynumber = $data['out_trade_no'];
 			$this->member->getupdatereportorder($paynumber);
+			$orderinfo = $this->member->getreportorder($paynumber);
+			$id = $orderinfo['rid'];
+			$mid = $orderinfo['mid'];
+			$settingdetails = $this->task->goodsdetailskefu();
+			$getReportinfo = $this->member->getReportinfo($id);
+			if ($getReportinfo['typename'] == '学区需求'){
+				$reportinfo1 = empty($settingdetails['content1'])?'':$settingdetails['content1'];
+				$reportinfo2 = empty($settingdetails['content2'])?'':$settingdetails['content2'];
+				$reportinfo3 = empty($settingdetails['content3'])?'':$settingdetails['content3'];
+				if ($getReportinfo['areaname'] == '中山区'){
+					$reportinfo4 = empty($settingdetails['content4'])?'':$settingdetails['content4'];
+				}elseif ($getReportinfo['areaname'] == '西岗区'){
+					$reportinfo4 = empty($settingdetails['content5'])?'':$settingdetails['content5'];
+				}elseif ($getReportinfo['areaname'] == '沙河口区'){
+					$reportinfo4 = empty($settingdetails['content6'])?'':$settingdetails['content6'];
+				}elseif ($getReportinfo['areaname'] == '甘井子区'){
+					$reportinfo4 = empty($settingdetails['content7'])?'':$settingdetails['content7'];
+				}elseif ($getReportinfo['areaname'] == '高新园区'){
+					$reportinfo4 = empty($settingdetails['content8'])?'':$settingdetails['content8'];
+				}else{
+					$this->back_json(205, '请求失败');
+				}
+				$reportinfo5 = empty($getReportinfo['gcontent4'])?'':$getReportinfo['gcontent4'];
+				$reportinfo6 = empty($getReportinfo['gcontent5'])?'':$getReportinfo['gcontent5'];
+			}elseif ($getReportinfo['typename'] == '自住需求'){
+				$reportinfo1 = empty($settingdetails['content9'])?'':$settingdetails['content9'];
+				$reportinfo2 = empty($settingdetails['content10'])?'':$settingdetails['content10'];
+				$reportinfo3 = empty($settingdetails['content11'])?'':$settingdetails['content11'];
+					if ($getReportinfo['areaname'] == '中山区'){
+						$reportinfo4 = empty($settingdetails['content12'])?'':$settingdetails['content12'];
+					}elseif ($getReportinfo['areaname'] == '西岗区'){
+						$reportinfo4 = empty($settingdetails['content13'])?'':$settingdetails['content13'];
+					}elseif ($getReportinfo['areaname'] == '沙河口区'){
+						$reportinfo4 = empty($settingdetails['content14'])?'':$settingdetails['content14'];
+					}elseif ($getReportinfo['areaname'] == '甘井子区'){
+						$reportinfo4 = empty($settingdetails['content15'])?'':$settingdetails['content15'];
+					}elseif ($getReportinfo['areaname'] == '高新园区'){
+						$reportinfo4 = empty($settingdetails['content16'])?'':$settingdetails['content16'];
+					}else{
+						$this->back_json(205, '请求失败');
+					}
+				$reportinfo5 = empty($getReportinfo['gcontent4'])?'':$getReportinfo['gcontent4'];
+				$reportinfo6 = empty($getReportinfo['gcontent5'])?'':$getReportinfo['gcontent5'];
+			}elseif ($getReportinfo['typename'] == '投资需求'){
+				$reportinfo1 = empty($settingdetails['content17'])?'':$settingdetails['content17'];
+				$reportinfo2 = empty($settingdetails['content18'])?'':$settingdetails['content18'];
+				$reportinfo3 = empty($settingdetails['content19'])?'':$settingdetails['content19'];
+					if ($getReportinfo['areaname'] == '中山区'){
+						$reportinfo4 = empty($settingdetails['content20'])?'':$settingdetails['content20'];
+					}elseif ($getReportinfo['areaname'] == '西岗区'){
+						$reportinfo4 = empty($settingdetails['content21'])?'':$settingdetails['content21'];
+					}elseif ($getReportinfo['areaname'] == '沙河口区'){
+						$reportinfo4 = empty($settingdetails['content22'])?'':$settingdetails['content22'];
+					}elseif ($getReportinfo['areaname'] == '甘井子区'){
+						$reportinfo4 = empty($settingdetails['content23'])?'':$settingdetails['content23'];
+					}elseif ($getReportinfo['areaname'] == '高新园区'){
+						$reportinfo4 = empty($settingdetails['content24'])?'':$settingdetails['content24'];
+					}else{
+						$this->back_json(205, '请求失败');
+					}
+				$reportinfo5 = empty($getReportinfo['gcontent4'])?'':$getReportinfo['gcontent4'];
+				$reportinfo6 = empty($getReportinfo['gcontent5'])?'':$getReportinfo['gcontent5'];
+			}else{
+				$this->back_json(205, '请求失败');
+			}
+			$typename = $getReportinfo['typename'];
+			$title = $getReportinfo['typename']."-".$getReportinfo['pricename']."-".$getReportinfo['classname'];
+			$addtime = date('Y-m-d H:i:s',time());
+			$this->member->insertmeorder($title,$typename,$reportinfo1,$reportinfo2,$reportinfo3,$reportinfo4,$reportinfo5,$reportinfo6,$addtime,$mid);
 			echo 'SUCCESS';
 			exit();
 		}
@@ -831,6 +931,37 @@ class Index extends CI_Controller
 	 */
 	public function indexnewlist(){
 		$indexnewlist = $this->member->getindexnewlist();
+		$data['indexnewlist'] = empty($indexnewlist)?array():$indexnewlist;
+		$this->back_json(200, '操作成功', $data);
+	}
+	public function getPayorder(){
+		//验证loginCode是否传递
+		if (!isset($_POST['token']) || empty($_POST['token'])) {
+			$this->back_json(205, '未授权！请授权登录！');
+		}
+		$token = $_POST['token'];
+		$member = $this->member->getMemberInfotoken($token);
+		if (empty($member)){
+			$this->back_json(205, '登录超时！请重新授权！');
+		}
+		$id = $_POST['id'];
+		$getInfo = $this->member->getpayInfoo($id);
+		$data['info'] = $getInfo;
+		$this->back_json(200, '操作成功', $data);
+	}
+	public function indexnewlisto(){
+		//验证loginCode是否传递
+		if (!isset($_POST['token']) || empty($_POST['token'])) {
+			$this->back_json(205, '未授权登录！');
+		}
+
+		$token = $_POST['token'];
+		$member = $this->member->getMemberInfotoken($token);
+		if (empty($member)){
+			$this->back_json(205, '请重新登录');
+		}
+		$mid = $member['mid'];
+		$indexnewlist = $this->member->getindexnewlisto($mid);
 		$data['indexnewlist'] = empty($indexnewlist)?array():$indexnewlist;
 		$this->back_json(200, '操作成功', $data);
 	}

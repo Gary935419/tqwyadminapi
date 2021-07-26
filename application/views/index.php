@@ -76,6 +76,12 @@
                             <cite>会员列表</cite>
                         </a>
                     </li>
+					<li>
+						<a onclick="changeSrc('<?= RUN . '/member/member_listv' ?>')">
+							<i class="iconfont">&#xe6a7;</i>
+							<cite>vip会员列表</cite>
+						</a>
+					</li>
                 </ul>
             </li>
             <li>

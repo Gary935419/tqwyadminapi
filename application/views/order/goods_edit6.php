@@ -25,7 +25,7 @@
 		<form method="post" class="layui-form" action="" name="basic_validate" id="tab">
 <!--			<div class="layui-form-item">-->
 <!--				<label for="L_pass" class="layui-form-label" style="width: 40%;font-size: 20px;text-align: -webkit-center;">-->
-<!--					<span class="x-red">*</span>重点观点导向分析报告详情-->
+<!--					<span class="x-red">*</span>置业有道观点导向分析报告详情-->
 <!--				</label>-->
 <!--				<div class="layui-input-inline" style="width: 1000px;">-->
 <!--					<div id="summernot"></div>-->
@@ -33,7 +33,7 @@
 <!--			</div>-->
 			<div class="layui-form-item">
 				<label for="L_pass" class="layui-form-label" style="width: 30%;">
-					<span class="x-red">*</span>重点观点导向分析报告详情
+					<span class="x-red">*</span>置业有道观点导向分析报告详情
 				</label>
 				<div class="layui-input-inline" style="width: 610px;">
 					<textarea id="gcontent" name="gcontent" placeholder="请输入内容" lay-verify="gcontent" class="layui-textarea"><?php echo $gcontent5 ?></textarea>

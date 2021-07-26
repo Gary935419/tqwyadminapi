@@ -20,6 +20,69 @@
 <div class="layui-fluid" style="padding-top: 66px;">
     <div class="layui-row">
         <form method="post" class="layui-form" action="" name="basic_validate" id="tab">
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>客服姓名
+				</label>
+				<div class="layui-input-inline" style="width: 300px;">
+					<input type="text" id="name" name="name" lay-verify="name"
+						   autocomplete="off" value="<?php echo $name ?>" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>客服手机号
+				</label>
+				<div class="layui-input-inline" style="width: 300px;">
+					<input type="text" id="email" name="email"
+						   autocomplete="off" value="<?php echo $email ?>" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>服务时间
+				</label>
+				<div class="layui-input-inline" style="width: 300px;">
+					<input type="text" id="address" name="address" lay-verify="address"
+						   autocomplete="off" value="<?php echo $address ?>" class="layui-input">
+				</div>
+			</div>
+<!--			<div class="layui-form-item">-->
+<!--				<label for="L_pass" class="layui-form-label" style="width: 30%;">-->
+<!--					<span class="x-red">*</span>服务内容-->
+<!--				</label>-->
+<!--				<div class="layui-input-inline" style="width: 610px;">-->
+<!--					<textarea id="contentnew" name="contentnew" placeholder="请输入内容" lay-verify="contentnew" class="layui-textarea">--><?php //echo $contentnew ?><!--</textarea>-->
+<!--				</div>-->
+<!--			</div>-->
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>客服头像
+				</label>
+				<div class="layui-input-inline" style="width: 300px;">
+					<button type="button" class="layui-btn" id="upload2">上传头像</button>
+					<div class="layui-upload-list">
+						<input type="hidden" name="img" id="img" lay-verify="img" autocomplete="off"
+							   class="layui-input" value="<?php echo $img ?>">
+						<img class="layui-upload-img" src="<?php echo $img ?>" style="width: 100px;height: 100px;" id="imgimg" name="imgimg">
+						<p id="demoText"></p>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>客服二维码
+				</label>
+				<div class="layui-input-inline" style="width: 300px;">
+					<button type="button" class="layui-btn" id="upload1">上传二维码</button>
+					<div class="layui-upload-list">
+						<input type="hidden" name="customercode" id="customercode" lay-verify="customercode" autocomplete="off"
+							   class="layui-input" value="<?php echo $customercode ?>">
+						<img class="layui-upload-img" src="<?php echo $customercode ?>" style="width: 100px;height: 100px;" id="customercodeimg" name="customercodeimg">
+						<p id="demoText"></p>
+					</div>
+				</div>
+			</div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
                     <span class="x-red">*</span>二手房交易管理
@@ -28,6 +91,7 @@
                     <textarea id="ertext" name="ertext" placeholder="请输入内容" lay-verify="ertext" class="layui-textarea"><?php echo $ertext ?></textarea>
                 </div>
             </div>
+
             <div class="layui-form-item">
                 <label class="layui-form-label" style="width: 30%;">
                 </label>
@@ -121,6 +185,15 @@
                 }
             });
             var editIndex1 = layedit.build('ertext', {
+                height: 300,
+            });
+            var editIndex1 = layedit.build('contentnew', {
+                height: 300,
+            });
+            var editIndex2 = layedit.build('contentagent', {
+                height: 300,
+            });
+            var editIndex3 = layedit.build('contentagent1', {
                 height: 300,
             });
             //自定义验证规则

@@ -96,6 +96,7 @@ class Order extends CI_Controller
 			$areaname = $getitemsclassschoolname['careaname'];
 		}
 		$goods_info = $this->order->getgoodsByname($schoolname,$typename,$pricename,$areaname,$classname);
+
 		if (!empty($goods_info)) {
 			echo json_encode(array('error' => true, 'msg' => "该报告已经存在。"));
 			return;

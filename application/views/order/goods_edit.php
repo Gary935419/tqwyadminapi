@@ -41,7 +41,7 @@
 <!--							<option --><?php //echo $gtype == '大连市教育相关政策' ? 'selected' : '' ?><!-- value="大连市教育相关政策">大连市教育相关政策</option>-->
 <!--							<option --><?php //echo $gtype == '本学区所属区域分析' ? 'selected' : '' ?><!-- value="本学区所属区域分析">本学区所属区域分析</option>-->
 <!--							<option --><?php //echo $gtype == '本学区房源及均价分析' ? 'selected' : '' ?><!-- value="本学区房源及均价分析">本学区房源及均价分析</option>-->
-<!--							<option --><?php //echo $gtype == '重点观点导向分析' ? 'selected' : '' ?><!-- value="重点观点导向分析">重点观点导向分析</option>-->
+<!--							<option --><?php //echo $gtype == '置业有道观点导向分析' ? 'selected' : '' ?><!-- value="置业有道观点导向分析">置业有道观点导向分析</option>-->
 <!--						</select>-->
 <!--					</div>-->
 <!--				</div>-->

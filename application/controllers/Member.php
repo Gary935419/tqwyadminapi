@@ -48,6 +48,33 @@ class Member extends CI_Controller
         $data["nickname"] = $nickname;
         $this->display("member/member_list", $data);
     }
+	public function member_listv()
+	{
+		$nickname = isset($_GET['nickname']) ? $_GET['nickname'] : '';
+		$page = isset($_GET["page"]) ? $_GET["page"] : 1;
+		$allpage = $this->member->getmemberAllPagev($nickname);
+		$page = $allpage > $page ? $page : $allpage;
+		$data["pagehtml"] = $this->getpage($page, $allpage, $_GET);
+		$data["page"] = $page;
+		$data["allpage"] = $allpage;
+		$list = $this->member->getmemberAllv($page, $nickname);
+		foreach ($list as $k=>$v){
+			$list[$k]['count'] = 0;
+			$count = $this->member->getmembergoodscount($v['mid']);
+			if (!empty($count)){
+				$list[$k]['count'] = $count;
+			}
+			if (empty($v['member_id'])){
+				continue;
+			}else{
+				$member_info = $this->member->getmemberById($v['member_id']);
+				$list[$k]['member_id'] = $member_info['nickname'];
+			}
+		}
+		$data["list"] = $list;
+		$data["nickname"] = $nickname;
+		$this->display("member/member_listv", $data);
+	}
     /**
      * 会员修改页
      */

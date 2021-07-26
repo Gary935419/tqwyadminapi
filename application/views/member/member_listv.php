@@ -19,7 +19,7 @@
           <span class="layui-breadcrumb">
 <!--            <a href="--><? //= RUN . '/admin/index' ?><!--">最初のページ</a>-->
             <a>
-              <cite>会员管理</cite></a>
+              <cite>vip会员管理</cite></a>
           </span>
     <!--          <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="ページを更新">-->
     <!--            <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i></a>-->
@@ -29,7 +29,7 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body ">
-                    <form class="layui-form layui-col-space5" method="get" action="<?= RUN, '/member/member_list' ?>">
+                    <form class="layui-form layui-col-space5" method="get" action="<?= RUN, '/member/member_listv' ?>">
                         <div class="layui-inline layui-show-xs-block">
                             <input type="text" name="nickname" id="nickname" value="<?php echo $nickname ?>"
                                    placeholder="会员昵称" autocomplete="off" class="layui-input">
@@ -67,7 +67,7 @@
                                     <td><img src="<?= $once['avater'] ?>" style="width: 50px;height: 50px;"></td>
                                     <td><?= empty($once['mobile']) ? '暂无数据' : $once['mobile'] ?></td>
                                     <td><?= $once['sex'] == 1 ? '男' : '女' ?></td>
-									<td>非会员</td>
+									<td>会员</td>
 <!--                                    <td>--><?//= $once['count'] ?><!--条</td>-->
 <!--                                    <td>--><?//= $once['integral'] ?><!--积分</td>-->
 <!--                                    <td>--><?//= $once['cityname'] ?><!--</td>-->
@@ -83,10 +83,10 @@
                                                 onclick="xadmin.open('编辑会员','<?= RUN . '/member/member_edit?mid=' ?>'+<?= $once['mid'] ?>,900,500)">
                                             <i class="layui-icon">&#xe642;</i>编辑
                                         </button>
-<!--										<button class="layui-btn layui-btn-normal"-->
-<!--												onclick="xadmin.open('PDF','--><?//= RUN . '/member/member_editpdf?mid=' ?><!--'+--><?//= $once['mid'] ?><!--,900,500)">-->
-<!--											<i class="layui-icon">&#xe642;</i>PDF-->
-<!--										</button>-->
+										<button class="layui-btn layui-btn-normal"
+												onclick="xadmin.open('PDF','<?= RUN . '/member/member_editpdf?mid=' ?>'+<?= $once['mid'] ?>,900,500)">
+											<i class="layui-icon">&#xe642;</i>PDF
+										</button>
 <!--                                        <button class="layui-btn layui-btn-warm"-->
 <!--                                                onclick="xadmin.open('发送消息','--><?//= RUN . '/member/send_news?mid=' ?><!--'+--><?//= $once['mid'] ?><!--,900,250)">-->
 <!--                                            <i class="layui-icon">&#xe63a;</i>发送-->

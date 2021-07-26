@@ -218,6 +218,8 @@ class Goods extends CI_Controller
 		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
 		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
 		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+		$tel = isset($_POST["tel"]) ? $_POST["tel"] : '';
+		$gimg1 = isset($_POST["gimg1"]) ? $_POST["gimg1"] : '';
 		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
 		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
 		$addtime = time();
@@ -227,7 +229,7 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
-		$gid = $this->goods->goods_save1($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
+		$gid = $this->goods->goods_save1($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime,$tel,$gimg1);
 
 		if ($gid) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
@@ -268,6 +270,8 @@ class Goods extends CI_Controller
 		$data['starttime'] = $goods_info['gtitle'];
 		$data['gcontent'] = $goods_info['gcontent'];
 		$data['gimg'] = $goods_info['gimg'];
+		$data['gimg1'] = $goods_info['gimg1'];
+		$data['tel'] = $goods_info['tel'];
 		$data['gsort'] = $goods_info['gsort'];
 
 		$data['gid'] = $gid;
@@ -291,7 +295,8 @@ class Goods extends CI_Controller
 		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
 		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
 		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
-		$avater = isset($_POST["avater"]) ? $_POST["avater"] : '';
+		$tel = isset($_POST["tel"]) ? $_POST["tel"] : '';
+		$gimg1 = isset($_POST["gimg1"]) ? $_POST["gimg1"] : '';
 		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
 		$status = isset($_POST["status"]) ? $_POST["status"] : '0';
 		$goods_info = $this->goods->getgoodsById21($gname,$gid);
@@ -299,7 +304,7 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
-		$result = $this->goods->goods_save_edit1($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
+		$result = $this->goods->goods_save_edit1($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime,$tel,$gimg1);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;
@@ -353,6 +358,10 @@ class Goods extends CI_Controller
 		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
 		$gsort = isset($_POST["gsort"]) ? $_POST["gsort"] : '';
 		$gimg = isset($_POST["gimg"]) ? $_POST["gimg"] : '';
+
+		$tel = isset($_POST["tel"]) ? $_POST["tel"] : '';
+		$gimg1 = isset($_POST["gimg1"]) ? $_POST["gimg1"] : '';
+
 		$starttime = isset($_POST["starttime"]) ? $_POST["starttime"] : '';
 		$gcontent = isset($_POST["gcontent"]) ? $_POST["gcontent"] : '';
 		$addtime = time();
@@ -362,7 +371,7 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
-		$gid = $this->goods->goods_save2($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
+		$gid = $this->goods->goods_save2($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime,$tel,$gimg1);
 
 		if ($gid) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
@@ -403,6 +412,8 @@ class Goods extends CI_Controller
 		$data['starttime'] = $goods_info['gtitle'];
 		$data['gcontent'] = $goods_info['gcontent'];
 		$data['gimg'] = $goods_info['gimg'];
+		$data['tel'] = $goods_info['tel'];
+		$data['gimg1'] = $goods_info['gimg1'];
 		$data['gsort'] = $goods_info['gsort'];
 
 		$data['gid'] = $gid;
@@ -419,6 +430,9 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
 			return;
 		}
+		$tel = isset($_POST["tel"]) ? $_POST["tel"] : '';
+		$gimg1 = isset($_POST["gimg1"]) ? $_POST["gimg1"] : '';
+
 		$gid = isset($_POST["gid"]) ? $_POST["gid"] : '';
 		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
 		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
@@ -434,7 +448,7 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
-		$result = $this->goods->goods_save_edit2($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
+		$result = $this->goods->goods_save_edit2($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime,$tel,$gimg1);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;
@@ -483,6 +497,9 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => false, 'msg' => "无法添加数据"));
 			return;
 		}
+		$tel = isset($_POST["tel"]) ? $_POST["tel"] : '';
+		$gimg1 = isset($_POST["gimg1"]) ? $_POST["gimg1"] : '';
+
 		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
 		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
 		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
@@ -497,7 +514,7 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
-		$gid = $this->goods->goods_save3($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
+		$gid = $this->goods->goods_save3($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime,$tel,$gimg1);
 
 		if ($gid) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
@@ -538,6 +555,8 @@ class Goods extends CI_Controller
 		$data['starttime'] = $goods_info['gtitle'];
 		$data['gcontent'] = $goods_info['gcontent'];
 		$data['gimg'] = $goods_info['gimg'];
+		$data['tel'] = $goods_info['tel'];
+		$data['gimg1'] = $goods_info['gimg1'];
 		$data['gsort'] = $goods_info['gsort'];
 
 		$data['gid'] = $gid;
@@ -554,6 +573,9 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
 			return;
 		}
+		$tel = isset($_POST["tel"]) ? $_POST["tel"] : '';
+		$gimg1 = isset($_POST["gimg1"]) ? $_POST["gimg1"] : '';
+
 		$gid = isset($_POST["gid"]) ? $_POST["gid"] : '';
 		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
 		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
@@ -569,7 +591,7 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
-		$result = $this->goods->goods_save_edit3($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
+		$result = $this->goods->goods_save_edit3($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime,$tel,$gimg1,$tel,$gimg1);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;
@@ -619,6 +641,9 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => false, 'msg' => "无法添加数据"));
 			return;
 		}
+		$tel = isset($_POST["tel"]) ? $_POST["tel"] : '';
+		$gimg1 = isset($_POST["gimg1"]) ? $_POST["gimg1"] : '';
+
 		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
 		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
 		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
@@ -633,7 +658,7 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
-		$gid = $this->goods->goods_save4($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
+		$gid = $this->goods->goods_save4($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime,$tel,$gimg1);
 
 		if ($gid) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
@@ -675,7 +700,8 @@ class Goods extends CI_Controller
 		$data['gcontent'] = $goods_info['gcontent'];
 		$data['gimg'] = $goods_info['gimg'];
 		$data['gsort'] = $goods_info['gsort'];
-
+		$data['tel'] = $goods_info['tel'];
+		$data['gimg1'] = $goods_info['gimg1'];
 		$data['gid'] = $gid;
 
 
@@ -690,6 +716,9 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
 			return;
 		}
+		$tel = isset($_POST["tel"]) ? $_POST["tel"] : '';
+		$gimg1 = isset($_POST["gimg1"]) ? $_POST["gimg1"] : '';
+
 		$gid = isset($_POST["gid"]) ? $_POST["gid"] : '';
 		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
 		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
@@ -705,7 +734,7 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
-		$result = $this->goods->goods_save_edit4($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
+		$result = $this->goods->goods_save_edit4($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime,$tel,$gimg1);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;
@@ -756,6 +785,9 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => false, 'msg' => "无法添加数据"));
 			return;
 		}
+		$tel = isset($_POST["tel"]) ? $_POST["tel"] : '';
+		$gimg1 = isset($_POST["gimg1"]) ? $_POST["gimg1"] : '';
+
 		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
 		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
 		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
@@ -770,7 +802,7 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
-		$gid = $this->goods->goods_save5($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
+		$gid = $this->goods->goods_save5($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime,$tel,$gimg1);
 
 		if ($gid) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
@@ -812,7 +844,8 @@ class Goods extends CI_Controller
 		$data['gcontent'] = $goods_info['gcontent'];
 		$data['gimg'] = $goods_info['gimg'];
 		$data['gsort'] = $goods_info['gsort'];
-
+		$data['tel'] = $goods_info['tel'];
+		$data['gimg1'] = $goods_info['gimg1'];
 		$data['gid'] = $gid;
 
 
@@ -827,6 +860,9 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
 			return;
 		}
+		$tel = isset($_POST["tel"]) ? $_POST["tel"] : '';
+		$gimg1 = isset($_POST["gimg1"]) ? $_POST["gimg1"] : '';
+
 		$gid = isset($_POST["gid"]) ? $_POST["gid"] : '';
 		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
 		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
@@ -842,7 +878,7 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
-		$result = $this->goods->goods_save_edit5($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
+		$result = $this->goods->goods_save_edit5($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime,$tel,$gimg1);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;
@@ -894,6 +930,9 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => false, 'msg' => "无法添加数据"));
 			return;
 		}
+		$tel = isset($_POST["tel"]) ? $_POST["tel"] : '';
+		$gimg1 = isset($_POST["gimg1"]) ? $_POST["gimg1"] : '';
+
 		$tid = isset($_POST["tid"]) ? $_POST["tid"] : '';
 		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
 		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
@@ -908,7 +947,7 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
-		$gid = $this->goods->goods_save6($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime);
+		$gid = $this->goods->goods_save6($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime,$tel,$gimg1);
 
 		if ($gid) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
@@ -950,7 +989,8 @@ class Goods extends CI_Controller
 		$data['gcontent'] = $goods_info['gcontent'];
 		$data['gimg'] = $goods_info['gimg'];
 		$data['gsort'] = $goods_info['gsort'];
-
+		$data['tel'] = $goods_info['tel'];
+		$data['gimg1'] = $goods_info['gimg1'];
 		$data['gid'] = $gid;
 
 
@@ -965,6 +1005,8 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => false, 'msg' => "无法修改数据"));
 			return;
 		}
+		$tel = isset($_POST["tel"]) ? $_POST["tel"] : '';
+		$gimg1 = isset($_POST["gimg1"]) ? $_POST["gimg1"] : '';
 		$gid = isset($_POST["gid"]) ? $_POST["gid"] : '';
 		$gname = isset($_POST["gname"]) ? $_POST["gname"] : '';
 		$gtitle = isset($_POST["gtitle"]) ? $_POST["gtitle"] : '';
@@ -980,7 +1022,7 @@ class Goods extends CI_Controller
 			echo json_encode(array('error' => true, 'msg' => "该名称已经存在。"));
 			return;
 		}
-		$result = $this->goods->goods_save_edit6($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime);
+		$result = $this->goods->goods_save_edit6($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime,$tel,$gimg1);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;

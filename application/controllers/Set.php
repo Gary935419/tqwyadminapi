@@ -26,6 +26,16 @@ class Set extends CI_Controller
 		$sid = 1;
 		$set_info = $this->set->getsetById($sid);
 		$data['ertext'] = $set_info['ertext'];
+
+		$data['name'] = $set_info['nameer'];
+		$data['email'] = $set_info['emailer'];
+		$data['img'] = $set_info['imger'];
+		$data['address'] = $set_info['addresser'];
+		$data['contentnew'] = $set_info['contentnewer'];
+		$data['contentagent'] = $set_info['contentagenter'];
+		$data['contentagent1'] = $set_info['contentagent1er'];
+		$data['customercode'] = $set_info['customercodeer'];
+
 		$this->display("set/set_editer", $data);
 	}
 	/**
@@ -40,7 +50,17 @@ class Set extends CI_Controller
 		}
 		$sid = 1;
 		$ertext = isset($_POST["ertext"]) ? $_POST["ertext"] : '';
-		$result = $this->set->set_save_editer($sid,$ertext);
+
+		$nameer = isset($_POST["name"]) ? $_POST["name"] : '';
+		$emailer = isset($_POST["email"]) ? $_POST["email"] : '';
+		$addresser = isset($_POST["address"]) ? $_POST["address"] : '';
+		$imger = isset($_POST["img"]) ? $_POST["img"] : '';
+		$customercodeer = isset($_POST["customercode"]) ? $_POST["customercode"] : '';
+		$contentnewer = isset($_POST["contentnew"]) ? $_POST["contentnew"] : '';
+		$contentagenter = isset($_POST["contentagent"]) ? $_POST["contentagent"] : '';
+		$contentagent1er = isset($_POST["contentagent1"]) ? $_POST["contentagent1"] : '';
+
+		$result = $this->set->set_save_editer($sid,$ertext,$nameer,$emailer,$addresser,$imger,$customercodeer,$contentnewer,$contentagenter,$contentagent1er);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;
@@ -58,6 +78,16 @@ class Set extends CI_Controller
 		$sid = 1;
 		$set_info = $this->set->getsetById($sid);
 		$data['xintext'] = $set_info['xintext'];
+
+		$data['name'] = $set_info['namexin'];
+		$data['email'] = $set_info['emailxin'];
+		$data['img'] = $set_info['imgxin'];
+		$data['address'] = $set_info['addressxin'];
+		$data['contentnew'] = $set_info['contentnewxin'];
+		$data['contentagent'] = $set_info['contentagentxin'];
+		$data['contentagent1'] = $set_info['contentagent1xin'];
+		$data['customercode'] = $set_info['customercodexin'];
+
 		$this->display("set/set_editxin", $data);
 	}
 	/**
@@ -72,7 +102,15 @@ class Set extends CI_Controller
 		}
 		$sid = 1;
 		$xintext = isset($_POST["xintext"]) ? $_POST["xintext"] : '';
-		$result = $this->set->set_save_editxin($sid,$xintext);
+		$namexin = isset($_POST["name"]) ? $_POST["name"] : '';
+		$emailxin = isset($_POST["email"]) ? $_POST["email"] : '';
+		$addressxin = isset($_POST["address"]) ? $_POST["address"] : '';
+		$imgxin = isset($_POST["img"]) ? $_POST["img"] : '';
+		$customercodexin = isset($_POST["customercode"]) ? $_POST["customercode"] : '';
+		$contentnewxin = isset($_POST["contentnew"]) ? $_POST["contentnew"] : '';
+		$contentagentxin = isset($_POST["contentagent"]) ? $_POST["contentagent"] : '';
+		$contentagent1xin = isset($_POST["contentagent1"]) ? $_POST["contentagent1"] : '';
+		$result = $this->set->set_save_editxin($sid,$xintext,$namexin,$emailxin,$addressxin,$imgxin,$customercodexin,$contentnewxin,$contentagentxin,$contentagent1xin);
 		if ($result) {
 			echo json_encode(array('success' => true, 'msg' => "操作成功。"));
 			return;

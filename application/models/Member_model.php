@@ -20,7 +20,7 @@ class Member_model extends CI_Model
     //获取会员总人数
     public function getmemberAllPage($nickname)
     {
-        $sqlw = " where 1=1 ";
+        $sqlw = " where 1=1 and isvip !=1 ";
         if (!empty($nickname)) {
             $sqlw .= " and ( nickname like '%" . $nickname . "%' ) ";
         }
@@ -31,7 +31,7 @@ class Member_model extends CI_Model
     //获取会员总信息
     public function getmemberAll($pg, $nickname)
     {
-        $sqlw = " where 1=1 ";
+		$sqlw = " where 1=1 and isvip !=1 ";
         if (!empty($nickname)) {
             $sqlw .= " and ( u.nickname like '%" . $nickname . "%' ) ";
         }
@@ -40,6 +40,29 @@ class Member_model extends CI_Model
         $sql = "SELECT u.*,r.gname FROM `member` u left join `grade` r on u.gid=r.gid " . $sqlw . " order by u.add_time desc LIMIT $start, $stop";
         return $this->db->query($sql)->result_array();
     }
+	//获取会员总人数
+	public function getmemberAllPagev($nickname)
+	{
+		$sqlw = " where 1=1 and isvip = 1 ";
+		if (!empty($nickname)) {
+			$sqlw .= " and ( nickname like '%" . $nickname . "%' ) ";
+		}
+		$sql = "SELECT count(1) as number FROM `member` " . $sqlw;
+		$number = $this->db->query($sql)->row()->number;
+		return ceil($number / 10) == 0 ? 1 : ceil($number / 10);
+	}
+	//获取会员总信息
+	public function getmemberAllv($pg, $nickname)
+	{
+		$sqlw = " where 1=1 and isvip = 1 ";
+		if (!empty($nickname)) {
+			$sqlw .= " and ( u.nickname like '%" . $nickname . "%' ) ";
+		}
+		$start = ($pg - 1) * 10;
+		$stop = 10;
+		$sql = "SELECT u.*,r.gname FROM `member` u left join `grade` r on u.gid=r.gid " . $sqlw . " order by u.add_time desc LIMIT $start, $stop";
+		return $this->db->query($sql)->result_array();
+	}
     //获取会员总
     public function getmembernewAll($cityname)
     {
@@ -148,6 +171,12 @@ class Member_model extends CI_Model
 		$sql = "SELECT * FROM `reportlist` where id = $id ";
 		return $this->db->query($sql)->row_array();
 	}
+	public function getReportinfomy($id)
+	{
+		$id = $this->db->escape($id);
+		$sql = "SELECT * FROM `mereport` where id = $id ";
+		return $this->db->query($sql)->row_array();
+	}
 	public function getquestionInfotoken($str)
 	{
 		$str = $this->db->escape($str);
@@ -197,8 +226,24 @@ class Member_model extends CI_Model
 		$sql = "INSERT INTO `taorder` (mid,ostate,content,add_time) VALUES ($mid,$ostate,$question,$add_time)";
 		return $this->db->query($sql);
 	}
-	public function reportorderinsert($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype,$checktime)
+	public function insertmeorder($title,$typename,$reportinfo1,$reportinfo2,$reportinfo3,$reportinfo4,$reportinfo5,$reportinfo6,$addtime,$mid)
 	{
+		$title = $this->db->escape($title);
+		$typename = $this->db->escape($typename);
+		$addtime = $this->db->escape($addtime);
+		$mid = $this->db->escape($mid);
+		$reportinfo1 = $this->db->escape($reportinfo1);
+		$reportinfo2 = $this->db->escape($reportinfo2);
+		$reportinfo3 = $this->db->escape($reportinfo3);
+		$reportinfo4 = $this->db->escape($reportinfo4);
+		$reportinfo5 = $this->db->escape($reportinfo5);
+		$reportinfo6 = $this->db->escape($reportinfo6);
+		$sql = "INSERT INTO `mereport` (title,typename,reportinfo1,reportinfo2,reportinfo3,reportinfo4,reportinfo5,reportinfo6,addtime,mid) VALUES ($title,$typename,$reportinfo1,$reportinfo2,$reportinfo3,$reportinfo4,$reportinfo5,$reportinfo6,$addtime,$mid)";
+		return $this->db->query($sql);
+	}
+	public function reportorderinsert($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype,$checktime,$rid)
+	{
+		$rid = $this->db->escape($rid);
 		$mid = $this->db->escape($mid);
 		$paynumber = $this->db->escape($paynumber);
 		$status = $this->db->escape($status);
@@ -211,7 +256,7 @@ class Member_model extends CI_Model
 		$school = $this->db->escape($school);
 		$btype = $this->db->escape($btype);
 		$checktime = $this->db->escape($checktime);
-		$sql = "INSERT INTO `reportorder` (mid,paynumber,status,addtime,email,price,ftype,money,area,school,btype,checktime) VALUES ($mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype,$checktime)";
+		$sql = "INSERT INTO `reportorder` (rid,mid,paynumber,status,addtime,email,price,ftype,money,area,school,btype,checktime) VALUES ($rid,$mid,$paynumber,$status,$addtime,$email,$price,$ftype,$money,$area,$school,$btype,$checktime)";
 		return $this->db->query($sql);
 	}
 
@@ -282,6 +327,12 @@ class Member_model extends CI_Model
 		$mid = $this->db->escape($mid);
 		$status = $this->db->escape($status);
 		$sql = "SELECT * FROM `reportorder` where btype = $btype and school = $school and area = $area and money = $money and ftype = $ftype and mid = $mid and status = $status and checktime != '' order by addtime desc limit 1";
+		return $this->db->query($sql)->row_array();
+	}
+	public function getpayInfoo($id)
+	{
+		$id = $this->db->escape($id);
+		$sql = "SELECT * FROM `mereport` where id = $id ";
 		return $this->db->query($sql)->row_array();
 	}
 	//查看是否支付
@@ -477,6 +528,13 @@ class Member_model extends CI_Model
 	{
 		$sqlw = " where 1=1";
 		$sql = "SELECT * FROM `goods` " . $sqlw . " order by gtitle desc";
+		return $this->db->query($sql)->result_array();
+	}
+	public function getindexnewlisto($mid)
+	{
+		$mid = $this->db->escape($mid);
+		$sqlw = " where 1=1 and mid = $mid ";
+		$sql = "SELECT * FROM `mereport` " . $sqlw . " order by addtime desc";
 		return $this->db->query($sql)->result_array();
 	}
 	public function getindexnewlist1()

@@ -34,23 +34,37 @@ class Set_model extends CI_Model
         return $this->db->query($sql);
     }
 
-	public function set_save_editer($sid,$ertext)
+	public function set_save_editer($sid,$ertext,$nameer,$emailer,$addresser,$imger,$customercodeer,$contentnewer,$contentagenter,$contentagent1er)
 	{
 		$ertext = $this->db->escape($ertext);
-
+		$nameer = $this->db->escape($nameer);
+		$emailer = $this->db->escape($emailer);
+		$addresser = $this->db->escape($addresser);
+		$imger = $this->db->escape($imger);
+		$customercodeer = $this->db->escape($customercodeer);
+		$contentnewer = $this->db->escape($contentnewer);
+		$contentagenter = $this->db->escape($contentagenter);
+		$contentagent1er = $this->db->escape($contentagent1er);
 		$sid = $this->db->escape($sid);
 
-		$sql = "UPDATE `setting` SET ertext=$ertext WHERE sid = $sid";
+		$sql = "UPDATE `setting` SET ertext=$ertext,nameer=$nameer,emailer=$emailer,addresser=$addresser,imger=$imger,customercodeer=$customercodeer,contentnewer=$contentnewer,contentagenter=$contentagenter,contentagent1er=$contentagent1er WHERE sid = $sid";
 		return $this->db->query($sql);
 	}
 
-	public function set_save_editxin($sid,$xintext)
+	public function set_save_editxin($sid,$xintext,$namexin,$emailxin,$addressxin,$imgxin,$customercodexin,$contentnewxin,$contentagentxin,$contentagent1xin)
 	{
 		$xintext = $this->db->escape($xintext);
-
+		$namexin = $this->db->escape($namexin);
+		$emailxin = $this->db->escape($emailxin);
+		$addressxin = $this->db->escape($addressxin);
+		$imgxin = $this->db->escape($imgxin);
+		$customercodexin = $this->db->escape($customercodexin);
+		$contentnewxin = $this->db->escape($contentnewxin);
+		$contentagentxin = $this->db->escape($contentagentxin);
+		$contentagent1xin = $this->db->escape($contentagent1xin);
 		$sid = $this->db->escape($sid);
 
-		$sql = "UPDATE `setting` SET xintext=$xintext WHERE sid = $sid";
+		$sql = "UPDATE `setting` SET xintext=$xintext,namexin=$namexin,emailxin=$emailxin,addressxin=$addressxin,imgxin=$imgxin,customercodexin=$customercodexin,contentnewxin=$contentnewxin,contentagentxin=$contentagentxin,contentagent1xin=$contentagent1xin WHERE sid = $sid";
 		return $this->db->query($sql);
 	}
 

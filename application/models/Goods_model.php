@@ -161,18 +161,18 @@ class Goods_model extends CI_Model
 		return $this->db->query($sql)->row_array();
 	}
 	//商品save
-	public function goods_save1($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime)
+	public function goods_save1($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime,$tel,$gimg1)
 	{
 		$gname = $this->db->escape($gname);
 		$starttime = $this->db->escape($starttime);
-		$gtitle = $this->db->escape($gtitle);
-		$tid = $this->db->escape($tid);
+		$tel = $this->db->escape($tel);
+		$gimg1 = $this->db->escape($gimg1);
 		$gsort = $this->db->escape($gsort);
 		$gimg = $this->db->escape($gimg);
 		$gcontent = $this->db->escape($gcontent);
 		$addtime = $this->db->escape($addtime);
 		$status = $this->db->escape($status);
-		$sql = "INSERT INTO `home` (gname, gtitle,gsort,gimg,gcontent,addtime) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime)";
+		$sql = "INSERT INTO `home` (gname, gtitle,gsort,gimg,gcontent,addtime,tel,gimg1) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime,$tel,$gimg1)";
 		$this->db->query($sql);
 		$gid=$this->db->insert_id();
 		return $gid;
@@ -200,18 +200,18 @@ class Goods_model extends CI_Model
 		return $this->db->query($sql)->row_array();
 	}
 	//商品save_edit
-	public function goods_save_edit1($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime)
+	public function goods_save_edit1($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime,$tel,$gimg1)
 	{
 		$gid = $this->db->escape($gid);
 		$gname = $this->db->escape($gname);
-		$gtitle = $this->db->escape($gtitle);
-		$tid = $this->db->escape($tid);
+		$tel = $this->db->escape($tel);
+		$gimg1 = $this->db->escape($gimg1);
 		$starttime = $this->db->escape($starttime);
 		$gsort = $this->db->escape($gsort);
 		$gimg = $this->db->escape($gimg);
 		$gcontent = $this->db->escape($gcontent);
 		$status = $this->db->escape($status);
-		$sql = "UPDATE `home` SET gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
+		$sql = "UPDATE `home` SET tel=$tel,gimg1=$gimg1,gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
 		return $this->db->query($sql);
 	}
 
@@ -258,18 +258,18 @@ class Goods_model extends CI_Model
 		return $this->db->query($sql)->row_array();
 	}
 	//商品save
-	public function goods_save2($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime)
+	public function goods_save2($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime,$tel,$gimg1)
 	{
 		$gname = $this->db->escape($gname);
 		$starttime = $this->db->escape($starttime);
-		$gtitle = $this->db->escape($gtitle);
-		$tid = $this->db->escape($tid);
+		$tel = $this->db->escape($tel);
+		$gimg1 = $this->db->escape($gimg1);
 		$gsort = $this->db->escape($gsort);
 		$gimg = $this->db->escape($gimg);
 		$gcontent = $this->db->escape($gcontent);
 		$addtime = $this->db->escape($addtime);
 		$status = $this->db->escape($status);
-		$sql = "INSERT INTO `decorate` (gname, gtitle,gsort,gimg,gcontent,addtime) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime)";
+		$sql = "INSERT INTO `decorate` (gname, gtitle,gsort,gimg,gcontent,addtime,tel,gimg1) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime,$tel,$gimg1)";
 		$this->db->query($sql);
 		$gid=$this->db->insert_id();
 		return $gid;
@@ -297,18 +297,18 @@ class Goods_model extends CI_Model
 		return $this->db->query($sql)->row_array();
 	}
 	//商品save_edit
-	public function goods_save_edit2($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime)
+	public function goods_save_edit2($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime,$tel,$gimg1)
 	{
 		$gid = $this->db->escape($gid);
 		$gname = $this->db->escape($gname);
-		$gtitle = $this->db->escape($gtitle);
-		$tid = $this->db->escape($tid);
+		$tel = $this->db->escape($tel);
+		$gimg1 = $this->db->escape($gimg1);
 		$starttime = $this->db->escape($starttime);
 		$gsort = $this->db->escape($gsort);
 		$gimg = $this->db->escape($gimg);
 		$gcontent = $this->db->escape($gcontent);
 		$status = $this->db->escape($status);
-		$sql = "UPDATE `decorate` SET gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
+		$sql = "UPDATE `decorate` SET tel=$tel,gimg1=$gimg1,gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
 		return $this->db->query($sql);
 	}
 
@@ -357,18 +357,18 @@ class Goods_model extends CI_Model
 		return $this->db->query($sql)->row_array();
 	}
 	//商品save
-	public function goods_save3($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime)
+	public function goods_save3($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime,$tel,$gimg1)
 	{
 		$gname = $this->db->escape($gname);
 		$starttime = $this->db->escape($starttime);
-		$gtitle = $this->db->escape($gtitle);
-		$tid = $this->db->escape($tid);
+		$tel = $this->db->escape($tel);
+		$gimg1 = $this->db->escape($gimg1);
 		$gsort = $this->db->escape($gsort);
 		$gimg = $this->db->escape($gimg);
 		$gcontent = $this->db->escape($gcontent);
 		$addtime = $this->db->escape($addtime);
 		$status = $this->db->escape($status);
-		$sql = "INSERT INTO `gamble` (gname, gtitle,gsort,gimg,gcontent,addtime) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime)";
+		$sql = "INSERT INTO `gamble` (gname, gtitle,gsort,gimg,gcontent,addtime,tel,gimg1) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime,$tel,$gimg1)";
 		$this->db->query($sql);
 		$gid=$this->db->insert_id();
 		return $gid;
@@ -396,18 +396,18 @@ class Goods_model extends CI_Model
 		return $this->db->query($sql)->row_array();
 	}
 	//商品save_edit
-	public function goods_save_edit3($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime)
+	public function goods_save_edit3($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime,$tel,$gimg1)
 	{
 		$gid = $this->db->escape($gid);
 		$gname = $this->db->escape($gname);
-		$gtitle = $this->db->escape($gtitle);
-		$tid = $this->db->escape($tid);
+		$tel = $this->db->escape($tel);
+		$gimg1 = $this->db->escape($gimg1);
 		$starttime = $this->db->escape($starttime);
 		$gsort = $this->db->escape($gsort);
 		$gimg = $this->db->escape($gimg);
 		$gcontent = $this->db->escape($gcontent);
 		$status = $this->db->escape($status);
-		$sql = "UPDATE `gamble` SET gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
+		$sql = "UPDATE `gamble` SET tel=$tel,gimg1=$gimg1,gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
 		return $this->db->query($sql);
 	}
 
@@ -454,18 +454,18 @@ class Goods_model extends CI_Model
 		return $this->db->query($sql)->row_array();
 	}
 	//商品save
-	public function goods_save4($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime)
+	public function goods_save4($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime,$tel,$gimg1)
 	{
 		$gname = $this->db->escape($gname);
 		$starttime = $this->db->escape($starttime);
-		$gtitle = $this->db->escape($gtitle);
-		$tid = $this->db->escape($tid);
+		$tel = $this->db->escape($tel);
+		$gimg1 = $this->db->escape($gimg1);
 		$gsort = $this->db->escape($gsort);
 		$gimg = $this->db->escape($gimg);
 		$gcontent = $this->db->escape($gcontent);
 		$addtime = $this->db->escape($addtime);
 		$status = $this->db->escape($status);
-		$sql = "INSERT INTO `thelaw` (gname, gtitle,gsort,gimg,gcontent,addtime) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime)";
+		$sql = "INSERT INTO `thelaw` (gname, gtitle,gsort,gimg,gcontent,addtime,tel,gimg1) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime,$tel,$gimg1)";
 		$this->db->query($sql);
 		$gid=$this->db->insert_id();
 		return $gid;
@@ -493,18 +493,18 @@ class Goods_model extends CI_Model
 		return $this->db->query($sql)->row_array();
 	}
 	//商品save_edit
-	public function goods_save_edit4($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime)
+	public function goods_save_edit4($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime,$tel,$gimg1)
 	{
 		$gid = $this->db->escape($gid);
 		$gname = $this->db->escape($gname);
-		$gtitle = $this->db->escape($gtitle);
-		$tid = $this->db->escape($tid);
+		$tel = $this->db->escape($tel);
+		$gimg1 = $this->db->escape($gimg1);
 		$starttime = $this->db->escape($starttime);
 		$gsort = $this->db->escape($gsort);
 		$gimg = $this->db->escape($gimg);
 		$gcontent = $this->db->escape($gcontent);
 		$status = $this->db->escape($status);
-		$sql = "UPDATE `thelaw` SET gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
+		$sql = "UPDATE `thelaw` SET tel=$tel,gimg1=$gimg1,gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
 		return $this->db->query($sql);
 	}
 
@@ -551,18 +551,18 @@ class Goods_model extends CI_Model
 		return $this->db->query($sql)->row_array();
 	}
 	//商品save
-	public function goods_save5($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime)
+	public function goods_save5($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime,$tel,$gimg1)
 	{
 		$gname = $this->db->escape($gname);
 		$starttime = $this->db->escape($starttime);
-		$gtitle = $this->db->escape($gtitle);
-		$tid = $this->db->escape($tid);
+		$tel = $this->db->escape($tel);
+		$gimg1 = $this->db->escape($gimg1);
 		$gsort = $this->db->escape($gsort);
 		$gimg = $this->db->escape($gimg);
 		$gcontent = $this->db->escape($gcontent);
 		$addtime = $this->db->escape($addtime);
 		$status = $this->db->escape($status);
-		$sql = "INSERT INTO `ercar` (gname, gtitle,gsort,gimg,gcontent,addtime) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime)";
+		$sql = "INSERT INTO `ercar` (gname, gtitle,gsort,gimg,gcontent,addtime,tel,gimg1) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime,$tel,$gimg1)";
 		$this->db->query($sql);
 		$gid=$this->db->insert_id();
 		return $gid;
@@ -590,18 +590,18 @@ class Goods_model extends CI_Model
 		return $this->db->query($sql)->row_array();
 	}
 	//商品save_edit
-	public function goods_save_edit5($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime)
+	public function goods_save_edit5($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime,$tel,$gimg1)
 	{
 		$gid = $this->db->escape($gid);
 		$gname = $this->db->escape($gname);
-		$gtitle = $this->db->escape($gtitle);
-		$tid = $this->db->escape($tid);
+		$tel = $this->db->escape($tel);
+		$gimg1 = $this->db->escape($gimg1);
 		$starttime = $this->db->escape($starttime);
 		$gsort = $this->db->escape($gsort);
 		$gimg = $this->db->escape($gimg);
 		$gcontent = $this->db->escape($gcontent);
 		$status = $this->db->escape($status);
-		$sql = "UPDATE `ercar` SET gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
+		$sql = "UPDATE `ercar` SET tel=$tel,gimg1=$gimg1,gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
 		return $this->db->query($sql);
 	}
 
@@ -651,18 +651,18 @@ class Goods_model extends CI_Model
 		return $this->db->query($sql)->row_array();
 	}
 	//商品save
-	public function goods_save6($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime)
+	public function goods_save6($gname, $gtitle,$tid, $gsort,$gimg,$gcontent,$addtime,$status,$starttime,$tel,$gimg1)
 	{
 		$gname = $this->db->escape($gname);
 		$starttime = $this->db->escape($starttime);
-		$gtitle = $this->db->escape($gtitle);
-		$tid = $this->db->escape($tid);
+		$tel = $this->db->escape($tel);
+		$gimg1 = $this->db->escape($gimg1);
 		$gsort = $this->db->escape($gsort);
 		$gimg = $this->db->escape($gimg);
 		$gcontent = $this->db->escape($gcontent);
 		$addtime = $this->db->escape($addtime);
 		$status = $this->db->escape($status);
-		$sql = "INSERT INTO `plane` (gname, gtitle,gsort,gimg,gcontent,addtime) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime)";
+		$sql = "INSERT INTO `plane` (gname, gtitle,gsort,gimg,gcontent,addtime,tel,gimg1) VALUES ($gname, $starttime,$gsort,$gimg,$gcontent,$addtime,$tel,$gimg1)";
 		$this->db->query($sql);
 		$gid=$this->db->insert_id();
 		return $gid;
@@ -690,18 +690,18 @@ class Goods_model extends CI_Model
 		return $this->db->query($sql)->row_array();
 	}
 	//商品save_edit
-	public function goods_save_edit6($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime)
+	public function goods_save_edit6($gid, $gname, $gtitle, $tid, $gsort, $gimg, $gcontent,$status,$starttime,$tel,$gimg1)
 	{
 		$gid = $this->db->escape($gid);
 		$gname = $this->db->escape($gname);
-		$gtitle = $this->db->escape($gtitle);
-		$tid = $this->db->escape($tid);
+		$tel = $this->db->escape($tel);
+		$gimg1 = $this->db->escape($gimg1);
 		$starttime = $this->db->escape($starttime);
 		$gsort = $this->db->escape($gsort);
 		$gimg = $this->db->escape($gimg);
 		$gcontent = $this->db->escape($gcontent);
 		$status = $this->db->escape($status);
-		$sql = "UPDATE `plane` SET gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
+		$sql = "UPDATE `plane` SET tel=$tel,gimg1=$gimg1,gname=$gname,gtitle=$starttime,gsort=$gsort,gimg=$gimg,gcontent=$gcontent WHERE gid = $gid";
 		return $this->db->query($sql);
 	}
 

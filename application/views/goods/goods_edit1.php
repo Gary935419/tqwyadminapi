@@ -21,33 +21,27 @@
         <form method="post" class="layui-form" action="" name="basic_validate" id="tab">
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>搬家名称
+                    <span class="x-red">*</span>名称
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="text" id="gname" name="gname" lay-verify="gname"
                            autocomplete="off" value="<?php echo $gname ?>" class="layui-input">
                 </div>
             </div>
+
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>搬家排序
+                    <span class="x-red">*</span>排序
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <input type="number" id="gsort" name="gsort" lay-verify="gsort"
                            autocomplete="off" value="<?php echo $gsort ?>" class="layui-input">
                 </div>
             </div>
-			<div class="layui-form-item">
-				<label for="L_pass" class="layui-form-label" style="width: 30%;">
-					<span class="x-red">*</span>搬家日期
-				</label>
-				<div class="layui-input-inline layui-show-xs-block" style="width: 300px;">
-					<input class="layui-input" placeholder="搬家日期" value="<?php echo $starttime ?>" name="starttime" id="starttime">
-				</div>
-			</div>
+
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
-                    <span class="x-red">*</span>搬家列表图
+                    <span class="x-red">*</span>列表图
                 </label>
                 <div class="layui-input-inline" style="width: 300px;">
                     <button type="button" class="layui-btn" id="upload1">上传图片</button>
@@ -59,6 +53,37 @@
                     </div>
                 </div>
             </div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>电话
+				</label>
+				<div class="layui-input-inline" style="width: 300px;">
+					<input type="text" id="tel" name="tel" lay-verify="tel"
+						   autocomplete="off" value="<?php echo $tel ?>" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>时间
+				</label>
+				<div class="layui-input-inline layui-show-xs-block" style="width: 300px;">
+					<input class="layui-input" type="text" value="<?php echo $starttime ?>" name="starttime" id="starttime">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label" style="width: 30%;">
+					<span class="x-red">*</span>二维码
+				</label>
+				<div class="layui-input-inline" style="width: 300px;">
+					<button type="button" class="layui-btn" id="upload2">上传图片</button>
+					<div class="layui-upload-list">
+						<input type="hidden" name="gimg1" value="<?php echo $gimg1 ?>" id="gimg1" lay-verify="gimg1" autocomplete="off"
+							   class="layui-input">
+						<img class="layui-upload-img" src="<?php echo $gimg1 ?>" style="width: 100px;height: 100px;" id="gimgimg1" name="gimgimg1">
+						<p id="demoText1"></p>
+					</div>
+				</div>
+			</div>
             <div class="layui-form-item">
                 <label for="L_pass" class="layui-form-label" style="width: 30%;">
                     <span class="x-red">*</span>搬家简介
@@ -85,16 +110,16 @@
         </form>
     </div>
 </div>
-<script>
-layui.use(['laydate', 'form'],
-        function() {
-            var laydate = layui.laydate;
-            //执行一个laydate实例
-            laydate.render({
-                elem: '#starttime' //指定元素
-            });
-        });
-</script>
+<!--<script>-->
+<!--layui.use(['laydate', 'form'],-->
+<!--        function() {-->
+<!--            var laydate = layui.laydate;-->
+<!--            //执行一个laydate实例-->
+<!--            laydate.render({-->
+<!--                elem: '#starttime' //指定元素-->
+<!--            });-->
+<!--        });-->
+<!--</script>-->
 <script>
     layui.use('upload', function(){
         var $ = layui.jquery
@@ -129,6 +154,37 @@ layui.use(['laydate', 'form'],
                 });
             }
         });
+
+        //普通图片上传
+        var uploadInst1 = upload.render({
+            elem: '#upload2'
+            ,url: '<?= RUN . '/upload/pushFIle' ?>'
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#gimgimg1').attr('src', result); //图片链接（base64）
+                    var img = document.getElementById("gimgimg1");
+                    img.style.display="block";
+                });
+            }
+            ,done: function(res){
+                if(res.code == 200){
+                    $('#gimg1').val(res.src); //图片链接（base64）
+                    return layer.msg('上传成功');
+                }else {
+                    return layer.msg('上传失败');
+                }
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText1');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst1.upload();
+                });
+            }
+        });
+
         //多图片上传
         upload.render({
             elem: '#uploads'
